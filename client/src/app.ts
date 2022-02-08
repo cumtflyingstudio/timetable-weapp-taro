@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Taro, { Config } from "@tarojs/taro";
 
-import "./app.scss"; // 引入组件样式 - 方式一
+import "./app.less";
 
 class App extends Component {
   componentDidMount() {
@@ -16,7 +16,6 @@ class App extends Component {
 
   componentDidCatchError() {}
 
-  // this.props.children 是将要会渲染的页面
   render() {
     return this.props.children;
   }

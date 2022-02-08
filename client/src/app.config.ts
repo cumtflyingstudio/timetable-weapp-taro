@@ -1,26 +1,43 @@
-export default {
-  pages: ["pages/index/index", "pages/my/my"],
+import defaultConfig from "./theme/default";
+const { deepGreen } = defaultConfig;
+
+const config = {
+  pages: [
+    "pages/index/index",
+    "pages/my/my",
+    "pages/timetable/timetable",
+    "pages/timeForm/timeForm"
+  ],
   window: {
+    // navigationBarTitleText: "hello",
     backgroundTextStyle: "light",
     navigationBarBackgroundColor: "#fff",
-    navigationBarTitleText: "WeChat",
     navigationBarTextStyle: "black"
   },
   tabBar: {
-    // custom: true,
-    // color: "#000000",
-    // selectedColor: "#000000",
-    // backgroundColor: "#000000",
+    color: "#dbdbdb",
+    selectedColor: deepGreen,
     list: [
       {
         pagePath: "pages/index/index",
-        text: "组件"
+        text: "主页",
+        iconPath: "./assets/img/_home.png",
+        selectedIconPath: "./assets/img/home.png"
+      },
+      {
+        pagePath: "pages/timetable/timetable",
+        text: "记录",
+        iconPath: "./assets/img/_time.png",
+        selectedIconPath: "./assets/img/time.png"
       },
       {
         pagePath: "pages/my/my",
-        text: "接口"
+        text: "我的",
+        iconPath: "./assets/img/_my.png",
+        selectedIconPath: "./assets/img/my.png"
       }
     ]
   },
   cloud: true
 };
+export default config;

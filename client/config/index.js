@@ -10,7 +10,7 @@ const config = {
   sourceRoot: 'src',
   outputRoot: 'dist',
   plugins: [
-    '@tarojs/plugin-sass', // 使用 Sass
+    '@tarojs/plugin-less', // 使用 Sass
     '@tarojs/plugin-html'
   ],
   defineConstants: {},
@@ -43,13 +43,17 @@ const config = {
     }
   },
   h5: {
-    esnextModules: ['taro-ui'],
+    esnextModules: [/@antmjs[\\/]vantui/],
     publicPath: '/',
     staticDirectory: 'static',
     postcss: {
       autoprefixer: {
         enable: true,
         config: {}
+      },
+      pxtransform: {
+        enable: true,
+        config: {},
       },
       cssModules: {
         enable: false, // 默认为 false，如需使用 css modules 功能，则设为 true
@@ -58,13 +62,22 @@ const config = {
           generateScopedName: '[name]__[local]___[hash:base64:5]'
         }
       }
-    },
+    }
   }
 }
 
 module.exports = function (merge) {
-  if (process.env.NODE_ENV === 'development') {
-    return merge({}, config, require('./dev'))
-  }
-  return merge({}, config, require('./prod'))
+  const buildConfig = {
+    env: {
+      BUILD_ENV: process.env.BUILD_ENV
+    }
+  };
+
+  return merge({},
+    config,
+    process.env.NODE_ENV === "development" ?
+    require("./dev") :
+    require("./prod"),
+    buildConfig
+  );
 }
