@@ -1,3 +1,6 @@
+import defaultTheme from "../../theme/default";
+
 export default {
-  navigationBarTitleText: "我的"
+  navigationBarTitleText: "",
+  navigationBarBackgroundColor: defaultTheme.backgroundColor
 };

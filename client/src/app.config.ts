@@ -9,7 +9,6 @@ const config = {
     "pages/timeForm/timeForm"
   ],
   window: {
-    // navigationBarTitleText: "hello",
     backgroundTextStyle: "light",
     navigationBarBackgroundColor: "#fff",
     navigationBarTextStyle: "black"

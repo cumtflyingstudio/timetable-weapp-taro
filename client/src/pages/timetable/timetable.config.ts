@@ -1,3 +1,3 @@
 export default {
-  navigationBarTitleText: "预约"
+  navigationBarTitleText: "记录"
 };
