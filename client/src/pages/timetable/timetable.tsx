@@ -16,12 +16,6 @@ export default () => {
           }}
         ></div>
       </div>
-      <Calendar
-        title="日历"
-        poppable={false}
-        showConfirm={false}
-        style={{ flex: 1 }}
-      />
     </>
   );
 };

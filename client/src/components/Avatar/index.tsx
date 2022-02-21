@@ -23,5 +23,4 @@ const Avatar: FC<IAvatarProps> = props => {
     </div>
   );
 };
-
 export default Avatar;

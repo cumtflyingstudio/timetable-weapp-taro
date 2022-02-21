@@ -6,7 +6,8 @@ const config = {
     "pages/index/index",
     "pages/my/my",
     "pages/timetable/timetable",
-    "pages/timeForm/timeForm"
+    "pages/timeForm/timeForm",
+    "pages/areaDetail/areaDetail"
   ],
   window: {
     backgroundTextStyle: "light",

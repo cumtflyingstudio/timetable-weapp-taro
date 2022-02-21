@@ -1,5 +1,6 @@
 import { FC } from "@tarojs/taro";
 import { useRef, useState } from "react";
+import { useRouter } from "taro-hooks";
 import { Center, VStack } from "../../../../components/Stack";
 
 const ApplicationField: FC<{ name?: string }> = props => {
@@ -27,6 +28,7 @@ const ApplicationField: FC<{ name?: string }> = props => {
           setActive(true);
           timeout.current = setTimeout(() => {
             timeout.current = null;
+            // navigateTo("/pages/areaDetail/areaDetail");
           }, 300);
         }}
         onTouchEnd={() => {

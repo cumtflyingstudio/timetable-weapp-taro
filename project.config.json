@@ -1,17 +1,50 @@
 {
-  "miniprogramRoot": "client/dist/",
-  "cloudfunctionRoot": "cloud/functions/",
-  "projectname": "timetable-weapp-taro",
-  "description": "这是一个预约系统的小程序",
-  "appid": "touristappid",
-  "setting": {
-    "urlCheck": true,
-    "es6": false,
-    "postcss": false,
-    "minified": false
-  },
-  "compileType": "miniprogram",
-  "miniCssExtractPluginOption": {
-    "ignoreOrder": true
-  }
+    "miniprogramRoot": "client/dist/",
+    "cloudfunctionRoot": "cloud/functions/",
+    "projectname": "%E7%BF%94%E9%A2%84%E7%BA%A6%E5%B0%8F%E7%A8%8B%E5%BA%8F",
+    "description": "这是一个预约系统的小程序",
+    "appid": "wx5e608227cfc1c625",
+    "setting": {
+        "urlCheck": true,
+        "es6": false,
+        "enhance": true,
+        "postcss": false,
+        "preloadBackgroundData": false,
+        "minified": false,
+        "newFeature": false,
+        "coverView": true,
+        "nodeModules": false,
+        "autoAudits": false,
+        "showShadowRootInWxmlPanel": true,
+        "scopeDataCheck": false,
+        "uglifyFileName": false,
+        "checkInvalidKey": true,
+        "checkSiteMap": true,
+        "uploadWithSourceMap": true,
+        "compileHotReLoad": false,
+        "lazyloadPlaceholderEnable": false,
+        "useMultiFrameRuntime": true,
+        "useApiHook": true,
+        "useApiHostProcess": true,
+        "babelSetting": {
+            "ignore": [],
+            "disablePlugins": [],
+            "outputPath": ""
+        },
+        "enableEngineNative": false,
+        "useIsolateContext": true,
+        "userConfirmedBundleSwitch": false,
+        "packNpmManually": false,
+        "packNpmRelationList": [],
+        "minifyWXSS": true,
+        "disableUseStrict": false,
+        "showES6CompileOption": false,
+        "useCompilerPlugins": false,
+        "minifyWXML": true
+    },
+    "compileType": "miniprogram",
+    "miniCssExtractPluginOption": {
+        "ignoreOrder": true
+    },
+    "condition": {}
 }
