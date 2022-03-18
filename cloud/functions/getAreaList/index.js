@@ -7,9 +7,14 @@ cloud.init({
 });
 
 const db = cloud.database();
-
+const _ = db.command;
 // 云函数入口函数
 exports.main = async (event, context) => {
-  const res = await db.collection("organization").get();
+  const id = event.id;
+  console.log(id);
+  const res = await db
+    .collection("area")
+    .where({ organizationId: _.eq(id) })
+    .get();
   return res;
 };

@@ -3,7 +3,7 @@ function organizationFactory(name: string) {
     name
   };
 }
-const list = ["易班", "广播台", "海天", "实验室"].map(item => {
+const list = ["易班", "实验室1", "实验室2"].map(item => {
   return organizationFactory(item);
 });
 

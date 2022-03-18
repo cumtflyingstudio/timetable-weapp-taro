@@ -3,7 +3,7 @@ import React from "react";
 
 const ShadowCard: FC = props => {
   return (
-    <div className="card shadow" style={{ width: "100%" }}>
+    <div className="shadow" style={{ width: "100%", height: "auto" }}>
       {props.children}
     </div>
   );

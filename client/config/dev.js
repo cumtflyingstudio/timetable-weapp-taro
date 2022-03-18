@@ -1,11 +1,11 @@
 module.exports = {
   env: {
-    NODE_ENV: '"development"'
+    NODE_ENV: '"development"',
+    CLOUD_ENV: '"development"'
   },
   defineConstants: {
-    env: {
-      BUILD_ENV: process.env.BUILD_ENV
-    }
+    env: '"development"',
+    isCloud: '"development"'
   },
-  mini: {},
-}
+  mini: {}
+};

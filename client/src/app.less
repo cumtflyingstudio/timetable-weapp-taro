@@ -1,19 +1,37 @@
 @import "@antmjs/vantui/lib/index.less";
 page {
   background-color: #f3f3f3;
-  --sidebar-selected-border-color: #1ac9b4;
+  overflow: hidden;
+
+  --sidebar-selected-border-color: #00d1c1;
+  --sidebar-selected-text-color: #00d1c1;
+  // --sidebar-width: 40px;
+
+  --sidebar-height: 80rpx;
+
+  &::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    color: transparent;
+  }
+}
+::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+  color: transparent;
 }
 .shadow {
   border-radius: 50rpx;
   background: #fefeff;
   box-shadow: 10px 10px 30px #d4d4d4;
   padding: 20px;
+  padding-left: 20px;
 }
 div {
-  // flex: 1 1;
   min-width: 50px;
   min-height: 50px;
   transition: all 0.2s;
   box-sizing: border-box;
-  overflow: "hidden";
+  overflow: hidden;
 }

@@ -46,5 +46,6 @@
     "miniCssExtractPluginOption": {
         "ignoreOrder": true
     },
+    "cloudfunctionTemplateRoot": "cloudfunctionTemplate",
     "condition": {}
 }

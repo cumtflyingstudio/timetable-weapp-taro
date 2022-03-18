@@ -1,0 +1,3 @@
+interface IArea {
+  areaName: string;
+}

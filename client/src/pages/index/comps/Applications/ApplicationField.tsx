@@ -1,12 +1,17 @@
 import { FC } from "@tarojs/taro";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "taro-hooks";
 import { Center, VStack } from "../../../../components/Stack";
 
-const ApplicationField: FC<{ name?: string }> = props => {
-  const { name } = props;
+interface IApplicationFieldProps {
+  name: string;
+  onOpen?: () => void;
+}
+const ApplicationField: FC<IApplicationFieldProps> = props => {
+  const { name, onOpen } = props;
   const [active, setActive] = useState(false);
-  const timeout = useRef<null | object>({});
+  const timeout = useRef(Promise.resolve());
+
   return (
     <Center
       style={{
@@ -24,29 +29,31 @@ const ApplicationField: FC<{ name?: string }> = props => {
           borderRadius: 20,
           overflow: "hidden"
         }}
-        onTouchStart={() => {
+        onTouchStart={e => {
           setActive(true);
-          timeout.current = setTimeout(() => {
-            timeout.current = null;
-            // navigateTo("/pages/areaDetail/areaDetail");
-          }, 300);
-        }}
-        onTouchEnd={() => {
-          if (timeout.current !== null) {
+
+          timeout.current = new Promise(resolve => {
             setTimeout(() => {
-              setActive(false);
+              resolve();
             }, 200);
-            return;
-          } else {
+          });
+        }}
+        onTouchCancel={e => {
+          timeout.current.then(() => {
             setActive(false);
-          }
+          });
+        }}
+        onTouchEnd={e => {
+          timeout.current.then(() => {
+            setActive(false);
+            onOpen?.();
+          });
         }}
       >
         <div
           style={{
             width: "150rpx",
             height: "150rpx",
-            // border: "1px solid black",
             display: "flex",
             borderRadius: 20,
             overflow: "hidden"
@@ -54,7 +61,13 @@ const ApplicationField: FC<{ name?: string }> = props => {
         >
           {props.children}
         </div>
-        {name ?? <div style={{ color: "gray" }}>{name}</div>}
+        {name ?? (
+          <div>
+            <span style={{ color: "gray", fontWeight: 900, fontSize: 20 }}>
+              {name}
+            </span>
+          </div>
+        )}
       </VStack>
     </Center>
   );

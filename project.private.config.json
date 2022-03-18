@@ -1,4 +1,5 @@
 {
+    "setting": {},
     "condition": {
         "plugin": {
             "list": []
@@ -14,7 +15,7 @@
                 {
                     "name": "pages/areaDetail/areaDetail",
                     "pathName": "pages/areaDetail/areaDetail",
-                    "query": "",
+                    "query": "name=易班&id=bf4a0bf2621b3ad311b09aa60f616022",
                     "scene": null,
                     "launchMode": "default"
                 }

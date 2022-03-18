@@ -1,7 +1,7 @@
 import { FC } from "@tarojs/taro";
 import { HStack, WhiteSpace } from "../../../../components/Stack";
-import Application from "./Application";
-import AddButton from "./AddButton";
+import Application from "./ApplicationItem";
+import AddButton from "../AddButton/AddButton";
 const Applications: FC<IApplicationsProps> = props => {
   const { applicationList: list } = props;
   return (

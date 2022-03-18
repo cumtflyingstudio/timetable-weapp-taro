@@ -1,10 +1,13 @@
-import { ActionSheet, NavBar, Popup, Search } from "@antmjs/vantui";
+import { Popup, Search } from "@antmjs/vantui";
 import { FC } from "@tarojs/taro";
-import { useCallback, useState } from "react";
-import ShadowCard from "../../../../components/ShadowCard";
+import { Context } from "konva/lib/Context";
+import { useCallback, useRef, useState } from "react";
 
 import { Center } from "../../../../components/Stack";
-import ApplicationField from "./ApplicationField";
+import ApplicationField from "../Applications/ApplicationField";
+import CardList from "./CardList";
+import Card from "./CardList/CardItem";
+import { hideContext } from "./Context/hideContext";
 
 const AddButton: FC<{}> = props => {
   const {} = props;
@@ -13,6 +16,11 @@ const AddButton: FC<{}> = props => {
     setShow(false);
   }, [setShow]);
 
+  const [keyWord, setKeyWord] = useState("");
+
+  const onKeyWordChange = useCallback(e => {
+    setKeyWord(e.detail);
+  }, []);
   return (
     <>
       <ApplicationField name={"添加组织"}>
@@ -50,21 +58,25 @@ const AddButton: FC<{}> = props => {
         show={show}
         round={true}
         position="bottom"
-        style="height: 80%;paddingTop:10px;"
+        style="height: 80%;padding-top:10px;"
         onClose={hide}
         closeable
       >
+        {/* 搜索框 */}
         <div style={{ paddingRight: "30px" }}>
           <Search
-            value={""}
+            value={keyWord}
             shape="round"
             placeholder="搜索需要添加的组织"
             clearable
+            onSearch={onKeyWordChange}
+            onChange={onKeyWordChange}
           />
         </div>
-        <div style={{ width: "100%", paddingLeft: 20, paddingRight: 20 }}>
-          <ShadowCard />
-        </div>
+        {/* application添加卡片 */}
+        <hideContext.Provider value={hide}>
+          <CardList keyWord={keyWord} />
+        </hideContext.Provider>
       </Popup>
     </>
   );

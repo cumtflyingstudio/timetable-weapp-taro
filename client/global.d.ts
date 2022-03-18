@@ -12,7 +12,20 @@ declare module "*.styl";
 // @ts-ignore
 declare const process: {
   env: {
-    TARO_ENV: 'weapp' | 'swan' | 'alipay' | 'h5' | 'rn' | 'tt' | 'quickapp' | 'qq' | 'jd';
+    TARO_ENV:
+      | "weapp"
+      | "swan"
+      | "alipay"
+      | "h5"
+      | "rn"
+      | "tt"
+      | "quickapp"
+      | "qq"
+      | "jd";
+    NODE_ENV: "development" | "production";
+
     [key: string]: any;
-  }
-}
+  };
+};
+declare const env: "development" | "production";
+declare const isCloud: "development" | "production";

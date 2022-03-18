@@ -1,16 +1,22 @@
+import { createContext, useLayoutEffect, useReducer } from "react";
 import Applications from "./comps/Applications/index";
+import useApplicationStorage from "../../hooks/useApplicationStorage";
 import Swiper from "./comps/Swiper";
 import "./index.less";
-const hello = "hello";
+import Taro from "@tarojs/taro";
+import { context, useListReducer } from "./context";
+import useTimeout from "../../hooks/useTimeout";
 
 export default () => {
+  const [state, dispatch] = useListReducer();
+
   return (
     <>
-      <div style={{ height: "200rpx", width: "100%" }}></div>
-      <Swiper />
-      <Applications
-        applicationList={new Array(6).fill({ name: hello, avatar: hello })}
-      />
+      <context.Provider value={{ state, dispatch }}>
+        <div style={{ height: "200rpx", width: "100%" }}></div>
+        <Swiper />
+        <Applications applicationList={state.applicationList_added} />
+      </context.Provider>
     </>
   );
 };
