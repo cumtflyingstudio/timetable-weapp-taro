@@ -1,16 +1,20 @@
+import { getStorageSync, setStorageSync } from "@tarojs/taro";
 import { createContext, useContext, useReducer } from "react";
 
-const initialState = {
+const lifeKey = "@organizations";
+const initialState = getStorageSync(lifeKey) || {
   applicationList_added: [] as Application[]
 };
 
 const reducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case "addApplication":
-      return {
+      const newState = {
         ...state,
         applicationList_added: state.applicationList_added.concat(payload)
       };
+      setStorageSync(lifeKey, newState);
+      return newState;
 
     default:
       return state;

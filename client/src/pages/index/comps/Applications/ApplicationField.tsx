@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { useRouter } from "taro-hooks";
 import { Center, VStack } from "../../../../components/Stack";
 
+//用于装一个app图标的盒子，name名称
 interface IApplicationFieldProps {
   name: string;
   onOpen?: () => void;

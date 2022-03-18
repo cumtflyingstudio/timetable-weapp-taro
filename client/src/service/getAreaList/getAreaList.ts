@@ -1,7 +1,7 @@
 import Taro from "@tarojs/taro";
 import list from "./fake";
-function getAreaList(id: string) {
-  return Taro.cloud
+async function getAreaList(id: string) {
+  const areas = await Taro.cloud
     .callFunction({
       name: "getAreaList",
       data: {
@@ -11,5 +11,8 @@ function getAreaList(id: string) {
     .then(res => {
       return (res.result as any).data as IArea[];
     });
+  console.log(`请求getAreaList云函数成功`, areas);
+
+  return areas;
 }
 export default getAreaList;
