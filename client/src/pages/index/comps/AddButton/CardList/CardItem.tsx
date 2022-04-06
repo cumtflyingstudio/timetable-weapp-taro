@@ -1,18 +1,15 @@
 import { Button, Image } from "@antmjs/vantui";
 import { FC } from "@tarojs/taro";
-import React, { useContext } from "react";
 import { context } from "../../../context";
 import ShadowCard from "../../../../../components/ShadowCard";
 import { HStack, VStack } from "../../../../../components/Stack";
-import { withOutByKey } from "../../../../../utils";
-import ApplicationField from "../../Applications/ApplicationField";
 import { hideContext } from "../Context/hideContext";
 
 interface ICardItemProps {
   item: Application;
 }
 
-const CardItem: FC<ICardItemProps> = props => {
+const CardItem: FC<ICardItemProps> = (props) => {
   const { item } = props;
   return (
     <div
@@ -21,14 +18,14 @@ const CardItem: FC<ICardItemProps> = props => {
         padding: 20,
         paddingTop: 0,
         paddingBottom: 20,
-        overflow: "visible"
+        overflow: "visible",
       }}
     >
       <ShadowCard>
         <HStack
           style={{
             justifyContent: "flex-start",
-            padding: "0 20px 0 20px"
+            padding: "0 20px 0 20px",
           }}
         >
           <Image
@@ -36,7 +33,7 @@ const CardItem: FC<ICardItemProps> = props => {
               backgroundColor: "pink",
               width: "150rpx",
               height: "150rpx",
-              borderRadius: 10
+              borderRadius: 10,
             }}
             src={item.avatar}
           />
@@ -48,7 +45,7 @@ const CardItem: FC<ICardItemProps> = props => {
           <context.Consumer>
             {({ dispatch }) => (
               <hideContext.Consumer>
-                {hide => (
+                {(hide) => (
                   <Button
                     onClick={() => {
                       dispatch({ type: "addApplication", payload: [item] });

@@ -7,7 +7,8 @@ const config = {
     "pages/my/my",
     "pages/timetable/timetable",
     "pages/timeForm/timeForm",
-    "pages/areaDetail/areaDetail"
+    "pages/areaDetail/areaDetail",
+    "pages/login/login"
   ],
   window: {
     backgroundTextStyle: "light",

@@ -10,8 +10,8 @@ type baseObj = {
  */
 const withOutByKey = <T>(arr1: T[], arr2: T[], key: keyof T) => {
   if (arr1.length === 0) return [];
-  const _arr2KeySet = new Set(arr2.map(i => i[key]));
-  const diff = arr1.filter(item => !_arr2KeySet.has(item[key]));
+  const _arr2KeySet = new Set(arr2.map((i) => i[key]));
+  const diff = arr1.filter((item) => !_arr2KeySet.has(item[key]));
   return diff;
 };
 

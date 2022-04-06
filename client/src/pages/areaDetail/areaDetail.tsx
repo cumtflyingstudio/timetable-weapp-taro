@@ -1,4 +1,10 @@
-import { Search, Sidebar, SidebarItem, TreeSelect } from "@antmjs/vantui";
+import {
+  Popup,
+  Search,
+  Sidebar,
+  SidebarItem,
+  TreeSelect
+} from "@antmjs/vantui";
 import Taro from "@tarojs/taro";
 import "./areaDetail.less";
 import { getAreaList } from "../../service";
@@ -31,48 +37,55 @@ export default () => {
   const [show, setShow] = useState(true);
   return (
     <>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          width: "100vw",
-          height: "100vh"
-        }}
+      <Popup
+        show={show}
+        position="left"
+        closeable={true}
+        onClose={() => setShow(!show)}
       >
-        <div>
-          <Search
-            style={{ height: "50px" }}
-            value={""}
-            shape="round"
-            placeholder="搜索area"
-            clearable
-            onChange={onChange}
-            background={defaultTheme.deepGreen}
-          />
-        </div>
-        <button
-          onClick={() => {
-            setShow(!show);
-          }}
-        >
-          左
-        </button>
         <div
           style={{
-            transform: `translateX(${show ? 0 : -200}px)`
+            display: "flex",
+            flexDirection: "column",
+            width: "300rpx",
+            height: "100vh"
           }}
         >
-          <Sidebar activeKey={0}>
-            {(
-              data?.filter(item => {
-                return item.areaName.includes(keyword);
-              }) || []
-            ).map(item => {
-              return <SidebarItem title={item.areaName} />;
-            })}
-          </Sidebar>
+          <div>
+            <Search
+              style={{ height: "50px" }}
+              value={""}
+              shape="round"
+              placeholder="搜索area"
+              clearable
+              onChange={onChange}
+              background={defaultTheme.deepGreen}
+            />
+          </div>
+          <button
+            onClick={() => {
+              setShow(!show);
+            }}
+          >
+            左
+          </button>
+          <div
+            style={{
+              transform: `translateX(${show ? 0 : -200}px)`
+            }}
+          >
+            <Sidebar activeKey={0}>
+              {(
+                data?.filter(item => {
+                  return item.areaName.includes(keyword);
+                }) || []
+              ).map(item => {
+                return <SidebarItem title={item.areaName} />;
+              })}
+            </Sidebar>
+          </div>
         </div>
-      </div>
+      </Popup>
     </>
   );
 };

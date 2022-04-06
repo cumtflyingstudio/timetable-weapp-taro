@@ -5,7 +5,7 @@
     "description": "这是一个预约系统的小程序",
     "appid": "wx5e608227cfc1c625",
     "setting": {
-        "urlCheck": true,
+        "urlCheck": false,
         "es6": false,
         "enhance": true,
         "postcss": false,
@@ -31,21 +31,22 @@
             "disablePlugins": [],
             "outputPath": ""
         },
-        "enableEngineNative": false,
         "useIsolateContext": true,
         "userConfirmedBundleSwitch": false,
         "packNpmManually": false,
         "packNpmRelationList": [],
         "minifyWXSS": true,
         "disableUseStrict": false,
+        "minifyWXML": true,
         "showES6CompileOption": false,
         "useCompilerPlugins": false,
-        "minifyWXML": true
+        "ignoreUploadUnusedFiles": true
     },
     "compileType": "miniprogram",
     "miniCssExtractPluginOption": {
         "ignoreOrder": true
     },
     "cloudfunctionTemplateRoot": "cloudfunctionTemplate",
+    "libVersion": "2.23.3",
     "condition": {}
 }

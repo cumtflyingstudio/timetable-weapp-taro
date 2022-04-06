@@ -14,7 +14,7 @@
     "dev:weapp+weCloud": "CLOUD_ENV=development NODE_ENV=development npm run build:weapp -- --watch",
     "dev:h5": "npm run build:h5 -- --watch"
   },
-  "author": "",
+  "author": "SoonIter",
   "license": "MIT",
   "dependencies": {
     "@antmjs/vantui": "^1.4.11",
@@ -28,6 +28,7 @@
     "@tarojs/runtime": "3.4.1",
     "@tarojs/taro": "3.4.1",
     "lodash": "4.17.15",
+    "prettier": "^2.6.1",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
     "taro-hooks": "^1.5.1",

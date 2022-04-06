@@ -1,16 +1,15 @@
 import { Popup, Search } from "@antmjs/vantui";
 import { FC } from "@tarojs/taro";
-import { Context } from "konva/lib/Context";
+
 import { useCallback, useRef, useState } from "react";
 
 import { Center } from "../../../../components/Stack";
 import ApplicationField from "../Applications/ApplicationField";
 import CardList from "./CardList";
-import Card from "./CardList/CardItem";
+
 import { hideContext } from "./Context/hideContext";
 
-const AddButton: FC<{}> = props => {
-  const {} = props;
+const AddButton: FC = () => {
   const [show, setShow] = useState(false);
   const hide = useCallback(() => {
     setShow(false);
@@ -18,12 +17,12 @@ const AddButton: FC<{}> = props => {
 
   const [keyWord, setKeyWord] = useState("");
 
-  const onKeyWordChange = useCallback(e => {
+  const onKeyWordChange = useCallback((e) => {
     setKeyWord(e.detail);
   }, []);
   return (
     <>
-      <ApplicationField name={"添加组织"}>
+      <ApplicationField name="添加组织">
         <Center
           style={{
             flex: 1,
@@ -31,7 +30,7 @@ const AddButton: FC<{}> = props => {
             border: "3px dashed gray",
             overflow: "hidden",
             opacity: 0.7,
-            borderRadius: 20
+            borderRadius: 20,
           }}
           onTouchStart={() => {
             setShow(true);
@@ -45,7 +44,7 @@ const AddButton: FC<{}> = props => {
               fontWeight: 500,
               lineHeight: "80%",
               textAlign: "center",
-              color: "gray"
+              color: "gray",
             }}
           >
             +
@@ -56,7 +55,7 @@ const AddButton: FC<{}> = props => {
         safeAreaInsetBottom={false}
         safeAreaInsetTop={false}
         show={show}
-        round={true}
+        round
         position="bottom"
         style="height: 80%;padding-top:10px;"
         onClose={hide}

@@ -1,4 +1,4 @@
-import getAreaList from "./getAreaList/getAreaList";
-import getOrganizationList from "./getOrganizationList/getOrganizationList";
+import getAreaList from "./wxCloud/wx_getAreaList/getAreaList";
+import getOrganizationList from "./wxCloud/wx_getOrganizationList/getOrganizationList";
 
 export { getOrganizationList, getAreaList };

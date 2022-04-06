@@ -16,6 +16,13 @@
                     "name": "pages/areaDetail/areaDetail",
                     "pathName": "pages/areaDetail/areaDetail",
                     "query": "name=易班&id=bf4a0bf2621b3ad311b09aa60f616022",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/login/login",
+                    "query": "",
                     "scene": null,
                     "launchMode": "default"
                 }
