@@ -4,6 +4,7 @@ import { Button, CellGroup, Field } from "@antmjs/vantui";
 import { View } from "@tarojs/components";
 import "./login.less";
 import fetchLogin from "../../service/user/login";
+import { useStore } from "../../Piniadux/defineStore";
 
 const useLogin = () => {
   const login = useCallback(async (username, password) => {
@@ -15,10 +16,79 @@ const useLogin = () => {
   return { login };
 };
 
+function Hello1() {
+  const { store } = useStore("state", {
+    state() {
+      console.log("创建了新的state");
+      return {
+        hello: 1,
+      };
+    },
+  });
+
+  return (
+    <>
+      <div>我是子组件1 {store.hello}</div>
+      <Button
+        type="danger"
+        size="large"
+        round
+        onClick={() => {
+          console.log(store.hello);
+        }}
+      >
+        测试get
+      </Button>
+      <Button
+        type="danger"
+        size="large"
+        round
+        onClick={() => {
+          store.hello += 1;
+        }}
+      >
+        测试set {store.hello}
+      </Button>
+    </>
+  );
+}
+
+function Hello2() {
+  const { store } = useStore("state");
+
+  return (
+    <>
+      <div>我是子组件2 {store.hello}</div>
+      <Button
+        type="primary"
+        size="large"
+        round
+        onClick={() => {
+          console.log(store.hello);
+        }}
+      >
+        测试get
+      </Button>
+      <Button
+        type="primary"
+        size="large"
+        round
+        onClick={() => {
+          store.hello += 1;
+        }}
+      >
+        测试set {store.hello}
+      </Button>
+    </>
+  );
+}
+
 function Login() {
+  console.log("rerender");
   const { login: loginAndNavigate } = useLogin();
   const [input, setInput] = useState("" || "08192862");
   const [password, setPassword] = useState("123");
+
   const onChange = useCallback(
     (event) => {
       setInput(event.detail);
@@ -61,6 +131,8 @@ function Login() {
           登录
         </Button>
       </CellGroup>
+      <Hello1 />
+      <Hello2 />
     </View>
   );
 }
