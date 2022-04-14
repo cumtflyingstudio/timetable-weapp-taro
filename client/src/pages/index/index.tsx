@@ -1,7 +1,6 @@
 import Applications from "./comps/Applications/index";
 import Swiper from "./comps/Swiper";
 import "./index.less";
-import Taro from "@tarojs/taro";
 import { context, useListReducer } from "./context";
 
 export default () => {

@@ -1,90 +1,50 @@
-import Taro from "@tarojs/taro";
+import Taro, { showToast } from "@tarojs/taro";
 import { useState, useCallback, useEffect } from "react";
 import { Button, CellGroup, Field } from "@antmjs/vantui";
 import { View } from "@tarojs/components";
 import "./login.less";
-import fetchLogin from "../../service/user/login";
-import { useStore } from "../../Piniadux/defineStore";
+import fetchLogin, { addTokenInterceptor } from "../../service/user/login";
 
 const useLogin = () => {
   const login = useCallback(async (username, password) => {
-    await fetchLogin(username, password);
+    const { token } = await fetchLogin(username, password);
+    Taro.setStorageSync("token", token);
     await Taro.switchTab({
       url: "/pages/index/index",
+    }).then(()=>{
+      showToast({
+        title: "自动登录成功",
+        icon: "success",
+        duration: 2000,
+      }).then(() => {});
     });
   }, []);
   return { login };
 };
 
-function Hello1() {
-  const { store } = useStore("state", {
-    state() {
-      console.log("创建了新的state");
-      return {
-        hello: 1,
-      };
-    },
-  });
-
-  return (
-    <>
-      <div>我是子组件1 {store.hello}</div>
-      <Button
-        type="danger"
-        size="large"
-        round
-        onClick={() => {
-          console.log(store.hello);
-        }}
-      >
-        测试get
-      </Button>
-      <Button
-        type="danger"
-        size="large"
-        round
-        onClick={() => {
-          store.hello += 1;
-        }}
-      >
-        测试set {store.hello}
-      </Button>
-    </>
-  );
-}
-
-function Hello2() {
-  const { store } = useStore("state");
-
-  return (
-    <>
-      <div>我是子组件2 {store.hello}</div>
-      <Button
-        type="primary"
-        size="large"
-        round
-        onClick={() => {
-          console.log(store.hello);
-        }}
-      >
-        测试get
-      </Button>
-      <Button
-        type="primary"
-        size="large"
-        round
-        onClick={() => {
-          store.hello += 1;
-        }}
-      >
-        测试set {store.hello}
-      </Button>
-    </>
-  );
-}
-
 function Login() {
-  console.log("rerender");
+  let token = Taro.getStorageSync("token");
+  if (token) {
+    addTokenInterceptor(token);
+    Taro.switchTab({
+      url: "/pages/index/index",
+    })
+      .then(() => {
+        showToast({
+          title: "自动登录成功",
+          icon: "success",
+          duration: 2000,
+        }).then(() => {});
+      })
+      .catch((err) => {
+        showToast({
+          title: "登录身份已过期",
+          icon: "success",
+          duration: 2000,
+        }).then(() => {});
+      });
+  }
+
   const { login: loginAndNavigate } = useLogin();
   const [input, setInput] = useState("" || "08192862");
   const [password, setPassword] = useState("123");
@@ -131,8 +91,6 @@ function Login() {
           登录
         </Button>
       </CellGroup>
-      <Hello1 />
-      <Hello2 />
     </View>
   );
 }

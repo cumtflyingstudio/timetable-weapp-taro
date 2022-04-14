@@ -1,5 +1,6 @@
 const baseUrl = "http://1.13.5.80:8080/";
 
+
 function trim(str: string) {
   str = str.replace(/^\/(.+?)\/$/, "$1").trim();
   return str;

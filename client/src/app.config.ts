@@ -1,4 +1,5 @@
 import defaultConfig from "./theme/defaultTheme";
+
 const { deepGreen } = defaultConfig;
 
 const config = {

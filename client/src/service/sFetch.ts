@@ -9,6 +9,7 @@ async function sFetch<T>(option: Taro.request.Option & { logTitle: string }) {
     console.log("发生错误", errMsg);
     throw new Error("网络错误");
   }
+
   const { data: innerData, code, message } = data;
 
   console.log(logTitle, option.url, data, innerData);

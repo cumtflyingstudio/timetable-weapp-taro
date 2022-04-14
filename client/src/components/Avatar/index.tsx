@@ -1,6 +1,6 @@
+import React from "react";
 import { OpenData } from "@tarojs/components";
 import { FC } from "@tarojs/taro";
-import React from "react";
 
 interface IAvatarProps {
   /**

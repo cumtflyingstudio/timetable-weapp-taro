@@ -1,91 +1,28 @@
-import {
-  Popup,
-  Search,
-  Sidebar,
-  SidebarItem,
-  TreeSelect
-} from "@antmjs/vantui";
-import Taro from "@tarojs/taro";
+import { useLayoutEffect } from "react";
+import { useNavigationBar, useRouter } from "taro-hooks";
 import "./areaDetail.less";
-import { getAreaList } from "../../service";
-import { useCallback, useState } from "react";
-
-import { useNavigationBar, useRequest, useRouter } from "taro-hooks";
-import defaultTheme from "../../theme/defaultTheme";
+import queryOrganRoomById from "../../service/organ/queryOrganRoomById";
+import Slider from "./Slider";
+import { useCurrRoom } from "./useCurrRoom";
+import AreaCard from "./AreaCard";
+import Timetable from "./Timetable";
 
 export default () => {
-  const [chosenItem, setChosenItem] = useState("");
-  //搜索关键词
-  const [keyword, setKeyword] = useState("");
+  const { store } = useCurrRoom();
   //标题
   const [routerInfo] = useRouter();
   useNavigationBar({ title: routerInfo.params.name });
-
   // request:请求area列表
-  const { data = [{ areaName: "加载中" }], error, loading } = useRequest(
-    () => {
-      // console.log(routerInfo.params.id);
-      return getAreaList(routerInfo.params.id as string);
-    },
-    { cacheKey: `${routerInfo.params.id}_id_area`, staleTime: -1 }
-  );
-
-  const onChange = useCallback(text => {
-    setKeyword(text.detail);
+  useLayoutEffect(() => {
+    queryOrganRoomById(routerInfo.params?.id as string).then((res) => {
+      store.rooms = res;
+    });
   }, []);
-
-  const [show, setShow] = useState(true);
   return (
     <>
-      <Popup
-        show={show}
-        position="left"
-        closeable={true}
-        onClose={() => setShow(!show)}
-      >
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            width: "300rpx",
-            height: "100vh"
-          }}
-        >
-          <div>
-            <Search
-              style={{ height: "50px" }}
-              value={""}
-              shape="round"
-              placeholder="搜索area"
-              clearable
-              onChange={onChange}
-              background={defaultTheme.deepGreen}
-            />
-          </div>
-          <button
-            onClick={() => {
-              setShow(!show);
-            }}
-          >
-            左
-          </button>
-          <div
-            style={{
-              transform: `translateX(${show ? 0 : -200}px)`
-            }}
-          >
-            <Sidebar activeKey={0}>
-              {(
-                data?.filter(item => {
-                  return item.areaName.includes(keyword);
-                }) || []
-              ).map(item => {
-                return <SidebarItem title={item.areaName} />;
-              })}
-            </Sidebar>
-          </div>
-        </div>
-      </Popup>
+      <AreaCard area={store.rooms[store.current]} />
+
+      <Timetable area={store.rooms[store.current]} />
     </>
   );
 };

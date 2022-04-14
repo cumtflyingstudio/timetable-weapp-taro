@@ -2,17 +2,16 @@ import { FC } from "@tarojs/taro";
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "taro-hooks";
 import { Center, VStack } from "../../../../components/Stack";
+import TouchableOpacity from "../../../../components/TouchableOpacity";
 
 //用于装一个app图标的盒子，name名称
 interface IApplicationFieldProps {
   name: string;
   onOpen?: () => void;
 }
-const ApplicationField: FC<IApplicationFieldProps> = props => {
-  const { name, onOpen } = props;
-  const [active, setActive] = useState(false);
-  const timeout = useRef(Promise.resolve());
 
+const ApplicationField: FC<IApplicationFieldProps> = (props) => {
+  const { name, onOpen } = props;
   return (
     <Center
       style={{
@@ -20,36 +19,20 @@ const ApplicationField: FC<IApplicationFieldProps> = props => {
         minHeight: 0,
         width: "50%",
         flex: 0,
-        display: "flex"
+        display: "flex",
       }}
     >
-      <VStack
+      <TouchableOpacity
         style={{
           padding: 5,
-          opacity: active ? 0.3 : 1,
           borderRadius: 20,
-          overflow: "hidden"
+          overflow: "hidden",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          flexDirection: "column",
         }}
-        onTouchStart={e => {
-          setActive(true);
-
-          timeout.current = new Promise(resolve => {
-            setTimeout(() => {
-              resolve();
-            }, 200);
-          });
-        }}
-        onTouchCancel={e => {
-          timeout.current.then(() => {
-            setActive(false);
-          });
-        }}
-        onTouchEnd={e => {
-          timeout.current.then(() => {
-            setActive(false);
-            onOpen?.();
-          });
-        }}
+        onClick={onOpen}
       >
         <div
           style={{
@@ -57,7 +40,7 @@ const ApplicationField: FC<IApplicationFieldProps> = props => {
             height: "150rpx",
             display: "flex",
             borderRadius: 20,
-            overflow: "hidden"
+            overflow: "hidden",
           }}
         >
           {props.children}
@@ -69,7 +52,7 @@ const ApplicationField: FC<IApplicationFieldProps> = props => {
             </span>
           </div>
         )}
-      </VStack>
+      </TouchableOpacity>
     </Center>
   );
 };

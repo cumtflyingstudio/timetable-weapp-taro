@@ -33,9 +33,10 @@ async function login(username: string, password: string) {
       username,
       password,
     },
+    dataType: "json",
   });
-  addTokenInterceptor(res.token);
   return res;
 }
 
 export default login;
+export { login, addTokenInterceptor };

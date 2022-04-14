@@ -5,4 +5,5 @@ interface Organ {
   phone: string;
   introduction: string;
   location: string;
+  avatar?: string;
 }

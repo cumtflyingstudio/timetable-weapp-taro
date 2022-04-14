@@ -1,9 +1,12 @@
 import { FC } from "@tarojs/taro";
 import { useRouter } from "taro-hooks";
-import ApplicationField from "./ApplicationField";
 import { Image } from "@antmjs/vantui";
-//封装了自动跳转到areaDetail页面，和image
-const ApplicationItem: FC<{ applicationItem: Application }> = props => {
+import ApplicationField from "./ApplicationField";
+
+const defaultApplicationAvatar = "http://p.qlogo.cn/gh/786079617/786079617/0";
+
+//封装了自动跳转到organizationDetail页面，和image
+const ApplicationItem: FC<{ applicationItem: Application }> = (props) => {
   const { applicationItem: item } = props;
   const [_, { navigateTo }] = useRouter();
 
@@ -16,7 +19,10 @@ const ApplicationItem: FC<{ applicationItem: Application }> = props => {
         );
       }}
     >
-      <Image src={item.avatar} style={{ flex: 1 }} />
+      <Image
+        src={item?.avatar || defaultApplicationAvatar}
+        style={{ flex: 1 }}
+      />
     </ApplicationField>
   );
 };
