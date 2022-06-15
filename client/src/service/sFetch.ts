@@ -1,18 +1,34 @@
-import Taro from "@tarojs/taro";
+import Taro from '@tarojs/taro';
+import { baseUrl } from './baseUrl';
 
 //返回最里层的data
 async function sFetch<T>(option: Taro.request.Option & { logTitle: string }) {
   const { logTitle, ...taroOption } = option;
+  if (!taroOption.url.includes('http')) {
+    taroOption.url = baseUrl + taroOption.url;
+  }
   const { data, statusCode, errMsg } = await Taro.request(taroOption);
 
   if (statusCode !== 200) {
-    console.log("发生错误", errMsg);
-    throw new Error("网络错误");
+    console.log(
+      `%c${logTitle} request ${option.url.replace(baseUrl, '')}  网络发生错误`,
+      'color: white; font-size: 10px; background: red',
+      errMsg,
+      data,
+    );
+    throw new Error('网络发生错误');
   }
 
   const { data: innerData, code, message } = data;
-
-  console.log(logTitle, option.url, data, innerData);
+  if (code === undefined) {
+    return data as T;
+  }
+  //print success message here
+  console.log(
+    `%c${logTitle} request`,
+    'color: white; font-size: 10px; background: green',
+    data,
+  );
   if (code === 200) {
     return innerData as T;
   } else {

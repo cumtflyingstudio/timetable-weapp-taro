@@ -2,7 +2,7 @@ import { FC, useCallback, useState } from "react";
 import { Button, Icon, Popup, Search } from "@antmjs/vantui";
 import TouchableOpacity from "../../../components/TouchableOpacity";
 import defaultTheme from "../../../theme/defaultTheme";
-import { useCurrRoom } from "../useCurrRoom";
+import { useCurrRoomStore } from "../useCurrRoomStore";
 import SliderItem from "./SliderItem";
 
 const Slider: FC = (props) => {
@@ -14,14 +14,19 @@ const Slider: FC = (props) => {
   //搜索关键词
   const [keyword, setKeyword] = useState("");
   //标题
-  const { store } = useCurrRoom();
+  const { store } = useCurrRoomStore();
   const onChangeKeyword = useCallback((text) => {
     setKeyword(text.detail);
   }, []);
 
   return (
     <div>
-      <Button onClick={() => setShow(true)}>点我显示</Button>
+      <Button
+        icon="wap-nav"
+        onClick={() => setShow(true)}
+        color="#4cc8b9"
+        round={true}
+      />
       <Popup
         show={show}
         position="left"
@@ -69,17 +74,20 @@ const Slider: FC = (props) => {
               transform: `translateX(${show ? 0 : -200}px)`,
             }}
           >
-            {store.rooms
+            {Object.values(store.rooms)
               .filter((item) => item.roomName.includes(keyword))
               .map((item, index) => (
                 <TouchableOpacity
                   key={item.roomId}
                   onClick={() => {
-                    store.current = index;
+                    store.currentId = item.roomId;
                     hide();
                   }}
                 >
-                  <SliderItem room={item} selected={store.current === index} />
+                  <SliderItem
+                    room={item}
+                    selected={store.currentId === item.roomId}
+                  />
                 </TouchableOpacity>
               ))}
           </div>

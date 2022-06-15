@@ -1,0 +1,14 @@
+.SliderItem {
+  position: relative;
+  transition: all 0.2s;
+
+  &.selected::before {
+    content: '';
+    width: 10px;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #19be6b;
+  }
+}

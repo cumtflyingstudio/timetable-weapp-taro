@@ -1,5 +1,4 @@
-import sFetch from "../sFetch";
-import baseUrl from "../baseUrl";
+import sFetch from '../sFetch';
 
 interface FormAskRoom {
   organizationId: string;
@@ -10,14 +9,14 @@ interface FormAskRoom {
   endTime: string;
 }
 
-async function askRoomUsing(form: FormAskRoom) {
+async function askRoom(form: FormAskRoom) {
   const message = await sFetch<string>({
-    logTitle: "预约表单",
-    method: "POST",
+    logTitle: '查看用户当前预约过的表单',
+    method: 'POST',
     data: form,
-    url: baseUrl("room", "use/apply"),
+    url: 'auth/find/applyinfo',
   });
   return message; //成功的提示语
 }
 
-export default askRoomUsing;
+export default askRoom;

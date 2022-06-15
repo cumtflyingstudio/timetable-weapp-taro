@@ -1,4 +1,5 @@
 import { FC, memo } from "react";
+import "./SliderItem.less";
 
 interface ISliderItem {
   room: Room;
@@ -16,8 +17,8 @@ const SliderItem: FC<ISliderItem> = (props) => {
         background: "white",
         borderRadius: "4px",
         opacity: selected ? 0.5 : 1,
-        transition: "all 0.2s",
       }}
+      className={selected ? "SliderItem selected" : "SliderItem"}
     >
       <div>{room.roomName}</div>
       <div>

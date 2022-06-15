@@ -1,21 +1,21 @@
-import { Popup, Search } from "@antmjs/vantui";
-import { FC } from "@tarojs/taro";
+import { Popup, Search } from '@antmjs/vantui';
+import { FC } from '@tarojs/taro';
 
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useRef, useState } from 'react';
 
-import { Center } from "../../../../components/Stack";
-import ApplicationField from "../Applications/ApplicationField";
-import CardList from "./CardList";
+import { Center } from '../../../../components/Stack';
+import ApplicationField from '../Applications/ApplicationField';
+import CardList from './CardList';
 
-import { hideContext } from "./Context/hideContext";
+import { hideContext } from './Context/hideContext';
 
 const AddButton: FC = () => {
   const [show, setShow] = useState(false);
-  const hide = useCallback(() => {
+  const hide = () => {
     setShow(false);
-  }, [setShow]);
+  };
 
-  const [keyWord, setKeyWord] = useState("");
+  const [keyWord, setKeyWord] = useState('');
 
   const onKeyWordChange = useCallback((e) => {
     setKeyWord(e.detail);
@@ -26,9 +26,9 @@ const AddButton: FC = () => {
         <Center
           style={{
             flex: 1,
-            background: "transparent",
-            border: "3px dashed gray",
-            overflow: "hidden",
+            background: 'transparent',
+            border: '3px dashed gray',
+            overflow: 'hidden',
             opacity: 0.7,
             borderRadius: 20,
           }}
@@ -42,9 +42,9 @@ const AddButton: FC = () => {
               flex: 1,
               fontSize: 35,
               fontWeight: 500,
-              lineHeight: "80%",
-              textAlign: "center",
-              color: "gray",
+              lineHeight: '80%',
+              textAlign: 'center',
+              color: 'gray',
             }}
           >
             +
@@ -62,7 +62,7 @@ const AddButton: FC = () => {
         closeable
       >
         {/* 搜索框 */}
-        <div style={{ paddingRight: "30px" }}>
+        <div style={{ paddingRight: '30px' }}>
           <Search
             value={keyWord}
             shape="round"

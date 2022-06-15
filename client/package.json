@@ -12,13 +12,15 @@
     "build:weapp": "NODE_ENV=production taro build --type weapp",
     "dev:weapp": "npm run build:weapp -- --watch",
     "dev:weapp+weCloud": "CLOUD_ENV=development NODE_ENV=development npm run build:weapp -- --watch",
-    "dev:h5": "npm run build:h5 -- --watch"
+    "dev:h5": "npm run build:h5 -- --watch",
+    "build:h5": "NODE_ENV=production taro build --type h5"
   },
   "author": "SoonIter",
   "license": "MIT",
   "dependencies": {
     "@antmjs/vantui": "^1.4.11",
     "@babel/runtime": "^7.7.7",
+    "@flying-studio/use-pagination": "^1.0.3",
     "@tarojs/cli": "3.4.1",
     "@tarojs/components": "3.4.1",
     "@tarojs/plugin-framework-react": "3.4.1",

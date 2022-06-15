@@ -11,7 +11,7 @@ const useLogin = () => {
     Taro.setStorageSync("token", token);
     await Taro.switchTab({
       url: "/pages/index/index",
-    }).then(()=>{
+    }).then(() => {
       showToast({
         title: "自动登录成功",
         icon: "success",
@@ -21,10 +21,11 @@ const useLogin = () => {
   }, []);
   return { login };
 };
-
-function Login() {
+const Router = () => {
   let token = Taro.getStorageSync("token");
-  if (token) {
+  let expirationTime = Taro.getStorageSync("expirationTime");
+
+  if (token && new Date().getTime() < expirationTime) {
     addTokenInterceptor(token);
     Taro.switchTab({
       url: "/pages/index/index",
@@ -44,7 +45,10 @@ function Login() {
         }).then(() => {});
       });
   }
+  return <></>;
+};
 
+function Login() {
   const { login: loginAndNavigate } = useLogin();
   const [input, setInput] = useState("" || "08192862");
   const [password, setPassword] = useState("123");
@@ -66,6 +70,7 @@ function Login() {
 
   return (
     <View>
+      <Router />
       <CellGroup>
         <Field
           value={input}

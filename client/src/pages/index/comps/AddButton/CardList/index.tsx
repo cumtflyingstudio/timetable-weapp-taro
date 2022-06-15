@@ -1,12 +1,11 @@
-import { Empty, Skeleton } from "@antmjs/vantui";
-import { FC } from "@tarojs/taro";
-import { useEffect, useState } from "react";
-import { useRequest } from "taro-hooks";
-import findAllOrgan from "../../../../../service/organ/findAllOrgan";
+import { Empty, Skeleton } from '@antmjs/vantui';
+import { FC } from '@tarojs/taro';
+import { useRequest } from 'taro-hooks';
+import findAllOrgan from '../../../../../service/organ/findAllOrgan';
 
-import { withOutByKey } from "../../../../../utils";
-import { useListContext } from "../../../context";
-import CardItem from "./CardItem";
+import { withOutByKey } from '../../../../../utils';
+import { useListContext } from '../../../context';
+import CardItem from './CardItem';
 
 const LoadingAnimation = () => {
   return <Skeleton title={true} row={3} />;
@@ -28,18 +27,18 @@ const CardList: FC<ICardListProps> = (props) => {
       ?.map((item) => ({
         name: item.organizationName,
         _id: item.organizationId,
-        avatar: "",
+        avatar: '',
       }))
       ?.filter((item) => {
         return (
           item.name.includes(keyWord) ||
           new RegExp(
-            "(.*?)" + Array.from(keyWord).join("(.*?)") + "(.*?)"
+            '(.*?)' + Array.from(keyWord).join('(.*?)') + '(.*?)',
           ).test(item.name)
         );
       }) || [],
     state.applicationList_added,
-    "_id"
+    '_id',
   );
 
   return (
