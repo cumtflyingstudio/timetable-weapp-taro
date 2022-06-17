@@ -1,14 +1,13 @@
-import { FC, useEffect, useRef, useState } from "react";
-import { WeekSwiper } from "../../../components/WeekSwiper";
-import queryRoomUsing from "../../../service/room/queryRoomUsing";
-// eslint-disable-next-line import/first
-import moment from "moment";
+import moment from 'moment';
+import { FC, useEffect, useRef, useState } from 'react';
+import { WeekSwiper } from '../../../components/WeekSwiper';
+import queryRoomUsing from '../../../service/room/queryRoomUsing';
 
 const dateFormat = (time: Date = new Date()) => {
-  return moment(time).format("yyyy-MM-DD");
+  return moment(time as any).format('yyyy-MM-DD');
 };
 const timeFormat = (time: Date = new Date()) => {
-  return moment(time).format("YYYY-MM-DD HH:mm:ss");
+  return moment(time as any).format('YYYY-MM-DD HH:mm:ss');
 };
 
 type InferPromise<T> = T extends Promise<infer F> ? F : never;
@@ -16,7 +15,7 @@ type InferPromise<T> = T extends Promise<infer F> ? F : never;
 const Timetable: FC<{ area: Room }> = (props) => {
   const { area = {} as Room } = props;
   const [timeStage, setTimeStage] = useState(
-    [] as InferPromise<ReturnType<typeof queryRoomUsing>>
+    [] as InferPromise<ReturnType<typeof queryRoomUsing>>,
   );
   const [currDate, setCurrDate] = useState(dateFormat());
   useEffect(() => {

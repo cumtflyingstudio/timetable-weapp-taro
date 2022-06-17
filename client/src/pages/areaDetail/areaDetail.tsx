@@ -1,6 +1,6 @@
 import { Button, Icon } from '@antmjs/vantui';
 import { navigateTo } from '@tarojs/taro';
-import { useLayoutEffect, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useNavigationBar, useRouter } from 'taro-hooks';
 import './areaDetail.less';
 import queryOrganRoomById from '../../service/organ/queryOrganRoomById';
@@ -21,6 +21,8 @@ export default () => {
       store.currentId = res[0].roomId;
     });
   }, []);
+  //易班-实验室1
+  const currArea = store.rooms[store.currentId];
   return (
     <>
       <AreaCard area={store.rooms[store.currentId]} />
@@ -32,7 +34,9 @@ export default () => {
         round={true}
         style="height:60px;width:60px;position:fixed;right:20px;bottom:100px;"
         onClick={() => {
-          navigateTo({ url: `/pages/timeForm/timeForm?id=${id}` });
+          navigateTo({
+            url: `/pages/timeForm/timeForm?organizationId=${id}&title=${currArea.roomName}&roomId=${currArea.roomId}`,
+          });
         }}
       >
         <Icon size="30px" color="white" name="plus" />

@@ -1,142 +1,115 @@
-import react, { useEffect } from 'react';
+import {
+  Field,
+  CellGroup,
+  Cell,
+  Calendar,
+  Button,
+  DatetimePicker,
+  Popup,
+} from '@antmjs/vantui';
+import { Picker, View } from '@tarojs/components';
+import react, { useState } from 'react';
 import Taro, { Config } from '@tarojs/taro';
 import { useNavigationBar, useRouter } from 'taro-hooks';
-import { View, Text, Input } from '@tarojs/components';
-import { Form, FormItem, Button, Dialog, Icon, Switch } from '@antmjs/vantui';
-
+import askRoom from '../../service/user/askRoom';
+import momentFormat from '../../utils/momentFormat';
+import { useForm } from './useForm';
+import showToast from '../../utils/showToast';
 import './timeForm.less';
 
-// export default () => {
-//   const [routerInfo] = useRouter();
-//   const { id } = routerInfo.params;
-//   return (
-//     <div className="timeForm">
-//       <div></div>
-//     </div>
-//   );
-// };
+const formatDate = (d: number) => {
+  return momentFormat(new Date(d));
+};
 function Demo() {
-  const formIt = react.useRef(null);
-  const [state, setState] = react.useState({
-    dateTime: '',
-  });
-
-  useEffect(() => {
-    // 异步更新initialValues
-    setTimeout(() => {
-      setState({
-        dateTime: '2021-12-02 12:12',
-      });
-    }, 2000);
-  }, []);
-
-  const handleClick = () => {
-    formIt.current.validateFields((errorMessage, fieldValues) => {
-      if (errorMessage && errorMessage.length) {
-        Dialog.alert({
-          message: `errorMessage: ${JSON.stringify(errorMessage)}`,
-          selector: 'form-demo1',
-        });
-        return console.info('errorMessage', errorMessage);
-      }
-
-      Dialog.alert({
-        message: `result: ${JSON.stringify(fieldValues)}`,
-      });
-    });
-  };
-
+  //来自上一个页面的参数
+  const [routerInfo] = useRouter();
+  const {
+    title = '表单',
+    organizationId = '',
+    roomId = '',
+  } = routerInfo.params;
+  useNavigationBar({ title });
+  const [show, setShow] = useState(false);
+  const [date, setDate] = useState(Date.now());
+  const { store, reset } = useForm();
   return (
     <>
-      <Form
-        initialValues={{
-          name: '我是初始值',
-          dateTime: state.dateTime,
-          singleSelect: '1',
-          rate: 2,
-          slider: '50',
-        }}
-        ref={formIt}
-        onFinish={(e: any) => console.info(e)}
-      >
-        <FormItem
-          label="用户名"
-          name="userName"
-          required
-          rules={{
-            rule: /[\u4e00-\u9fa5]/,
-            message: '用户名仅支持中文',
+      <CellGroup>
+        <Cell
+          title="选择单个日期"
+          value={formatDate(date)}
+          onClick={() => setShow(true)}
+        />
+        <Calendar
+          color="#4cc8b9"
+          showConfirm={false}
+          show={show}
+          minDate={new Date().getTime()}
+          maxDate={new Date().getTime() + 3600 * 1000 * 24 * 14}
+          onClose={() => setShow(false)}
+          onConfirm={(e) => {
+            setDate(e.detail.value.valueOf() as number);
+            setShow(false);
           }}
-          trigger="onInput"
-          validateTrigger="onBlur"
-          // taro的input的onInput事件返回对应表单的最终值为e.detail.value
-          valueFormat={(e) => e.detail.value}
-          renderRight={<Icon name="user-o" />}
+        />
+        <Picker
+          value="12:00"
+          mode="time"
+          onChange={(e) => {
+            store.startTime = e.detail.value;
+          }}
         >
-          <Input placeholder="请输入用户名（中文）" />
-        </FormItem>
-
-        <FormItem
-          label="密码"
-          name="password"
-          required
-          valueFormat={(e) => e.detail.value}
-          renderRight={<Icon name="eye-o" />}
+          <Cell title="开始时间" value={store.startTime} />
+        </Picker>
+        <Picker
+          value="12:00"
+          mode="time"
+          onChange={(e) => {
+            store.endTime = e.detail.value;
+          }}
         >
-          <Input placeholder="请输入密码" type="safe-password" />
-        </FormItem>
-
-        <FormItem label="是否打开" name="opened" valueKey="checked">
-          <Switch activeColor="#07c160" inactiveColor="#07c160" />
-        </FormItem>
-
-        {/* <FormItem label="单选框" name="singleSelect">
-          <RadioGroup direction="horizontal">
-            <Radio name="1" checkedColor="#07c160">
-              单选框 1
-            </Radio>
-            <Radio name="2" checkedColor="#07c160">
-              单选框 2
-            </Radio>
-          </RadioGroup>
-        </FormItem>
-
-        <FormItem label="复选框" name="muiltSelect">
-          <CheckboxGroup direction="horizontal">
-            <Checkbox name="1" shape="square" checkedColor="#07c160">
-              复选框 1
-            </Checkbox>
-            <Checkbox name="2" shape="square" checkedColor="#07c160">
-              复选框 2
-            </Checkbox>
-          </CheckboxGroup>
-        </FormItem>
-
-        <FormItem label="滑块选择" name="slider">
-          <Slider
-            activeColor="#07c160"
-            style={{ width: '200px', marginTop: '10px' }}
-          />
-        </FormItem>
-
-        <FormItem label="评分" name="rate">
-          <Rate activeColor="#07c160" />
-        </FormItem>
-
-        <FormItem label="步进器" name="stepper">
-          <Stepper />
-        </FormItem> */}
-        <Button
-          type="primary"
-          className="van-button-submit"
-          onClick={handleClick}
-          // formType="submit"
-        >
-          提交
-        </Button>
-      </Form>
-      <Dialog id="form-demo1" />
+          <Cell title="结束时间" value={store.endTime} />
+        </Picker>
+        <Field
+          label="留言"
+          type="textarea"
+          placeholder="请输入留言"
+          autosize={{ minHeight: '100px' }}
+          border={false}
+          onChange={(e) => {
+            store.applyInfo = e.detail;
+          }}
+        />
+      </CellGroup>
+      <Button
+        onClick={() => {
+          askRoom({
+            organizationId,
+            usingId: roomId,
+            startTime: formatDate(date) + ' ' + store.startTime + ':00',
+            endTime: formatDate(date) + ' ' + store.endTime + ':00',
+            num: 1,
+            applyInfo: store.applyInfo,
+          })
+            .then((successMsg) => {
+              reset();
+              showToast(successMsg);
+              setTimeout(() => {
+                Taro.navigateBack();
+              }, 1000);
+            })
+            .catch((e) => {
+              showToast(e.message);
+            });
+        }}
+        size="large"
+        color="#4cc8b9"
+        round
+      >
+        提交
+      </Button>
     </>
   );
 }
+
 export default Demo;

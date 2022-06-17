@@ -23,6 +23,13 @@
                     "query": "",
                     "launchMode": "default",
                     "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/timeForm/timeForm",
+                    "query": "id=82d244f65cf0f32e31dc3ed464e478ea",
+                    "launchMode": "default",
+                    "scene": null
                 }
             ]
         }

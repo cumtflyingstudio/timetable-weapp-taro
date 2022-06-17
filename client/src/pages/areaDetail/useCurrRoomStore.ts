@@ -1,11 +1,11 @@
-import usePiniadux from "../../piniadux/src/hooks/usePiniadux";
+import usePiniadux from '../../piniadux/src/hooks/usePiniadux';
 
-const currRoom = Symbol("currRoom");
+const form = Symbol('form');
 export const useCurrRoomStore = () => {
-  return usePiniadux(currRoom, {
+  return usePiniadux(form, {
     state() {
       return {
-        currentId: "",
+        currentId: '',
         rooms: {} as Record<string, Room>,
       };
     },

@@ -5,11 +5,7 @@ import getRoomUsing, { IForm } from '../../service/user/getRoomUsing';
 import ShowCard from './ShowCard';
 
 export default () => {
-  const { data, loading, refresh } = usePagination<IForm>(getRoomUsing, {
-    idPropertyName: 'id',
-    initialPage: 1,
-    beforeAllRequest: () => {},
-  });
+  const { data, loading, refresh } = usePagination(getRoomUsing);
   usePullDownRefresh(() => {
     refresh();
     setTimeout(() => {
