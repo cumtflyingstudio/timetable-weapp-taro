@@ -7,6 +7,7 @@ import queryOrganRoomById from '../../service/organ/queryOrganRoomById';
 import { useCurrRoomStore } from './useCurrRoomStore';
 import AreaCard from './AreaCard';
 import Timetable from './Timetable';
+import showToast from '../../utils/showToast';
 
 export default () => {
   const { store } = useCurrRoomStore();
@@ -18,25 +19,52 @@ export default () => {
   useEffect(() => {
     queryOrganRoomById(id as string).then((res) => {
       store.rooms = Object.fromEntries(res.map((item) => [item.roomId, item]));
-      store.currentId = res[0].roomId;
+      store.currentId = res?.[0]?.roomId ?? '';
     });
   }, []);
   //易班-实验室1
   const currArea = store.rooms[store.currentId];
+  const hasNoRoom =
+    id === '' ||
+    currArea?.roomId === undefined ||
+    currArea?.roomName === undefined ||
+    currArea?.roomName === '' ||
+    currArea?.roomId === '';
+  if (hasNoRoom) {
+    return (
+      <div
+        style={{
+          width: '100vw',
+          display: 'flex',
+          justifyContent: 'center',
+        }}
+      >
+        该组织暂无可租借场地
+      </div>
+    );
+  }
   return (
     <>
-      <AreaCard area={store.rooms[store.currentId]} />
+      <AreaCard area={currArea} />
 
-      <Timetable area={store.rooms[store.currentId]} />
+      <Timetable area={currArea} />
 
       <Button
         color="#4cc8b9"
-        round={true}
+        round
         style="height:60px;width:60px;position:fixed;right:20px;bottom:100px;"
         onClick={() => {
-          navigateTo({
-            url: `/pages/timeForm/timeForm?organizationId=${id}&title=${currArea.roomName}&roomId=${currArea.roomId}`,
-          });
+          try {
+            if (hasNoRoom) {
+              showToast('该组织暂无可租借场地');
+              return;
+            }
+            navigateTo({
+              url: `/pages/timeForm/timeForm?organizationId=${id}&title=${currArea.roomName}&roomId=${currArea.roomId}`,
+            });
+          } catch (e) {
+            console.log(e);
+          }
         }}
       >
         <Icon size="30px" color="white" name="plus" />

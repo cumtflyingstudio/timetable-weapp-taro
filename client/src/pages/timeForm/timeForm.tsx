@@ -53,7 +53,7 @@ function Demo() {
           }}
         />
         <Picker
-          value="12:00"
+          value={store.startTime}
           mode="time"
           onChange={(e) => {
             store.startTime = e.detail.value;
@@ -62,7 +62,7 @@ function Demo() {
           <Cell title="开始时间" value={store.startTime} />
         </Picker>
         <Picker
-          value="12:00"
+          value={store.endTime}
           mode="time"
           onChange={(e) => {
             store.endTime = e.detail.value;

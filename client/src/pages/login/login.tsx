@@ -1,46 +1,48 @@
-import Taro, { showToast } from "@tarojs/taro";
-import { useState, useCallback, useEffect } from "react";
-import { Button, CellGroup, Field } from "@antmjs/vantui";
-import { View } from "@tarojs/components";
-import "./login.less";
-import fetchLogin, { addTokenInterceptor } from "../../service/user/login";
+import Taro, { showToast } from '@tarojs/taro';
+import { useState, useCallback, useEffect } from 'react';
+import { Button, CellGroup, Field } from '@antmjs/vantui';
+import { View } from '@tarojs/components';
+import './login.less';
+import fetchLogin, { addTokenInterceptor } from '../../service/user/login';
 
 const useLogin = () => {
   const login = useCallback(async (username, password) => {
-    const { token } = await fetchLogin(username, password);
-    Taro.setStorageSync("token", token);
+    const { token, loginAccount } = await fetchLogin(username, password);
+    addTokenInterceptor(token);
+    Taro.setStorageSync('token', token);
+    Taro.setStorageSync('username', loginAccount);
     await Taro.switchTab({
-      url: "/pages/index/index",
+      url: '/pages/index/index',
     }).then(() => {
       showToast({
-        title: "自动登录成功",
-        icon: "success",
+        title: '登录成功',
+        icon: 'success',
         duration: 2000,
-      }).then(() => {});
+      });
     });
   }, []);
   return { login };
 };
 const Router = () => {
-  let token = Taro.getStorageSync("token");
-  let expirationTime = Taro.getStorageSync("expirationTime");
+  let token = Taro.getStorageSync('token');
+  let expirationTime = Taro.getStorageSync('expirationTime');
 
   if (token && new Date().getTime() < expirationTime) {
     addTokenInterceptor(token);
     Taro.switchTab({
-      url: "/pages/index/index",
+      url: '/pages/index/index',
     })
       .then(() => {
         showToast({
-          title: "自动登录成功",
-          icon: "success",
+          title: '自动登录成功',
+          icon: 'success',
           duration: 2000,
         }).then(() => {});
       })
       .catch((err) => {
         showToast({
-          title: "登录身份已过期",
-          icon: "success",
+          title: '登录身份已过期',
+          icon: 'success',
           duration: 2000,
         }).then(() => {});
       });
@@ -50,22 +52,22 @@ const Router = () => {
 
 function Login() {
   const { login: loginAndNavigate } = useLogin();
-  const [input, setInput] = useState("" || "08192862");
-  const [password, setPassword] = useState("123");
+  const [input, setInput] = useState('' || '08192862');
+  const [password, setPassword] = useState('123');
 
   const onChange = useCallback(
     (event) => {
       setInput(event.detail);
       return;
     },
-    [input]
+    [input],
   );
   const onChange2 = useCallback(
     (event) => {
       setPassword(event.detail);
       return;
     },
-    [password]
+    [password],
   );
 
   return (
