@@ -10,6 +10,8 @@ const config = {
     'pages/timetable/timetable',
     'pages/timeForm/timeForm',
     'pages/areaDetail/areaDetail',
+    'pages/timetableDetail/timetableDetail',
+    'pages/adminGetRequest/adminGetRequest',
   ],
   window: {
     backgroundTextStyle: 'light',

@@ -1,6 +1,6 @@
 import { Tag } from '@antmjs/vantui';
 import { FC } from '@tarojs/taro';
-import { IForm } from '../../service/user/getRoomUsing';
+import { IForm } from '../../../service/user/getRoomUsing';
 
 export function getStatus(status: number) {
   switch (status) {

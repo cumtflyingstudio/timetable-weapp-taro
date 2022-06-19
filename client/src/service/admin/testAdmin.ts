@@ -1,14 +1,14 @@
 import baseUrl from '../baseUrl';
 import sFetch from '../sFetch';
 
-async function analyseToken() {
+async function testAdmin() {
   const res = await sFetch({
     logTitle: '测试admin身份',
     url: baseUrl('api', 'admin'),
     method: 'GET',
   });
-  console.log('测试admin身份', res);
-  return res;
+  //TODO:这里的判断是用中文的
+  return typeof res === 'string' && res.includes('成功');
 }
 
-export default analyseToken;
+export default testAdmin;

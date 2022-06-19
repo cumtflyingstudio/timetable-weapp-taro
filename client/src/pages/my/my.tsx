@@ -6,9 +6,13 @@ import './my.less';
 import Avatar from '../../components/Avatar';
 import { HStack, VStack } from '../../components/Stack';
 import getUserInfo from '../../service/user/getUserInfo';
+import AdminCellGroup from './comps/AdminCellGroup';
+import testAdmin from '../../service/admin/testAdmin';
 
 export default function My() {
   const { data, loading } = useRequest(getUserInfo);
+  const { data: isAdmin } = useRequest(testAdmin);
+
   return (
     <>
       <div
@@ -47,17 +51,7 @@ export default function My() {
           // label="描述信息"
         />
       </CellGroup>
-      <CellGroup title="管理区" inset>
-        <Cell title="姓名" isLink size="large" />
-        <Cell title="关于" isLink size="large" />
-        <Cell
-          title="单元格"
-          isLink
-          value="内容"
-          arrowDirection="down"
-          size="large"
-        />
-      </CellGroup>
+      {isAdmin ? <AdminCellGroup /> : null}
     </>
   );
 }
