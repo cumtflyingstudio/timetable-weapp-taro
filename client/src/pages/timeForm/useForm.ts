@@ -11,6 +11,7 @@ export const useForm = () => {
         startTime: now,
         endTime: now,
         applyInfo: '',
+        num: 1,
       };
     },
   });

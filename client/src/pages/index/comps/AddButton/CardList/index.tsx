@@ -4,6 +4,7 @@ import { useRequest } from 'taro-hooks';
 import findAllOrgan from '../../../../../service/organ/findAllOrgan';
 
 import { withOutByKey } from '../../../../../utils';
+import keywordSearch from '../../../../../utils/keywordSearch';
 import { useListContext } from '../../../context';
 import CardItem from './CardItem';
 
@@ -27,15 +28,10 @@ const CardList: FC<ICardListProps> = (props) => {
       ?.map((item) => ({
         name: item.organizationName,
         _id: item.organizationId,
-        avatar: '',
+        avatar: item.avatar,
       }))
       ?.filter((item) => {
-        return (
-          item.name.includes(keyWord) ||
-          new RegExp(
-            '(.*?)' + Array.from(keyWord).join('(.*?)') + '(.*?)',
-          ).test(item.name)
-        );
+        return keywordSearch(item.name, keyWord);
       }) || [],
     state.applicationList_added,
     '_id',

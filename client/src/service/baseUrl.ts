@@ -1,4 +1,4 @@
-export const baseUrl = 'http://1.13.5.80:8080/';
+export const baseUrl = 'https://www.surprisehui.top:8080/';
 
 function trim(str: string) {
   str = str.replace(/^\/(.+?)\/$/, '$1').trim();

@@ -2,7 +2,7 @@ import { Button, Icon } from '@antmjs/vantui';
 import { navigateTo } from '@tarojs/taro';
 import { useEffect } from 'react';
 import { useNavigationBar, useRouter } from 'taro-hooks';
-import './areaDetail.less';
+import './roomDetail.less';
 import queryOrganRoomById from '../../service/organ/queryOrganRoomById';
 import { useCurrRoomStore } from './useCurrRoomStore';
 import AreaCard from './AreaCard';
@@ -11,16 +11,24 @@ import showToast from '../../utils/showToast';
 
 export default () => {
   const { store } = useCurrRoomStore();
-  //标题
+  //页面导航栏标题为 易班——场地
   const [routerInfo] = useRouter();
   const { name, id } = routerInfo.params;
   useNavigationBar({ title: name });
   // request:请求area列表
   useEffect(() => {
-    queryOrganRoomById(id as string).then((res) => {
-      store.rooms = Object.fromEntries(res.map((item) => [item.roomId, item]));
-      store.currentId = res?.[0]?.roomId ?? '';
-    });
+    queryOrganRoomById(id as string)
+      .then((res) => {
+        store.rooms = Object.fromEntries(
+          res.map((item) => [item.roomId, item]),
+        );
+        store.currentId = res?.[0]?.roomId ?? '';
+      })
+      .catch((e) => {
+        console.log(e.message);
+        store.rooms = {};
+        store.currentId = '';
+      });
   }, []);
   //易班-实验室1
   const currArea = store.rooms[store.currentId];
@@ -39,7 +47,7 @@ export default () => {
           justifyContent: 'center',
         }}
       >
-        该组织暂无可租借场地
+        该组织暂无可预约场地
       </div>
     );
   }
@@ -56,7 +64,7 @@ export default () => {
         onClick={() => {
           try {
             if (hasNoRoom) {
-              showToast('该组织暂无可租借场地');
+              showToast('该组织暂无可预约场地');
               return;
             }
             navigateTo({

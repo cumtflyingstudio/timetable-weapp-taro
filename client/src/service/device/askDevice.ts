@@ -1,7 +1,7 @@
 import Taro from '@tarojs/taro';
 import sFetch from '../sFetch';
 
-interface FormAskRoom {
+interface IDeviceForm {
   organizationId: string;
   usingId: string;
   num: number;
@@ -10,7 +10,8 @@ interface FormAskRoom {
   endTime: string;
 }
 
-async function askRoom(form: FormAskRoom) {
+async function askDevice(form: IDeviceForm) {
+  console.log(form);
   //case1 不能为空
   for (let key in form) {
     if (form[key] === '' || form[key] === null || form[key] === void 0) {
@@ -23,13 +24,13 @@ async function askRoom(form: FormAskRoom) {
   }
 
   const innerData = await sFetch<string>({
-    logTitle: '查看用户当前预约过的表单',
+    logTitle: '预约一台设备',
     method: 'POST',
     data: form,
-    url: 'room/use/apply',
+    url: 'device/use/apply',
   });
 
   return innerData; //成功的提示语
 }
 
-export default askRoom;
+export default askDevice;

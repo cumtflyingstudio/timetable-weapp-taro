@@ -28,6 +28,15 @@ const interceptor: Taro.interceptor = function (chain) {
     });
 };
 Taro.addInterceptor(interceptor);
+
+const redirectToLogin = () => {
+  Taro.clearStorageSync();
+  Taro.reLaunch({
+    url: '/pages/login/login',
+  });
+  throw new Error('请重新登录');
+};
+
 //返回最里层的data
 async function sFetch<T>(
   option: Taro.request.Option & { logTitle: string; showError?: boolean },
@@ -54,6 +63,9 @@ async function sFetch<T>(
   }
   // print request fail message here
   if (statusCode !== 200) {
+    if (statusCode === 401) {
+      redirectToLogin();
+    }
     errorLog();
     if (showError) {
       showToast(data?.message ?? '网络发生错误');
@@ -67,6 +79,9 @@ async function sFetch<T>(
   // print server error message here
   if (code !== 200) {
     errorLog();
+    if (code === 401) {
+      redirectToLogin();
+    }
     if (typeof innerData === 'string') {
       throw new Error(innerData);
     }

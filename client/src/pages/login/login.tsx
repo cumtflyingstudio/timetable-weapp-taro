@@ -4,22 +4,35 @@ import { Button, CellGroup, Field } from '@antmjs/vantui';
 import { View } from '@tarojs/components';
 import './login.less';
 import fetchLogin, { addTokenInterceptor } from '../../service/user/login';
+import { useAvatar } from '../../components/Avatar/useAvatar';
 
 const useLogin = () => {
+  const { store } = useAvatar();
   const login = useCallback(async (username, password) => {
     const { token, loginAccount } = await fetchLogin(username, password);
     addTokenInterceptor(token);
+    // 本地存储
     Taro.setStorageSync('token', token);
     Taro.setStorageSync('username', loginAccount);
-    await Taro.switchTab({
-      url: '/pages/index/index',
-    }).then(() => {
-      showToast({
-        title: '登录成功',
-        icon: 'success',
-        duration: 2000,
-      });
+    Taro.getUserProfile({
+      desc: '获取用户头像',
+      success(e) {
+        const avatarUrl = e.userInfo.avatarUrl;
+        store.avatarUrl = avatarUrl;
+        Taro.setStorageSync('avatarUrl', avatarUrl);
+      },
     });
+    setTimeout(async () => {
+      await Taro.switchTab({
+        url: '/pages/index/index',
+      }).then(() => {
+        showToast({
+          title: '登录成功',
+          icon: 'success',
+          duration: 2000,
+        });
+      });
+    }, 1000);
   }, []);
   return { login };
 };

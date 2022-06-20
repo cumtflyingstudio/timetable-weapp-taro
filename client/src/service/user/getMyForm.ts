@@ -14,7 +14,7 @@ export interface IForm {
   id: number;
 }
 
-async function getRoomUsing(currPage: number) {
+async function getMyForm(currPage: number) {
   const name = Taro.getStorageSync('username');
   const list = await sFetch<IForm[]>({
     logTitle: `查看用户当前预约过的表单 页数:${currPage}`,
@@ -22,9 +22,9 @@ async function getRoomUsing(currPage: number) {
     url: `auth/find/applyinfo?username=${name}&current=${currPage}&size=15`,
   });
   list.forEach((item) => {
-    item.id = (Math.random() * 100000) | 0;
+    item.id = item?.id ?? (Math.random() * 100000) | 0;
   });
   return list;
 }
 
-export default getRoomUsing;
+export default getMyForm;

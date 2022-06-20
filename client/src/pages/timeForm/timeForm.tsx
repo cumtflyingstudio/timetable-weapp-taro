@@ -11,11 +11,12 @@ import { Picker, View } from '@tarojs/components';
 import react, { useState } from 'react';
 import Taro, { Config } from '@tarojs/taro';
 import { useNavigationBar, useRouter } from 'taro-hooks';
-import askRoom from '../../service/user/askRoom';
+import askRoom from '../../service/room/askRoom';
 import momentFormat from '../../utils/momentFormat';
 import { useForm } from './useForm';
 import showToast from '../../utils/showToast';
 import './timeForm.less';
+import askDevice from '../../service/device/askDevice';
 
 const formatDate = (d: number) => {
   return momentFormat(new Date(d));
@@ -27,7 +28,9 @@ function Demo() {
     title = '表单',
     organizationId = '',
     roomId = '',
+    deviceId = '',
   } = routerInfo.params;
+  const isDevice = deviceId !== '' && roomId === '';
   useNavigationBar({ title });
   const [show, setShow] = useState(false);
   const [date, setDate] = useState(Date.now());
@@ -36,7 +39,7 @@ function Demo() {
     <>
       <CellGroup>
         <Cell
-          title="选择单个日期"
+          title="选择预约日期"
           value={formatDate(date)}
           onClick={() => setShow(true)}
         />
@@ -70,6 +73,19 @@ function Demo() {
         >
           <Cell title="结束时间" value={store.endTime} />
         </Picker>
+        {isDevice ? (
+          <Field
+            label="数量"
+            type="number"
+            inputAlign="right"
+            placeholder="请输入所需要的设备数量"
+            border={false}
+            value={store.num}
+            onChange={(e) => {
+              store.num = e.detail;
+            }}
+          />
+        ) : null}
         <Field
           label="留言"
           type="textarea"
@@ -83,12 +99,12 @@ function Demo() {
       </CellGroup>
       <Button
         onClick={() => {
-          askRoom({
+          (isDevice ? askDevice : askRoom)({
             organizationId,
-            usingId: roomId,
+            usingId: isDevice ? deviceId : roomId,
             startTime: formatDate(date) + ' ' + store.startTime + ':00',
             endTime: formatDate(date) + ' ' + store.endTime + ':00',
-            num: 1,
+            num: store.num,
             applyInfo: store.applyInfo,
           })
             .then((successMsg) => {

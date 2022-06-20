@@ -1,6 +1,6 @@
 import { useRequest } from 'taro-hooks';
 import { OpenData } from '@tarojs/components';
-import { Cell, CellGroup, Tag } from '@antmjs/vantui';
+import { Cell, CellGroup, Tag, Button } from '@antmjs/vantui';
 import Taro, { Config } from '@tarojs/taro';
 import './my.less';
 import Avatar from '../../components/Avatar';
@@ -11,7 +11,8 @@ import testAdmin from '../../service/admin/testAdmin';
 
 export default function My() {
   const { data, loading } = useRequest(getUserInfo);
-  const { data: isAdmin } = useRequest(testAdmin);
+  const { data: adminList } = useRequest(testAdmin);
+  const isAdmin = Array.isArray(adminList);
 
   return (
     <>
@@ -36,8 +37,10 @@ export default function My() {
             <div style={{ fontSize: 20, fontWeight: 500 }}>
               <div>您好，{data?.nickname ?? 'user'}</div>
             </div>
-            <div>
-              <Tag>hello</Tag>
+            <div style={{ width: '50vw' }}>
+              {adminList?.map((i) => {
+                return <Tag style={{ marginRight: '10px' }}>{i.roleMark}</Tag>;
+              })}
             </div>
           </VStack>
         </HStack>
@@ -52,6 +55,32 @@ export default function My() {
         />
       </CellGroup>
       {isAdmin ? <AdminCellGroup /> : null}
+      <div style={{ width: '100vw', padding: '40rpx', marginTop: '40rpx' }}>
+        <Button
+          type="danger"
+          plain
+          size="large"
+          round
+          onClick={() => {
+            Taro.showModal({
+              title: '退出',
+              content: '确认退出登录吗？',
+              success: function (res) {
+                if (res.confirm) {
+                  Taro.clearStorageSync();
+                  Taro.reLaunch({
+                    url: '/pages/login/login',
+                  });
+                } else if (res.cancel) {
+                  console.log('用户点击取消');
+                }
+              },
+            });
+          }}
+        >
+          退出登录
+        </Button>
+      </div>
     </>
   );
 }

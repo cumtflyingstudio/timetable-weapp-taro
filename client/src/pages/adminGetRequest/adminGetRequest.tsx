@@ -6,9 +6,6 @@ import getRoomForm from '../../service/admin/getRoomForm';
 import { TimetableListPage } from '../timetable/TimetableListPage';
 
 export default () => {
-  const [routerInfo] = useRouter();
-  const { id = 0 } = routerInfo.params;
-
   return (
     <>
       <TimetableListPage requestFunc={getRoomForm} />

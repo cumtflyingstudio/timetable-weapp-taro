@@ -36,8 +36,19 @@ const useFilter = () => {
         value: 2,
       },
     ],
+    option3: [
+      {
+        text: '未来',
+        value: 0,
+      },
+      {
+        text: '全部',
+        value: 1,
+      },
+    ],
     value1: '全部',
     value2: -1,
+    value3: 0,
   });
   const DropDownMenu = useCallback(() => {
     return (

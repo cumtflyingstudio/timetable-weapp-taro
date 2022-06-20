@@ -9,9 +9,11 @@ const config = {
     'pages/my/my',
     'pages/timetable/timetable',
     'pages/timeForm/timeForm',
-    'pages/areaDetail/areaDetail',
+    'pages/roomDetail/roomDetail',
     'pages/timetableDetail/timetableDetail',
     'pages/adminGetRequest/adminGetRequest',
+    'pages/RoomOrDevice/RoomOrDevice',
+    'pages/deviceDetail/deviceDetail',
   ],
   window: {
     backgroundTextStyle: 'light',

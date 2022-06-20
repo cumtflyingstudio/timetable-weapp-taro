@@ -1,3 +1,4 @@
+import { Empty } from '@antmjs/vantui';
 import moment from 'moment';
 import { FC, useEffect, useRef, useState } from 'react';
 import { WeekSwiper } from '../../../components/WeekSwiper';
@@ -47,6 +48,9 @@ const Timetable: FC<{ area: Room }> = (props) => {
               </div>
             );
           })}
+      </div>
+      <div>
+        {timeStage.length === 0 && <Empty description="本日无人预约" />}
       </div>
     </div>
   );

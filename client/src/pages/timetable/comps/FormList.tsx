@@ -1,6 +1,6 @@
 import { FC, navigateTo } from '@tarojs/taro';
 import { Divider } from '@antmjs/vantui';
-import type { IForm } from '../../../service/user/getRoomUsing';
+import type { IForm } from '../../../service/user/getMyForm';
 import ShowCard from './ShowCard';
 
 const FormList: FC<{ list: IForm[] }> = (props) => {
