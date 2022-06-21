@@ -23,10 +23,15 @@ async function getMyForm(currPage: number) {
     url: `auth/find/applyinfo?username=${name}&current=${currPage}&size=15`,
   });
   list.forEach((item) => {
-    // item.id = item?.id ?? (Math.random() * 100000) | 0;
-    item.endTime = new Date(item.endTime);
-    item.startTime = new Date(item.startTime);
-    item.applyTime = new Date(item.applyTime);
+    item.startTime = new Date(
+      (item.startTime as unknown as string).replace(/-/g, '/'),
+    );
+    item.endTime = new Date(
+      (item.endTime as unknown as string).replace(/-/g, '/'),
+    );
+    item.applyTime = new Date(
+      (item.applyTime as unknown as string).replace(/-/g, '/'),
+    );
   });
   return list;
 }

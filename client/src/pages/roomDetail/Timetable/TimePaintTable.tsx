@@ -2,6 +2,7 @@ import { Dialog } from '@antmjs/vantui';
 import { FC } from '@tarojs/taro';
 import moment from 'moment';
 import getUserInfo from '../../../service/user/getUserInfo';
+import momentFormat from '../../../utils/momentFormat';
 
 interface ITimeStage {
   startTime: Date;
@@ -102,7 +103,7 @@ const TimePaintTable: FC<{ list: ITimeStage[] }> = (props) => {
                   fontWeight: 'bold',
                 }}
               >
-                {moment(startTime).format('HH:mm')}
+                {momentFormat(startTime, 'HH:mm')}
               </div>
               <div
                 style={{
@@ -116,7 +117,7 @@ const TimePaintTable: FC<{ list: ITimeStage[] }> = (props) => {
                   fontWeight: 'bold',
                 }}
               >
-                {moment(endTime).format('HH:mm')}
+                {momentFormat(endTime, 'HH:mm')}
               </div>
             </div>
           );

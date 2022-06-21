@@ -3,13 +3,11 @@ import moment from 'moment';
 import { FC, useEffect, useRef, useState } from 'react';
 import { WeekSwiper } from '../../../components/WeekSwiper';
 import queryRoomUsing from '../../../service/room/queryRoomUsing';
+import momentFormat from '../../../utils/momentFormat';
 import TimePaintTable from './TimePaintTable';
 
 const dateFormat = (time: Date = new Date()) => {
-  return moment(time as any).format('yyyy-MM-DD');
-};
-const timeFormat = (time: Date = new Date()) => {
-  return moment(time as any).format('YYYY-MM-DD HH:mm:ss');
+  return momentFormat(time, 'YYYY-MM-DD');
 };
 
 type InferPromise<T> = T extends Promise<infer F> ? F : never;

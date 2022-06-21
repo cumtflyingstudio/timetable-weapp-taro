@@ -1,5 +1,5 @@
-import sFetch from "../sFetch";
-import baseUrl from "../baseUrl";
+import sFetch from '../sFetch';
+import baseUrl from '../baseUrl';
 
 interface TimeStage {
   roomuseId: number;
@@ -14,13 +14,17 @@ interface TimeStage {
 
 async function queryRoomUsing(roomId: string) {
   const data = await sFetch<TimeStage[]>({
-    logTitle: "查看某个教室使用情况",
-    method: "GET",
-    url: baseUrl("room", "find/using") + `?roomId=${roomId}`,
+    logTitle: '查看某个教室使用情况',
+    method: 'GET',
+    url: baseUrl('room', 'find/using') + `?roomId=${roomId}`,
   });
   data.forEach((item) => {
-    item.startTime = new Date(item.startTime);
-    item.endTime = new Date(item.endTime);
+    item.startTime = new Date(
+      (item.startTime as unknown as string).replace(/-/g, '/'),
+    );
+    item.endTime = new Date(
+      (item.endTime as unknown as string).replace(/-/g, '/'),
+    );
   });
   return data;
 }
