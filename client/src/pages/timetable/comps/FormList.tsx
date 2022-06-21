@@ -1,19 +1,19 @@
-import { FC, navigateTo } from '@tarojs/taro';
+import { FC } from '@tarojs/taro';
 import { Divider } from '@antmjs/vantui';
 import type { IForm } from '../../../service/user/getMyForm';
 import ShowCard from './ShowCard';
 
-const FormList: FC<{ list: IForm[] }> = (props) => {
-  const { list } = props;
+const FormList: FC<{ list: IForm[]; onClick?: (item: IForm) => void }> = (
+  props,
+) => {
+  const { list, onClick } = props;
   return (
     <div style={{ minHeight: '100vh', marginBottom: '50px' }}>
       {list.map((item) => {
         return (
           <div
             onClick={() => {
-              navigateTo({
-                url: `/pages/timetableDetail/timetableDetail?id=${item.id}`,
-              });
+              onClick && onClick(item);
             }}
             style={{ margin: 10 }}
             key={item.id as number}

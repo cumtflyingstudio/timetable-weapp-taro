@@ -3,6 +3,7 @@ import moment from 'moment';
 import { FC, useEffect, useRef, useState } from 'react';
 import { WeekSwiper } from '../../../components/WeekSwiper';
 import queryRoomUsing from '../../../service/room/queryRoomUsing';
+import TimePaintTable from './TimePaintTable';
 
 const dateFormat = (time: Date = new Date()) => {
   return moment(time as any).format('yyyy-MM-DD');
@@ -25,7 +26,12 @@ const Timetable: FC<{ area: Room }> = (props) => {
         setTimeStage(res);
       });
   }, [area?.roomId]);
-
+  const filteredList = timeStage.filter((item) => {
+    return (
+      currDate >= dateFormat(item.startTime) &&
+      currDate <= dateFormat(item.endTime)
+    );
+  });
   return (
     <div>
       <WeekSwiper
@@ -34,23 +40,12 @@ const Timetable: FC<{ area: Room }> = (props) => {
         }}
       />
       <div>
-        {timeStage
-          .filter((item) => {
-            return (
-              currDate >= dateFormat(item.startTime) &&
-              currDate <= dateFormat(item.endTime)
-            );
-          })
-          .map((item) => {
-            return (
-              <div key={item.roomId}>
-                {timeFormat(item.startTime)} - {timeFormat(item.endTime)}
-              </div>
-            );
-          })}
+        {filteredList.length !== 0 ? (
+          <TimePaintTable list={filteredList}></TimePaintTable>
+        ) : null}
       </div>
       <div>
-        {timeStage.length === 0 && <Empty description="本日无人预约" />}
+        {filteredList.length === 0 && <Empty description="本日无人预约" />}
       </div>
     </div>
   );

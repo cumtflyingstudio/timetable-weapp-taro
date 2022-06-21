@@ -2,17 +2,29 @@ import { Empty } from '@antmjs/vantui';
 import { usePagination } from '@flying-studio/use-pagination';
 import Taro, { usePullDownRefresh, useReachBottom, FC } from '@tarojs/taro';
 import { useEffect } from 'react';
-import getRoomUsing, { IForm } from '../../service/user/getMyForm';
-import { useTimetableList } from './useTimetableList';
+import { IForm } from '../../service/user/getMyForm';
 import './timetable.less';
 import FormList from './comps/FormList';
 import useFilter from './comps/useFilter';
 
+type RefreshFunc = null | (() => void);
+let globalRefresh: RefreshFunc = null;
+
 export const TimetableListPage: FC<{
   requestFunc: (currPage: number) => Promise<IForm[]>;
-  onChange?: (arg: IForm[]) => void;
-}> = ({ onChange, requestFunc }) => {
-  const { data, loading, refresh, run } = usePagination(requestFunc);
+  onChange?: (arg: IForm[]) => void; // get pagination data can use this one
+  onClick?: (id: IForm) => void;
+}> & { refresh: RefreshFunc } = ({
+  onChange,
+  requestFunc,
+  onClick = () => {},
+}) => {
+  const { data, loading, refresh, run } = usePagination(requestFunc, {
+    idPropertyName: 'applyId',
+    initialPage: 1,
+    beforeAllRequest: () => {},
+  });
+  globalRefresh = refresh;
   useEffect(() => {
     onChange && onChange(data);
   }, [data.length]);
@@ -46,7 +58,8 @@ export const TimetableListPage: FC<{
   return (
     <>
       <DropDownMenu />
-      <FormList list={list} />
+      <FormList list={list} onClick={onClick} />
     </>
   );
 };
+TimetableListPage.refresh = globalRefresh;

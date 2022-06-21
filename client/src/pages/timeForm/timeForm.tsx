@@ -1,12 +1,4 @@
-import {
-  Field,
-  CellGroup,
-  Cell,
-  Calendar,
-  Button,
-  DatetimePicker,
-  Popup,
-} from '@antmjs/vantui';
+import { Field, CellGroup, Cell, Calendar, Button } from '@antmjs/vantui';
 import { Picker, View } from '@tarojs/components';
 import react, { useState } from 'react';
 import Taro, { Config } from '@tarojs/taro';

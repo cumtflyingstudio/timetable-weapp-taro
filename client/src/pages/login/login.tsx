@@ -1,10 +1,10 @@
 import Taro, { showToast } from '@tarojs/taro';
 import { useState, useCallback, useEffect } from 'react';
-import { Button, CellGroup, Field } from '@antmjs/vantui';
-import { View } from '@tarojs/components';
-import './login.less';
+import { Button, CellGroup, Field, Image } from '@antmjs/vantui';
+import loginPng from '../../assets/img/login/login.png';
 import fetchLogin, { addTokenInterceptor } from '../../service/user/login';
 import { useAvatar } from '../../components/Avatar/useAvatar';
+import './login.less';
 
 const useLogin = () => {
   const { store } = useAvatar();
@@ -84,34 +84,50 @@ function Login() {
   );
 
   return (
-    <View>
+    <>
       <Router />
-      <CellGroup>
-        <Field
-          value={input}
-          placeholder="请输入用户名"
-          label="用户名"
-          required={true}
-          onChange={onChange}
-        />
-        <Field
-          value={password}
-          type="password"
-          label="密码"
-          placeholder="请输入密码"
-          required={true}
-          onChange={onChange2}
-        />
+      <div
+        style={{
+          display: 'flex',
+          width: '100vw',
+          height: '80vh',
+          justifyContent: 'center',
+          alignItems: 'center',
+          flexDirection: 'column',
+        }}
+      >
+        <div style={{ fontSize: 20, fontWeight: 'bold' }}>翔预约</div>
+        <CellGroup style={{ width: '100%' }}>
+          <Field
+            value={input}
+            placeholder="请输入用户名"
+            label="用户名"
+            required={true}
+            onChange={onChange}
+          />
+          <Field
+            value={password}
+            type="password"
+            label="密码"
+            placeholder="请输入密码"
+            required={true}
+            onChange={onChange2}
+          />
+        </CellGroup>
         <Button
           type="primary"
           size="large"
           round
+          style={{
+            marginTop: '100px',
+          }}
           onClick={() => loginAndNavigate(input, password)}
         >
           登录
         </Button>
-      </CellGroup>
-    </View>
+      </div>
+      {/* <Image src={loginPng} style={{ height: '250px', width: '100vw' }} /> */}
+    </>
   );
 }
 

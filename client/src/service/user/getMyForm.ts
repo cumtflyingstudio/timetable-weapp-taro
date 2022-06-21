@@ -3,7 +3,7 @@ import sFetch from '../sFetch';
 
 export interface IForm {
   organizationName: string;
-  kind: '教室' | '设备' | '其他';
+  kind: '教室' | '设备';
   rentName: string;
   num: number;
   applyInfo: string;
@@ -11,7 +11,8 @@ export interface IForm {
   applyTime: Date;
   startTime: Date;
   endTime: Date;
-  id: number;
+  dealInfo: string | null;
+  applyId: string;
 }
 
 async function getMyForm(currPage: number) {
@@ -22,7 +23,10 @@ async function getMyForm(currPage: number) {
     url: `auth/find/applyinfo?username=${name}&current=${currPage}&size=15`,
   });
   list.forEach((item) => {
-    item.id = item?.id ?? (Math.random() * 100000) | 0;
+    // item.id = item?.id ?? (Math.random() * 100000) | 0;
+    item.endTime = new Date(item.endTime);
+    item.startTime = new Date(item.startTime);
+    item.applyTime = new Date(item.applyTime);
   });
   return list;
 }

@@ -1,5 +1,4 @@
 import sFetch from '../sFetch';
-import baseUrl from '../baseUrl';
 
 export interface IDevice {
   deviceId: string;
@@ -10,7 +9,7 @@ export interface IDevice {
 
 async function getAllDevice(organId: string) {
   const data = await sFetch<IDevice[]>({
-    logTitle: '查看某个教室使用情况',
+    logTitle: '获取组织的所有设备',
     method: 'GET',
     url: `device/find/all?organId=${organId}`,
   });
