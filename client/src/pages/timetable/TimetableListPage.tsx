@@ -7,24 +7,17 @@ import './timetable.less';
 import FormList from './comps/FormList';
 import useFilter from './comps/useFilter';
 
-type RefreshFunc = null | (() => void);
-let globalRefresh: RefreshFunc = null;
-
 export const TimetableListPage: FC<{
   requestFunc: (currPage: number) => Promise<IForm[]>;
   onChange?: (arg: IForm[]) => void; // get pagination data can use this one
   onClick?: (id: IForm) => void;
-}> & { refresh: RefreshFunc } = ({
-  onChange,
-  requestFunc,
-  onClick = () => {},
-}) => {
+}> = ({ onChange, requestFunc, onClick = () => {} }) => {
   const { data, loading, refresh, run } = usePagination(requestFunc, {
     idPropertyName: 'applyId',
     initialPage: 1,
     beforeAllRequest: () => {},
   });
-  globalRefresh = refresh;
+
   useEffect(() => {
     onChange && onChange(data);
   }, [data.length]);
@@ -62,4 +55,3 @@ export const TimetableListPage: FC<{
     </>
   );
 };
-TimetableListPage.refresh = globalRefresh;

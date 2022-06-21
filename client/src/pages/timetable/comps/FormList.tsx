@@ -16,7 +16,7 @@ const FormList: FC<{ list: IForm[]; onClick?: (item: IForm) => void }> = (
               onClick && onClick(item);
             }}
             style={{ margin: 10 }}
-            key={item.id as number}
+            key={item.applyId}
           >
             <ShowCard item={item as IForm} />
           </div>

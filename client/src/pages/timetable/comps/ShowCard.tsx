@@ -1,5 +1,6 @@
 import { Tag } from '@antmjs/vantui';
 import { FC } from '@tarojs/taro';
+import { useMemo } from 'react';
 import { IForm } from '../../../service/user/getMyForm';
 import momentFormat from '../../../utils/momentFormat';
 
@@ -38,6 +39,14 @@ const ShowCard: FC<{ item: IForm }> = (props) => {
       kind,
     },
   } = props;
+  const Time = useMemo(() => {
+    return (
+      <>
+        <div>开始时间:{momentFormat(startTime, 'yyyy-MM-DD HH:mm')}</div>
+        <div>结束时间:{momentFormat(endTime, 'yyyy-MM-DD HH:mm')}</div>
+      </>
+    );
+  }, []);
   return (
     <>
       <div style={{ borderRadius: 20, padding: '20rpx', background: 'white' }}>
@@ -62,8 +71,7 @@ const ShowCard: FC<{ item: IForm }> = (props) => {
         <div>
           地点:{organizationName} - {rentName}
         </div>
-        <div>开始时间:{momentFormat(startTime, 'yyyy-MM-DD HH:mm')}</div>
-        <div>结束时间:{momentFormat(endTime, 'yyyy-MM-DD HH:mm')}</div>
+        {Time}
       </div>
     </>
   );

@@ -1,4 +1,5 @@
 import Taro from '@tarojs/taro';
+import moment from 'moment';
 import sFetch from '../sFetch';
 
 export interface IForm {
@@ -23,15 +24,9 @@ async function getMyForm(currPage: number) {
     url: `auth/find/applyinfo?username=${name}&current=${currPage}&size=15`,
   });
   list.forEach((item) => {
-    item.startTime = new Date(
-      (item.startTime as unknown as string).replace(/-/g, '/'),
-    );
-    item.endTime = new Date(
-      (item.endTime as unknown as string).replace(/-/g, '/'),
-    );
-    item.applyTime = new Date(
-      (item.applyTime as unknown as string).replace(/-/g, '/'),
-    );
+    item.startTime = moment(item.startTime).toDate();
+    item.endTime = moment(item.endTime).toDate();
+    item.applyTime = moment(item.applyTime).toDate();
   });
   return list;
 }

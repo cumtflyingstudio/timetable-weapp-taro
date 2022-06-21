@@ -63,7 +63,7 @@ export default () => {
         show={store.show}
         overlay
         closeOnClickOverlay
-        id="TimetableListPage"
+        id="TimetableListPage-admin"
         confirmButtonText="通过"
         cancelButtonText="拒绝"
         closeable
