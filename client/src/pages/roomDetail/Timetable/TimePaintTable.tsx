@@ -73,7 +73,7 @@ const TimePaintTable: FC<{ list: ITimeStage[] }> = (props) => {
         })}
       </div>
       <div style={{ width: '75rpx' }}></div>
-      <div style={{ flex: 1 }}>
+      <div style={{ flex: 1, position: 'relative' }}>
         {list.map(({ startTime, endTime }) => {
           const start = getTimeOneDay(startTime);
           const end = getTimeOneDay(endTime);
