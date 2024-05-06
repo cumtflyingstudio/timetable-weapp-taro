@@ -1,4 +1,5 @@
-export const baseUrl = 'https://www.surprisehui.top:8080/';
+export const baseUrl = 'http://localhost:6200/';
+// export const baseUrl = 'https://www.surprisehui.top:8080/';
 
 function trim(str: string) {
   str = str.replace(/^\/(.+?)\/$/, '$1').trim();

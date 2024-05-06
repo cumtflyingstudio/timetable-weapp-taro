@@ -1,4 +1,3 @@
-import { Empty } from '@antmjs/vantui';
 import Taro from '@tarojs/taro';
 import showToast from '../utils/showToast';
 import { baseUrl } from './baseUrl';
@@ -34,14 +33,14 @@ const redirectToLogin = () => {
   Taro.reLaunch({
     url: '/pages/login/login',
   });
-  throw new Error('请重新登录');
+  showToast('请重新登录');
 };
 
 //返回最里层的data
 async function sFetch<T>(
-  option: Taro.request.Option & { logTitle: string; showError?: boolean },
+  options: Taro.request.Option & { logTitle: string; showError?: boolean },
 ) {
-  const { logTitle, showError = true, ...taroOption } = option;
+  const { logTitle, showError = true, ...taroOption } = options;
   if (!taroOption.url.includes('http')) {
     taroOption.url = baseUrl + taroOption.url;
   }
@@ -54,11 +53,11 @@ async function sFetch<T>(
   // print error message on console
   function errorLog() {
     console.log(
-      `%c${logTitle} ${option.method} ${option.url.replace(baseUrl, '')}`,
+      `%c${logTitle} ${options.method} ${options.url.replace(baseUrl, '')}`,
       'color: white; font-size: 10px; background: red',
       errMsg,
       data,
-      option?.data || undefined,
+      options?.data || undefined,
     );
   }
   // print request fail message here
@@ -90,10 +89,10 @@ async function sFetch<T>(
   //print success message here
   if (code === 200) {
     console.log(
-      `%c${logTitle} ${option.method}`,
+      `%c${logTitle} ${options.method}`,
       'color: white; font-size: 10px; background: green',
       data,
-      (option.method === 'POST' && option.data) || void 0,
+      (options.method === 'POST' && options.data) || void 0,
     );
     return innerData as T;
   } else {

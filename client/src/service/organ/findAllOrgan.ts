@@ -7,7 +7,7 @@ const defaultApplicationAvatar = "http://p.qlogo.cn/gh/786079617/786079617/0";
 async function findAllOrgan() {
   const data = await sFetch<Organ[]>({
     logTitle: "查询所有组织",
-    url: URL("organ", "find/all"),
+    url: URL("api", "organ/find/all"),
     method: "GET",
   });
   data.forEach((i) => {
