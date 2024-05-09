@@ -9,10 +9,32 @@ import { useForm } from './useForm';
 import showToast from '../../utils/showToast';
 import './timeForm.less';
 import askDevice from '../../service/device/askDevice';
+import moment from 'moment';
 
 const formatDate = (d: number) => {
   return momentFormat(new Date(d));
 };
+
+/**
+ * @param timeString e.g: 15:30
+ */
+function toTimeStamp(timeString: string): number {
+  const [hours, minutes] = timeString.split(':');
+  const timestamp = moment().set({
+    hour: parseInt(hours, 10),
+    minute: parseInt(minutes, 10),
+    second: 0, // 可以设置秒为0，如果需要的话
+    millisecond: 0, // 同样可以设置毫秒为0
+  });
+
+  // 获取时间戳，`unix()`返回的是秒级别的时间戳
+  // const unixTimestampInSeconds = timestamp.unix();
+
+  // 如果你需要毫秒级别的时间戳，使用`valueOf()`
+  const unixTimestampInMilliseconds = timestamp.valueOf();
+
+  return unixTimestampInMilliseconds;
+}
 function Demo() {
   //来自上一个页面的参数
   const [routerInfo] = useRouter();
@@ -92,10 +114,10 @@ function Demo() {
       <Button
         onClick={() => {
           (isDevice ? askDevice : askRoom)({
-            organizationId,
-            usingId: isDevice ? deviceId : roomId,
-            startTime: formatDate(date) + ' ' + store.startTime + ':00',
-            endTime: formatDate(date) + ' ' + store.endTime + ':00',
+            organizationId: Number(organizationId),
+            resourceId: Number(isDevice ? deviceId : roomId),
+            startTime: toTimeStamp(store.startTime),
+            endTime: toTimeStamp(store.endTime),
             num: store.num,
             applyInfo: store.applyInfo,
           })

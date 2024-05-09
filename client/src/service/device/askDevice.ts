@@ -1,17 +1,15 @@
-import Taro from '@tarojs/taro';
 import sFetch from '../sFetch';
 
 interface IDeviceForm {
-  organizationId: string;
-  usingId: string;
+  organizationId: number;
+  resourceId: number;
   num: number;
   applyInfo: string;
-  startTime: string; //"2022-04-05 00:10:32"
-  endTime: string;
+  startTime: number; //"2022-04-05 00:10:32"
+  endTime: number;
 }
 
 async function askDevice(form: IDeviceForm) {
-  console.log(form);
   //case1 不能为空
   for (let key in form) {
     if (form[key] === '' || form[key] === null || form[key] === void 0) {

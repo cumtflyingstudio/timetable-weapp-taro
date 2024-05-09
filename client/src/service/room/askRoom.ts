@@ -2,12 +2,12 @@ import Taro from '@tarojs/taro';
 import sFetch from '../sFetch';
 
 interface FormAskRoom {
-  organizationId: string;
-  usingId: string;
+  organizationId: number;
+  resourceId: number;
   num: number;
   applyInfo: string;
-  startTime: string; //"2022-04-05 00:10:32"
-  endTime: string;
+  startTime: number; //"2022-04-05 00:10:32"
+  endTime: number;
 }
 
 async function askRoom(form: FormAskRoom) {
@@ -26,7 +26,7 @@ async function askRoom(form: FormAskRoom) {
     logTitle: '预约一个教室/房间',
     method: 'POST',
     data: form,
-    url: 'room/use/apply',
+    url: 'api/room/use/apply',
   });
 
   return innerData; //成功的提示语

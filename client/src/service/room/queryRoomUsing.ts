@@ -12,19 +12,15 @@ interface TimeStage {
   createTime: null;
 }
 
-async function queryRoomUsing(roomId: string) {
+async function queryRoomUsing(roomId: string): Promise<TimeStage[]> {
   const data = await sFetch<TimeStage[]>({
     logTitle: '查看某个教室使用情况',
     method: 'GET',
-    url: baseUrl('room', 'find/using') + `?roomId=${roomId}`,
+    url: `api/room/find/using?roomId=${roomId}`,
   });
   data.forEach((item) => {
-    item.startTime = new Date(
-      (item.startTime as unknown as string).replace(/-/g, '/'),
-    );
-    item.endTime = new Date(
-      (item.endTime as unknown as string).replace(/-/g, '/'),
-    );
+    item.startTime = new Date(item.startTime);
+    item.endTime = new Date(item.endTime);
   });
   return data;
 }
