@@ -39,7 +39,7 @@ const AreaCard: FC<{ area: Room }> = (props) => {
             borderRadius: '20px',
           }}
         >
-          {area.roomName} - {area.leader}
+          {area.roomName}
         </div>
       </div>
     </div>

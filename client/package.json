@@ -21,6 +21,7 @@
     "@antmjs/vantui": "^1.4.11",
     "@babel/runtime": "^7.7.7",
     "@flying-studio/use-pagination": "latest",
+    "@visactor/taro-vchart": "1.15.4",
     "@tarojs/cli": "3.4.1",
     "@tarojs/components": "3.4.1",
     "@tarojs/plugin-framework-react": "3.4.1",

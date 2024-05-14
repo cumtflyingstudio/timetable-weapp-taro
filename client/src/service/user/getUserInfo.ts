@@ -16,7 +16,7 @@ async function getUserInfo() {
   const user = await sFetch<IUserInfo>({
     logTitle: '请求用户信息',
     method: 'GET',
-    url: `auth/find/userinfo?username=${name}`,
+    url: `api/auth/find/userinfo?username=${name}`,
   });
   return user;
 }

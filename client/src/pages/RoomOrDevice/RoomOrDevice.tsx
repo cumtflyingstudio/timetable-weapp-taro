@@ -61,11 +61,11 @@ const RoomOrDevice = () => {
         url={`/pages/roomDetail/roomDetail?name=${name}-场地&id=${id}`}
         imageUrl={roomImg}
       />
-      <NavigatorCard
+      {/* <NavigatorCard
         title="物品设备"
         url={`/pages/deviceDetail/deviceDetail?name=${name}-设备&id=${id}`}
         imageUrl={deviceImg}
-      />
+      /> */}
     </div>
   );
 };

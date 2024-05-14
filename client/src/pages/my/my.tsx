@@ -39,7 +39,7 @@ export default function My() {
             </div>
             <div style={{ width: '50vw' }}>
               {adminList?.map((i) => {
-                return <Tag style={{ marginRight: '10px' }}>{i.roleMark}</Tag>;
+                return <Tag style={{ marginRight: '10px' }}>{i}负责人</Tag>;
               })}
             </div>
           </VStack>
