@@ -21,7 +21,7 @@ async function getMyForm(currPage: number) {
   const list = await sFetch<IForm[]>({
     logTitle: `查看用户当前预约过的表单 页数:${currPage}`,
     method: 'GET',
-    url: `auth/find/applyinfo?username=${name}&current=${currPage}&size=15`,
+    url: `api/auth/find/applyinfo?username=${name ?? ''}&current=${currPage ?? 1}&size=15`,
   });
   list.forEach((item) => {
     item.startTime = moment(item.startTime).toDate();
