@@ -3,6 +3,7 @@ import { useState, useCallback, useEffect } from 'react';
 import { Button, CellGroup, Field, Image } from '@antmjs/vantui';
 import { fetchLogin, addTokenInterceptor } from '../../service/user/login';
 import { useAvatar } from '../../components/Avatar/useAvatar';
+import loginImg from '../../assets/img/login/login.png';
 import './login.less';
 
 const useLogin = () => {
@@ -62,8 +63,8 @@ const Router = () => {
 
 function Login() {
   const { login: loginAndNavigate } = useLogin();
-  const [username, setUsername] = useState('' || '08192862');
-  const [password, setPassword] = useState('123');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
   const onChangeUsername = useCallback(
     (event) => {
@@ -93,7 +94,18 @@ function Login() {
           flexDirection: 'column',
         }}
       >
-        <div style={{ fontSize: 20, fontWeight: 'bold' }}>翔预约</div>
+        <div style={{ width: '100vw', height: '200px' }}>
+          <Image
+            src={loginImg}
+            style={{
+              width: '100%',
+              height: '100%',
+              borderRadius: '60rpx',
+              background: 'pink',
+            }}
+          />
+        </div>
+        {/* <div style={{ fontSize: 20, fontWeight: 'bold' }}>翔预约</div> */}
         <CellGroup style={{ width: '100%' }}>
           <Field
             value={username}
@@ -114,6 +126,7 @@ function Login() {
         <Button
           type="primary"
           size="large"
+          color="blue"
           round
           style={{
             marginTop: '100px',
@@ -121,6 +134,18 @@ function Login() {
           onClick={() => loginAndNavigate(username, password)}
         >
           登录
+        </Button>
+
+        <Button
+          type="primary"
+          size="large"
+          round
+          style={{
+            marginTop: '10px',
+          }}
+          onClick={() => loginAndNavigate(username, password)}
+        >
+          微信登录
         </Button>
       </div>
       {/* <Image src={loginPng} style={{ height: '250px', width: '100vw' }} /> */}

@@ -14,6 +14,7 @@ const config = {
     'pages/adminGetRequest/adminGetRequest',
     'pages/RoomOrDevice/RoomOrDevice',
     'pages/deviceDetail/deviceDetail',
+    'pages/statistics/statistics',
   ],
   window: {
     backgroundTextStyle: 'light',

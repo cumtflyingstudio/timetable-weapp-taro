@@ -1,4 +1,7 @@
-export const baseUrl = 'http://localhost:6200/';
+export const baseUrl =
+  process.env.NODE_ENV === 'production'
+    ? 'https://reserve.atcumt.com/'
+    : 'http://localhost:6200/';
 // export const baseUrl = 'https://www.surprisehui.top:8080/';
 
 function trim(str: string) {

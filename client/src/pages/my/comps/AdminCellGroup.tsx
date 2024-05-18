@@ -26,6 +26,16 @@ function AdminCellGroup() {
               }}
             />
           </CollapseItem> */}
+
+          <Cell
+            title="统计"
+            isLink
+            onClick={() => {
+              navigateTo({
+                url: '/pages/statistics/statistics',
+              });
+            }}
+          />
         </Collapse>
       </CellGroup>
     </>
