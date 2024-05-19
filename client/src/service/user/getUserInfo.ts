@@ -4,10 +4,11 @@ import sFetch from '../sFetch';
 export interface IUserInfo {
   userId: string;
   username: string;
-  password: string;
+  // password: string;
   nickname: string;
-  college: string;
-  deleted: number;
+  // college: string;
+  // deleted: number;
+  phone: string;
   createTime: Date;
 }
 

@@ -15,6 +15,7 @@ const config = {
     'pages/RoomOrDevice/RoomOrDevice',
     'pages/deviceDetail/deviceDetail',
     'pages/statistics/statistics',
+    'pages/editInput/editInput',
   ],
   window: {
     backgroundTextStyle: 'light',

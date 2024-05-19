@@ -1,7 +1,5 @@
-import { Dialog } from '@antmjs/vantui';
 import { FC } from '@tarojs/taro';
 import moment from 'moment';
-import getUserInfo from '../../../service/user/getUserInfo';
 import momentFormat from '../../../utils/momentFormat';
 
 interface ITimeStage {

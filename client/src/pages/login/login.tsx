@@ -1,18 +1,22 @@
 import Taro, { showToast } from '@tarojs/taro';
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback } from 'react';
 import { Button, CellGroup, Field, Image } from '@antmjs/vantui';
-import { fetchLogin, addTokenInterceptor } from '../../service/user/login';
+import {
+  fetchLogin,
+  addTokenInterceptor,
+  fetchWxLogin,
+} from '../../service/user/login';
+import { showToast as showErrToast } from '../../utils/index';
 import { useAvatar } from '../../components/Avatar/useAvatar';
 import loginImg from '../../assets/img/login/login.png';
+import { Icon } from '@antmjs/vantui';
 import './login.less';
 
 const useLogin = () => {
   const { store } = useAvatar();
-  const login = useCallback(async (username, password) => {
-    const { token } = await fetchLogin(username, password);
-    addTokenInterceptor(token);
-    // 本地存储
-    Taro.getUserProfile({
+
+  const getUserAvatar = useCallback(() => {
+    return Taro.getUserProfile({
       desc: '获取用户头像',
       success(e) {
         const avatarUrl = e.userInfo.avatarUrl;
@@ -20,6 +24,9 @@ const useLogin = () => {
         Taro.setStorageSync('avatarUrl', avatarUrl);
       },
     });
+  }, []);
+
+  const redirectToIndex = useCallback(() => {
     setTimeout(async () => {
       await Taro.switchTab({
         url: '/pages/index/index',
@@ -32,7 +39,24 @@ const useLogin = () => {
       });
     }, 1000);
   }, []);
-  return { login };
+
+  const login = useCallback(async (username, password) => {
+    await fetchLogin(username, password);
+    getUserAvatar();
+    redirectToIndex();
+  }, []);
+
+  const wxLogin = useCallback(async () => {
+    const { code, errMsg } = await Taro.login();
+    if (errMsg !== 'login:ok') {
+      showErrToast(errMsg);
+    }
+    await fetchWxLogin(code);
+    getUserAvatar();
+    redirectToIndex();
+  }, []);
+
+  return { login, wxLogin };
 };
 
 const Router = () => {
@@ -62,7 +86,7 @@ const Router = () => {
 };
 
 function Login() {
-  const { login: loginAndNavigate } = useLogin();
+  const { login: loginAndNavigate, wxLogin: wxLoginAndNavigate } = useLogin();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -105,7 +129,6 @@ function Login() {
             }}
           />
         </div>
-        {/* <div style={{ fontSize: 20, fontWeight: 'bold' }}>翔预约</div> */}
         <CellGroup style={{ width: '100%' }}>
           <Field
             value={username}
@@ -143,9 +166,10 @@ function Login() {
           style={{
             marginTop: '10px',
           }}
-          onClick={() => loginAndNavigate(username, password)}
+          onClick={() => wxLoginAndNavigate()}
         >
-          微信登录
+          <Icon name="wechat" color="white" />
+          微信一键登录
         </Button>
       </div>
       {/* <Image src={loginPng} style={{ height: '250px', width: '100vw' }} /> */}

@@ -1,6 +1,6 @@
 import Taro from '@tarojs/taro';
 import showToast from '../utils/showToast';
-import { baseUrl } from './baseUrl';
+import { baseUrl, createUrl } from './baseUrl';
 
 const interceptor: Taro.interceptor = function (chain) {
   const requestParams = chain.requestParams;
@@ -42,7 +42,7 @@ async function sFetch<T>(
 ) {
   const { logTitle, showError = true, ...taroOption } = options;
   if (!taroOption.url.includes('http')) {
-    taroOption.url = baseUrl + taroOption.url;
+    taroOption.url = createUrl(taroOption.url);
   }
 
   const {

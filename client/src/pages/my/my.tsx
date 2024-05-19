@@ -1,5 +1,4 @@
 import { useRequest } from 'taro-hooks';
-import { OpenData } from '@tarojs/components';
 import { Cell, CellGroup, Tag, Button } from '@antmjs/vantui';
 import Taro, { Config } from '@tarojs/taro';
 import './my.less';
@@ -8,11 +7,21 @@ import { HStack, VStack } from '../../components/Stack';
 import getUserInfo from '../../service/user/getUserInfo';
 import AdminCellGroup from './comps/AdminCellGroup';
 import testAdmin from '../../service/admin/testAdmin';
+import { showToast } from '../../utils';
+import { useEffect } from 'react';
+import { usePiniaduxUserInfo } from '../../hooks/usePiniaduxUserInfo';
 
 export default function My() {
   const { data, loading } = useRequest(getUserInfo);
   const { data: adminList } = useRequest(testAdmin);
   const isAdmin = Array.isArray(adminList);
+  const { store } = usePiniaduxUserInfo();
+
+  useEffect(() => {
+    store.nickname = data?.nickname ?? '';
+    store.phone = data?.phone ?? '';
+    store.username = data?.username ?? '';
+  }, [data]);
 
   return (
     <>
@@ -35,23 +44,40 @@ export default function My() {
             }}
           >
             <div style={{ fontSize: 20, fontWeight: 500 }}>
-              <div>您好，{data?.nickname ?? 'user'}</div>
+              <div>您好，{store?.nickname ?? '用户'}</div>
             </div>
             <div style={{ width: '50vw' }}>
               {adminList?.map((i) => {
-                return <Tag style={{ marginRight: '10px' }}>{i}负责人</Tag>;
+                return (
+                  <Tag key={i} style={{ marginRight: '10px' }}>
+                    {i}负责人
+                  </Tag>
+                );
               })}
             </div>
           </VStack>
         </HStack>
       </div>
       <CellGroup title="个人信息" inset>
-        <Cell title="昵称" size="large" value={data?.nickname} />
         <Cell
-          title="学号"
+          title="昵称"
+          clickable
+          size="large"
+          value={store?.nickname}
+          onClick={() => {
+            Taro.navigateTo({
+              url: `/pages/editInput/editInput?fieldName=nickname`,
+            });
+          }}
+        />
+        <Cell
+          title="用户名"
+          clickable
           size="large"
           value={data?.username}
-          // label="描述信息"
+          onClick={() => {
+            showToast('用户名不可修改');
+          }}
         />
       </CellGroup>
       {isAdmin ? <AdminCellGroup /> : null}

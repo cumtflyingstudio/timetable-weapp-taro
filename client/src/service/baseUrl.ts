@@ -18,4 +18,14 @@ function getUrl(baseUrl: string, module: string, urlDetail: string) {
 const UrlCreate = (module: string, urlDetail: string) =>
   getUrl(baseUrl, module, urlDetail);
 
+function createUrl(url: string) {
+  let requestPath = url;
+  if (requestPath.startsWith('/')) {
+    requestPath = requestPath.slice(1);
+  }
+  return baseUrl + requestPath;
+}
+
+export { createUrl };
+
 export default UrlCreate;

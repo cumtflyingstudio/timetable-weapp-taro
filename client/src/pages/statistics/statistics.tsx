@@ -3,7 +3,7 @@ import Taro, { Config } from '@tarojs/taro';
 import { View, Text } from '@tarojs/components';
 import './statistics.less';
 
-import VChart from '@visactor/taro-vchart';
+// import VChart from '@visactor/taro-vchart';
 
 export function Pie() {
   // 1. 准备图表配置项与数据
@@ -53,7 +53,7 @@ export function Pie() {
         width: '90vw'
       }}
     >
-      <VChart
+      {/* <VChart
         type="weapp"
         spec={spec}
         canvasId="pie"
@@ -67,7 +67,7 @@ export function Pie() {
         onChartUpdate={() => {
           console.log('update pie');
         }}
-      />
+      /> */}
     </View>
   );
 }
