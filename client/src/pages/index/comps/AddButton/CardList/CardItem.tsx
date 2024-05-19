@@ -5,6 +5,7 @@ import ShadowCard from '../../../../../components/ShadowCard';
 import { HStack, VStack } from '../../../../../components/Stack';
 import { hideContext } from '../Context/hideContext';
 
+const defaultApplicationAvatar = 'http://p.qlogo.cn/gh/786079617/786079617/0';
 interface ICardItemProps {
   item: Application;
 }
@@ -35,12 +36,11 @@ const CardItem: FC<ICardItemProps> = (props) => {
               height: '150rpx',
               borderRadius: 10,
             }}
-            src={item.avatar}
+            src={item.avatar ?? defaultApplicationAvatar}
           />
 
           <VStack style={{ width: 'auto', flex: 1 }}>
             <div style={{ fontWeight: 'bold', fontSize: 16 }}>{item.name}</div>
-            {/* <div>{item._id}</div> */}
           </VStack>
           <context.Consumer>
             {({ dispatch }) => (

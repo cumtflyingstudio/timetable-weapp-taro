@@ -1,6 +1,6 @@
 interface IApplication {
   name: string;
-  avatar: string;
+  avatar?: string;
   _id: string;
 }
 type Application = IApplication;

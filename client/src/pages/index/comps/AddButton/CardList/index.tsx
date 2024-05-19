@@ -1,4 +1,4 @@
-import { Empty, Skeleton } from '@antmjs/vantui';
+import { Divider, Empty, Skeleton } from '@antmjs/vantui';
 import { FC } from '@tarojs/taro';
 import { useRequest } from 'taro-hooks';
 import findAllOrgan from '../../../../../service/organ/findAllOrgan';
@@ -47,6 +47,7 @@ const CardList: FC<ICardListProps> = (props) => {
       {filteredData?.map((item) => {
         return <CardItem item={item} key={item._id} />;
       })}
+       <Divider contentPosition="center">添加到屏幕后长按可删除</Divider>
     </>
   );
 };

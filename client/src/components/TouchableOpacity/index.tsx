@@ -5,6 +5,7 @@ interface ITouchableOpacity {
   toOpacity?: number;
   style?: React.CSSProperties;
   onClick?: () => void;
+  onLongPress?: () => void;
 }
 
 const TouchableOpacity: FC<ITouchableOpacity> = (props) => {
