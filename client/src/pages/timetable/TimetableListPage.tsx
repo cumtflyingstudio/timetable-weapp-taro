@@ -1,18 +1,18 @@
 import { Empty } from '@antmjs/vantui';
-import { usePagination } from '@flying-studio/use-pagination';
-import Taro, { usePullDownRefresh, useReachBottom, FC } from '@tarojs/taro';
-import { useCallback, useEffect } from 'react';
-import { IForm } from '../../service/user/getMyForm';
-import './timetable.less';
-import FormList from './comps/FormList';
-import useFilter from './comps/useFilter';
+import Taro, { FC, usePullDownRefresh } from '@tarojs/taro';
+import { useEffect } from 'react';
 import { useRequest } from 'taro-hooks';
+import { IForm } from '../../service/user/getMyForm';
+import FormList from './comps/FormList';
+import useFilter, { DropDownMenu } from './comps/useFilter';
+import './timetable.less';
 
 export const TimetableListPage: FC<{
   requestFunc: (currPage: number) => Promise<IForm[]>;
   onChange?: (arg: IForm[]) => void; // get pagination data can use this one
   onClick?: (id: IForm) => void;
 }> = ({ onChange, requestFunc, onClick = () => {} }) => {
+  // TODO: 分页
   // const { data, loading, refresh, run } = usePagination(requestFunc, {
   //   idPropertyName: 'applyId',
   //   initialPage: 1,
@@ -26,7 +26,7 @@ export const TimetableListPage: FC<{
     onChange && onChange(data);
   }, [data.length]);
 
-  const { DropDownMenu, firstValue, secondValue } = useFilter();
+  const { state, setState, firstValue, secondValue } = useFilter();
   usePullDownRefresh(() => {
     refresh();
     setTimeout(() => {
@@ -54,7 +54,7 @@ export const TimetableListPage: FC<{
     });
   return (
     <>
-      <DropDownMenu />
+      <DropDownMenu state={state} setState={setState} />
       <FormList list={list} onClick={onClick} />
     </>
   );

@@ -2,6 +2,35 @@ import { DropdownItem, DropdownMenu, Sticky } from '@antmjs/vantui';
 import { useCallback, useMemo, useState } from 'react';
 import { getStatus } from './ShowCard';
 
+const DropDownMenu = ({
+  state,
+  setState,
+}: {
+  state: { value1: any; option1: any; value2: any; option2: any };
+  setState: any;
+}) => {
+  return (
+    <Sticky>
+      <DropdownMenu>
+        <DropdownItem
+          value={state.value1}
+          options={state.option1}
+          onChange={(value: string) => {
+            setState({ ...state, value1: value });
+          }}
+        />
+        <DropdownItem
+          value={state.value2}
+          options={state.option2}
+          onChange={(value: number) => {
+            setState({ ...state, value2: value });
+          }}
+        />
+      </DropdownMenu>
+    </Sticky>
+  );
+};
+
 const useFilter = () => {
   const [state, setState] = useState({
     option1: [
@@ -50,29 +79,13 @@ const useFilter = () => {
     value2: -1,
     value3: 0,
   });
-  const DropDownMenu = useCallback(() => {
-    return (
-      <Sticky>
-        <DropdownMenu>
-          <DropdownItem
-            value={state.value1}
-            options={state.option1}
-            onChange={(value: string) => {
-              setState({ ...state, value1: value });
-            }}
-          />
-          <DropdownItem
-            value={state.value2}
-            options={state.option2}
-            onChange={(value: number) => {
-              setState({ ...state, value2: value });
-            }}
-          />
-        </DropdownMenu>
-      </Sticky>
-    );
-  }, [state]);
-  return { DropDownMenu, firstValue: state.value1, secondValue: state.value2 };
+  return {
+    state,
+    setState,
+    firstValue: state.value1,
+    secondValue: state.value2,
+  };
 };
 
 export default useFilter;
+export { useFilter, DropDownMenu };

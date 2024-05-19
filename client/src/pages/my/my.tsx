@@ -12,15 +12,17 @@ import { useEffect } from 'react';
 import { usePiniaduxUserInfo } from '../../hooks/usePiniaduxUserInfo';
 
 export default function My() {
-  const { data, loading } = useRequest(getUserInfo);
+  const { data, loading, error } = useRequest(getUserInfo);
   const { data: adminList } = useRequest(testAdmin);
-  const isAdmin = Array.isArray(adminList);
+  const isAdmin = Array.isArray(adminList) && adminList.length > 0;
   const { store } = usePiniaduxUserInfo();
 
   useEffect(() => {
-    store.nickname = data?.nickname ?? '';
-    store.phone = data?.phone ?? '';
-    store.username = data?.username ?? '';
+    if (!(loading || error) && data) {
+      store.nickname = data?.nickname ?? '';
+      store.phone = data?.phone ?? '';
+      store.username = data?.username ?? '';
+    }
   }, [data]);
 
   return (

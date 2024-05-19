@@ -1,7 +1,7 @@
-import { Button, Icon } from '@antmjs/vantui';
+import { Button, Empty, Icon, Skeleton } from '@antmjs/vantui';
 import { navigateTo } from '@tarojs/taro';
 import { useEffect } from 'react';
-import { useNavigationBar, useRouter } from 'taro-hooks';
+import { useNavigationBar, useRequest, useRouter } from 'taro-hooks';
 import './roomDetail.less';
 import queryOrganRoomById from '../../service/organ/queryOrganRoomById';
 import { useCurrRoomStore } from './useCurrRoomStore';
@@ -16,8 +16,8 @@ export default () => {
   const { name, id } = routerInfo.params;
   useNavigationBar({ title: name });
   // request:请求area列表
-  useEffect(() => {
-    queryOrganRoomById(id as string)
+  const { loading } = useRequest(async () => {
+    return queryOrganRoomById(id as string)
       .then((res) => {
         store.rooms = Object.fromEntries(
           res.map((item) => [item.roomId, item]),
@@ -29,7 +29,8 @@ export default () => {
         store.rooms = {};
         store.currentId = '';
       });
-  }, []);
+  });
+
   //易班-实验室1
   const currArea = store.rooms[store.currentId];
   const hasNoRoom =
@@ -38,17 +39,21 @@ export default () => {
     currArea?.roomName === undefined ||
     currArea?.roomName === '' ||
     currArea?.roomId === '';
+
+  if (loading) {
+    return <Skeleton title={true} row={3} />;
+  }
+
   if (hasNoRoom) {
     return (
-      <div
+      <Empty
         style={{
           width: '100vw',
           display: 'flex',
           justifyContent: 'center',
         }}
-      >
-        该组织暂无可预约场地
-      </div>
+        description="该组织暂无可预约场地"
+      ></Empty>
     );
   }
   return (

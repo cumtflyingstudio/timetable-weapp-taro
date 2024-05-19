@@ -19,15 +19,14 @@ export default () => {
   });
   if (data?.length === 0) {
     return (
-      <div
+      <Empty
         style={{
           width: '100vw',
           display: 'flex',
           justifyContent: 'center',
         }}
-      >
-        该组织暂无可租借设备
-      </div>
+        description="该组织暂无可租借设备"
+      ></Empty>
     );
   }
   const filterList = data?.filter((i) => {

@@ -1,5 +1,5 @@
 import { FC } from '@tarojs/taro';
-import { Divider } from '@antmjs/vantui';
+import { Divider, Empty } from '@antmjs/vantui';
 import type { IForm } from '../../../service/user/getMyForm';
 import ShowCard from './ShowCard';
 
@@ -9,6 +9,7 @@ const FormList: FC<{ list: IForm[]; onClick?: (item: IForm) => void }> = (
   const { list, onClick } = props;
   return (
     <div style={{ minHeight: '100vh', marginBottom: '50px' }}>
+      {list.length === 0 ? <Empty description="没有更多" /> : <></>}
       {list.map((item) => {
         return (
           <div
