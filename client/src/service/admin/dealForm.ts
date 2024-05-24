@@ -6,10 +6,10 @@ interface IDealFormParams {
   applyId: string;
   status: number;
   dealInfo: string;
-  kind: '设备' | '教室';
+  kind: '设备' | '场地';
 }
 async function dealForm(params: IDealFormParams) {
-  const { kind = '教室', ...otherParams } = params;
+  const { kind = '场地', ...otherParams } = params;
   const message = await sFetch<string>({
     logTitle: `管理员处理预约表单`,
     method: 'POST',

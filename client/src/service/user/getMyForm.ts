@@ -4,7 +4,7 @@ import sFetch from '../sFetch';
 
 export interface IForm {
   organizationName: string;
-  kind: '教室' | '设备';
+  kind: '场地' | '设备';
   rentName: string;
   num: number;
   applyInfo: string;

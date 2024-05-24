@@ -18,8 +18,8 @@ export function getStatus(status: number) {
 }
 export function getKind(kind: string) {
   switch (kind) {
-    case '教室':
-      return { name: '教室', color: 'skyblue' };
+    case '场地':
+      return { name: '场地', color: 'skyblue' };
     case '设备':
       return { name: '设备', color: 'blue' };
     default:
@@ -51,13 +51,14 @@ const ShowCard: FC<{ item: IForm }> = (props) => {
     <>
       <div style={{ borderRadius: 20, padding: '20rpx', background: 'white' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <div style={{ fontWeight: 'bold' }}>{applyInfo}</div>
+          <div style={{ fontWeight: 'bold', flex: 1 }}>{applyInfo}</div>
           <div
             style={{
               display: 'flex',
-              justifyContent: 'center',
+              justifyContent: 'flex-end',
               alignItems: 'center',
               gap: '10px',
+              flex: 1,
             }}
           >
             <Tag round size="large" color={getKind(kind).color}>
@@ -68,9 +69,7 @@ const ShowCard: FC<{ item: IForm }> = (props) => {
             </Tag>
           </div>
         </div>
-        <div>
-          地点:{organizationName} - {rentName}
-        </div>
+        <div>地点:{organizationName}</div>
         {Time}
       </div>
     </>

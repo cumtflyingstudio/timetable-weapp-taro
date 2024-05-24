@@ -39,8 +39,8 @@ const useFilter = () => {
         value: '全部',
       },
       {
-        text: '教室',
-        value: '教室',
+        text: '场地',
+        value: '场地',
       },
       {
         text: '设备',

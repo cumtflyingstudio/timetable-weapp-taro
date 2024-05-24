@@ -23,7 +23,7 @@ async function askRoom(form: FormAskRoom) {
   }
 
   const innerData = await sFetch<string>({
-    logTitle: '预约一个教室/房间',
+    logTitle: '预约一个场地/设备',
     method: 'POST',
     data: form,
     url: 'api/room/use/apply',

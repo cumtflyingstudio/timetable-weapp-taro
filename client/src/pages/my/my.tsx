@@ -19,9 +19,9 @@ export default function My() {
 
   useEffect(() => {
     if (!(loading || error) && data) {
+      store.username = data?.username ?? '';
       store.nickname = data?.nickname ?? '';
       store.phone = data?.phone ?? '';
-      store.username = data?.username ?? '';
     }
   }, [data]);
 
@@ -65,10 +65,21 @@ export default function My() {
           title="昵称"
           clickable
           size="large"
-          value={store?.nickname}
+          value={store?.nickname ?? ''}
           onClick={() => {
             Taro.navigateTo({
               url: `/pages/editInput/editInput?fieldName=nickname`,
+            });
+          }}
+        />
+        <Cell
+          title="联系方式"
+          clickable
+          size="large"
+          value={store?.phone ?? ''}
+          onClick={() => {
+            Taro.navigateTo({
+              url: `/pages/editInput/editInput?fieldName=phone`,
             });
           }}
         />
@@ -89,6 +100,7 @@ export default function My() {
           plain
           size="large"
           round
+          hairline
           onClick={() => {
             Taro.showModal({
               title: '退出',

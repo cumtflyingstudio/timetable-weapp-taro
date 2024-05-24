@@ -1,5 +1,4 @@
 import { FC, useCallback, useRef, useState } from 'react';
-import { useLatest } from '../../hooks/useLatest';
 
 interface IAnimateView {
   activeStyle?: React.CSSProperties;

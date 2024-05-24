@@ -1,6 +1,10 @@
 import Taro from '@tarojs/taro';
 
-function addTokenInterceptor(token) {
+function addTokenInterceptor(token: string) {
+  // @ts-ignore
+  if (typeof token !== 'string' || token === '') {
+    return;
+  }
   const interceptor: Taro.interceptor = function (chain) {
     const requestParams = chain.requestParams;
     requestParams.header = {
