@@ -1,6 +1,6 @@
 import { DropdownItem, DropdownMenu, Sticky } from '@antmjs/vantui';
 import { useCallback, useMemo, useState } from 'react';
-import { getStatus } from './ShowCard';
+import { getStatus } from '../../../service/user/getMyForm';
 
 const DropDownMenu = ({
   state,

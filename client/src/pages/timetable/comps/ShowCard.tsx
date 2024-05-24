@@ -1,31 +1,8 @@
 import { Tag } from '@antmjs/vantui';
 import { FC } from '@tarojs/taro';
 import { useMemo } from 'react';
-import { IForm } from '../../../service/user/getMyForm';
+import { getKind, getStatus, IForm } from '../../../service/user/getMyForm';
 import momentFormat from '../../../utils/momentFormat';
-
-export function getStatus(status: number) {
-  switch (status) {
-    case 0:
-      return { name: '已拒绝', color: 'red' };
-    case 1:
-      return { name: '已通过', color: 'green' };
-    case 2:
-      return { name: '待审核', color: 'orange' };
-    default:
-      return { name: '被闲置', color: 'gray' };
-  }
-}
-export function getKind(kind: string) {
-  switch (kind) {
-    case '场地':
-      return { name: '场地', color: 'skyblue' };
-    case '设备':
-      return { name: '设备', color: 'blue' };
-    default:
-      return { name: '被闲置', color: 'gray' };
-  }
-}
 
 const ShowCard: FC<{ item: IForm }> = (props) => {
   const {
@@ -34,7 +11,7 @@ const ShowCard: FC<{ item: IForm }> = (props) => {
       organizationName,
       endTime,
       startTime,
-      rentName,
+      resourceName,
       applyInfo,
       kind,
     },
@@ -69,7 +46,9 @@ const ShowCard: FC<{ item: IForm }> = (props) => {
             </Tag>
           </div>
         </div>
-        <div>地点:{organizationName}</div>
+        <div>
+          地点:{organizationName}-{resourceName}
+        </div>
         {Time}
       </div>
     </>
