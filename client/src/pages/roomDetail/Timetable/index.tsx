@@ -44,12 +44,14 @@ const Timetable: FC<{ area: Room }> = (props) => {
   const handleTimeStageClick = useCallback((item: TimeStage) => {
     getReservationDetail(item.reservationId).then(({ phone, nickname }) => {
       Dialog.alert({
-        id: 'reservationDetail',
         title: item.note,
-        message: `预约人昵称: ${nickname}\n预约人联系方式:${phone ?? '无'}\n开始时间:${momentFormat(
+        message: `预约人昵称: ${nickname}\n预约人联系方式:${
+          phone ?? '无'
+        }\n开始时间:${momentFormat(
           item.startTime,
           'HH:mm',
         )}\n结束时间:${momentFormat(item.endTime, 'HH:mm')}`,
+        selector: '#reservationDetail',
       });
     });
   }, []);
