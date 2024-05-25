@@ -8,7 +8,7 @@ interface ITimeStage {
 }
 const timeAxleList = (function () {
   const res: number[] = [];
-  for (let i = 0; i <= 23; i++) {
+  for (let i = 0; i <= 24; i++) {
     res.push(i * 60 * 60 * 1000);
   }
   return res;
@@ -22,14 +22,14 @@ const getTimeOneDay = (time: Date) => {
 };
 const TimePaintTable: FC<{ list: ITimeStage[] }> = (props) => {
   const { list } = props;
-  const total = ONEDAY;
   return (
     <div
       style={{
         width: '100%',
+        height: '110vh',
         position: 'relative',
         display: 'flex',
-        marginLeft: '5rpx'
+        marginLeft: '5rpx',
       }}
     >
       <div
@@ -42,11 +42,11 @@ const TimePaintTable: FC<{ list: ITimeStage[] }> = (props) => {
         }}
       >
         {timeAxleList.map((item) => {
-          const time = moment(item).format('HH:mm');
+          const time = moment(item - 8 * 60 * 60 * 1000).format('HH:mm');
           return (
             <div
               style={{
-                top: `calc( ${((item / total) * 100) % 100}vh - 10px )`,
+                top: `calc( ${((item / ONEDAY) * 100) % 101}vh - 10px )`,
                 display: 'flex',
                 alignItems: 'center',
                 flexDirection: 'row',
@@ -85,10 +85,10 @@ const TimePaintTable: FC<{ list: ITimeStage[] }> = (props) => {
       <div style={{ flex: 1, position: 'relative' }}>
         {/* 每个时间区间 */}
         {list.map(({ startTime, endTime }) => {
-          const start = getTimeOneDay(startTime);
-          const end = getTimeOneDay(endTime);
-          const top = ((start / total) * 100) % 100;
-          const height = (((end - start) / total) * 100) % 100;
+          const start = getTimeOneDay(startTime) + 8 * 60 * 60 * 1000;
+          const end = getTimeOneDay(endTime) + 8 * 60 * 60 * 1000;
+          const top = ((start / ONEDAY) * 100) % 100;
+          const height = (((end - start) / ONEDAY) * 100) % 100;
           return (
             <div
               style={{
