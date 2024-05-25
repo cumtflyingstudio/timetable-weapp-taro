@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef } from 'react';
 
 const useTimeout = (delay = 300, callback = () => {}) => {
   const timer = useRef(null as any);

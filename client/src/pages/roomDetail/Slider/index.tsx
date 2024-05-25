@@ -1,9 +1,9 @@
-import { FC, useCallback, useState } from "react";
-import { Button, Icon, Popup, Search } from "@antmjs/vantui";
-import TouchableOpacity from "../../../components/TouchableOpacity";
-import defaultTheme from "../../../theme/defaultTheme";
-import { useCurrRoomStore } from "../useCurrRoomStore";
-import SliderItem from "./SliderItem";
+import { FC, useCallback, useState } from 'react';
+import { Button, Icon, Popup, Search } from '@antmjs/vantui';
+import TouchableOpacity from '../../../components/TouchableOpacity';
+import defaultTheme from '../../../theme/defaultTheme';
+import { useCurrRoomStore } from '../useCurrRoomStore';
+import SliderItem from './SliderItem';
 
 const Slider: FC = (props) => {
   const [show, setShow] = useState(false);
@@ -12,7 +12,7 @@ const Slider: FC = (props) => {
   }, [setShow]);
 
   //搜索关键词
-  const [keyword, setKeyword] = useState("");
+  const [keyword, setKeyword] = useState('');
   //标题
   const { store } = useCurrRoomStore();
   const onChangeKeyword = useCallback((text) => {
@@ -31,21 +31,21 @@ const Slider: FC = (props) => {
         show={show}
         position="left"
         onClose={() => setShow(false)}
-        style={{ background: "#f6f7f9" }}
+        style={{ background: '#f6f7f9' }}
       >
         <div
           style={{
-            display: "flex",
-            flexDirection: "column",
-            width: "75vw",
-            height: "100vh",
+            display: 'flex',
+            flexDirection: 'column',
+            width: '75vw',
+            height: '100vh',
           }}
         >
           <div
-            style={{ display: "flex", background: `${defaultTheme.deepGreen}` }}
+            style={{ display: 'flex', background: `${defaultTheme.deepGreen}` }}
           >
             <Search
-              style={{ height: "50px", flex: 8 }}
+              style={{ height: '50px', flex: 8 }}
               value=""
               shape="round"
               placeholder="搜索area"
@@ -55,11 +55,11 @@ const Slider: FC = (props) => {
             />
             <div
               style={{
-                height: "50px",
-                width: "50px",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
+                height: '50px',
+                width: '50px',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
               }}
               onClick={() => {
                 setShow((show) => !show);

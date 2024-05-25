@@ -1,11 +1,11 @@
 module.exports = {
   env: {
     NODE_ENV: '"production"',
-    CLOUD_ENV: '"production"'
+    CLOUD_ENV: '"production"',
   },
   defineConstants: {
     env: '"production"',
-    isCloud: '"production"'
+    isCloud: '"production"',
   },
   mini: {},
   h5: {
@@ -37,5 +37,5 @@ module.exports = {
     //       }))
     //   }
     // }
-  }
+  },
 };

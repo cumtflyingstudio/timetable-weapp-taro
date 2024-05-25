@@ -47,7 +47,7 @@ const CardList: FC<ICardListProps> = (props) => {
       {filteredData?.map((item) => {
         return <CardItem item={item} key={item._id} />;
       })}
-       <Divider contentPosition="center">添加到屏幕后长按可删除</Divider>
+      <Divider contentPosition="center">添加到屏幕后长按可删除</Divider>
     </>
   );
 };

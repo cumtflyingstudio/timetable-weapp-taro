@@ -1,3 +1,3 @@
 export default {
-  navigationBarTitleText: '统计'
-}
+  navigationBarTitleText: '统计',
+};

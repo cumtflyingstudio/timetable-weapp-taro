@@ -1,5 +1,5 @@
-import { FC } from "react";
-import AnimateView from "./AnimateView";
+import { FC } from 'react';
+import AnimateView from './AnimateView';
 
 interface ITouchableOpacity {
   toOpacity?: number;

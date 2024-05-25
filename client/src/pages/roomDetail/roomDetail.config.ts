@@ -1,3 +1,3 @@
 export default {
-  navigationBarTitleText: '组织详情'
-}
+  navigationBarTitleText: '组织详情',
+};

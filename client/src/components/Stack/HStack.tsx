@@ -1,10 +1,10 @@
-import { FC } from "@tarojs/taro";
-import Stack from "./Stack";
+import { FC } from '@tarojs/taro';
+import Stack from './Stack';
 
-const HStack: FC<IStackProp> = props => {
+const HStack: FC<IStackProp> = (props) => {
   const { style, ...otherProps } = props;
   return (
-    <Stack {...otherProps} style={{ ...style, flexDirection: "row" }}></Stack>
+    <Stack {...otherProps} style={{ ...style, flexDirection: 'row' }}></Stack>
   );
 };
 

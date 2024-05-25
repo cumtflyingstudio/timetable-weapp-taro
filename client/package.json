@@ -3,25 +3,18 @@
   "version": "1.0.0",
   "private": true,
   "description": "这是一个预约系统的小程序",
-  "templateInfo": {
-    "name": "wxcloud",
-    "typescript": true,
-    "css": "less"
-  },
-  "scripts": {
-    "build:weapp": "NODE_ENV=production taro build --type weapp",
-    "dev:weapp": "NODE_ENV=development taro build --type weapp --watch",
-    "dev:weapp+weCloud": "CLOUD_ENV=development NODE_ENV=development npm run build:weapp -- --watch",
-    "dev:h5": "npm run build:h5 -- --watch",
-    "build:h5": "NODE_ENV=production taro build --type h5"
-  },
-  "author": "SoonIter",
   "license": "MIT",
+  "author": "SoonIter",
+  "scripts": {
+    "build:h5": "NODE_ENV=production taro build --type h5",
+    "build:weapp": "NODE_ENV=production taro build --type weapp",
+    "dev:h5": "npm run build:h5 -- --watch",
+    "dev:weapp": "NODE_ENV=development taro build --type weapp --watch",
+    "dev:weapp+weCloud": "CLOUD_ENV=development NODE_ENV=development npm run build:weapp -- --watch"
+  },
   "dependencies": {
     "@antmjs/vantui": "^1.4.11",
-    "@babel/runtime": "^7.7.7",
     "@flying-studio/use-pagination": "latest",
-    "@visactor/taro-vchart": "1.15.4",
     "@tarojs/cli": "3.4.1",
     "@tarojs/components": "3.4.1",
     "@tarojs/plugin-framework-react": "3.4.1",
@@ -30,6 +23,7 @@
     "@tarojs/react": "3.4.1",
     "@tarojs/runtime": "3.4.1",
     "@tarojs/taro": "3.4.1",
+    "@visactor/taro-vchart": "1.11.1",
     "lodash": "4.17.15",
     "moment": "^2.29.3",
     "prettier": "^2.6.1",
@@ -37,10 +31,11 @@
     "react-dom": "^17.0.0",
     "taro-hooks": "^1.5.1",
     "tiny-pinyin": "^1.3.2",
-    "piniadux": "latest"
+    "unstated-next": "1.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.8.0",
+    "@babel/runtime": "^7.7.7",
     "@tarojs/mini-runner": "3.4.1",
     "@tarojs/webpack-runner": "3.4.1",
     "@types/react": "^17.0.2",
@@ -55,5 +50,10 @@
     "eslint-plugin-react-hooks": "^4.2.0",
     "stylelint": "9.3.0",
     "typescript": "^3.7.0"
+  },
+  "templateInfo": {
+    "name": "wxcloud",
+    "typescript": true,
+    "css": "less"
   }
 }

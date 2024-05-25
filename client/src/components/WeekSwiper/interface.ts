@@ -1,4 +1,3 @@
-
 /**
  * WeekSwiper.state 参数类型
  *

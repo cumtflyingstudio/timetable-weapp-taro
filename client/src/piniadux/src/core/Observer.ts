@@ -28,22 +28,27 @@ class Observer<T extends Object> {
   }
 
   createProxy(obj: Object): T {
-    if (obj === null || typeof obj !== "object") {
+    if (obj === null || typeof obj !== 'object' || obj instanceof Date) {
+      // @ts-ignore
       return obj;
     }
     const that = this;
     const proxyObj = new Proxy(obj, {
+      // @ts-ignore
       get(target: T, p: keyof T): ValueOf<T> {
         return target[p];
       },
+      // @ts-ignore
       set(target: T, p: keyof T, value: unknown): boolean {
         if (!Object.is(target[p], value)) {
           Reflect.set(
             target,
             p,
-            typeof value === "object" && value !== null
+            typeof value === 'object' &&
+              value !== null &&
+              !(value instanceof Date)
               ? that.createProxy(value)
-              : value
+              : value,
           );
 
           that.runTaskQueue();
@@ -53,7 +58,7 @@ class Observer<T extends Object> {
     });
     let key: keyof typeof obj;
     for (key in obj) {
-      if (typeof obj[key] === "object") {
+      if (typeof obj[key] === 'object') {
         obj[key] = this.createProxy(obj[key]) as any;
       }
     }

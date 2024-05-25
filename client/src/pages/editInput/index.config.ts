@@ -1,3 +1,3 @@
 export default {
-  navigationBarTitleText: '修改'
-}
+  navigationBarTitleText: '修改',
+};

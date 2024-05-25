@@ -1,6 +1,6 @@
-import defaultTheme from "../../theme/defaultTheme";
+import defaultTheme from '../../theme/defaultTheme';
 
 export default {
-  navigationBarTitleText: "",
-  navigationBarBackgroundColor: defaultTheme.backgroundColor
+  navigationBarTitleText: '',
+  navigationBarBackgroundColor: defaultTheme.backgroundColor,
 };

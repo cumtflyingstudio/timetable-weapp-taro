@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import { View, Swiper, SwiperItem } from "@tarojs/components";
-import moment from "moment";
-import { WeekSwiperProps, WeekSwiperState } from "./interface";
-import "./index.less";
+import React, { Component } from 'react';
+import { View, Swiper, SwiperItem } from '@tarojs/components';
+import moment from 'moment';
+import { WeekSwiperProps, WeekSwiperState } from './interface';
+import './index.less';
 
 export class WeekSwiper extends Component<WeekSwiperProps, WeekSwiperState> {
   constructor(props: WeekSwiperProps) {
@@ -18,9 +18,9 @@ export class WeekSwiper extends Component<WeekSwiperProps, WeekSwiperState> {
     addGlobalClass: true,
   };
   static defaultProps: WeekSwiperProps = {
-    backgroundColor: "white",
-    color: "black",
-    date: moment().format("YYYY-MM-DD"),
+    backgroundColor: 'white',
+    color: 'black',
+    date: moment().format('YYYY-MM-DD'),
   };
 
   componentWillMount() {
@@ -32,11 +32,11 @@ export class WeekSwiper extends Component<WeekSwiperProps, WeekSwiperState> {
     const { onChange } = this.props;
     let momentObj = moment(date);
     const selectedDay = momentObj.weekday();
-    momentObj.subtract(selectedDay, "days");
-    const curStartDate = momentObj.format("YYYY-MM-DD");
-    let dates = [momentObj.subtract(7, "days").format("YYYY-MM-DD")];
+    momentObj.subtract(selectedDay, 'days');
+    const curStartDate = momentObj.format('YYYY-MM-DD');
+    let dates = [momentObj.subtract(7, 'days').format('YYYY-MM-DD')];
     for (let i = 0; i < 20; i++) {
-      dates[dates.length] = momentObj.add(1, "days").format("YYYY-MM-DD");
+      dates[dates.length] = momentObj.add(1, 'days').format('YYYY-MM-DD');
     }
     this.setState({ dates, swiperIdx: 1, curStartDate });
     if (!!onChange) {
@@ -55,17 +55,17 @@ export class WeekSwiper extends Component<WeekSwiperProps, WeekSwiperState> {
     //向左滑动
     if (ind === 1 || ind === -2) {
       const dateArr = [] as string[];
-      curDate.add(13, "days");
+      curDate.add(13, 'days');
       const j = oIndex + 1 === 3 ? 0 : (oIndex + 1) * 7;
       for (let i = 0; i < 7; i++) {
-        dateArr[dateArr.length] = curDate.add(1, "days").format("YYYY-MM-DD");
+        dateArr[dateArr.length] = curDate.add(1, 'days').format('YYYY-MM-DD');
       }
       dates.splice(j, 7, ...dateArr);
       selectedDate = dates[oIndex * 7 + weekDay];
       this.setState({
         dates,
         swiperIdx: oIndex,
-        curStartDate: moment(curStartDate).add(7, "days").format("YYYY-MM-DD"),
+        curStartDate: moment(curStartDate).add(7, 'days').format('YYYY-MM-DD'),
         selectedDate,
       });
       updated = true;
@@ -73,9 +73,9 @@ export class WeekSwiper extends Component<WeekSwiperProps, WeekSwiperState> {
     //向右滑动
     if (ind === -1 || ind === 2) {
       const dateArr = [] as string[];
-      curDate.subtract(15, "days");
+      curDate.subtract(15, 'days');
       for (let i = 0; i < 7; i++) {
-        dateArr[dateArr.length] = curDate.add(1, "days").format("YYYY-MM-DD");
+        dateArr[dateArr.length] = curDate.add(1, 'days').format('YYYY-MM-DD');
       }
       dates.splice((oIndex - 1 === -1 ? 2 : oIndex - 1) * 7, 7, ...dateArr);
       selectedDate = dates[oIndex * 7 + weekDay];
@@ -83,8 +83,8 @@ export class WeekSwiper extends Component<WeekSwiperProps, WeekSwiperState> {
         dates,
         swiperIdx: oIndex,
         curStartDate: moment(curStartDate)
-          .subtract(7, "days")
-          .format("YYYY-MM-DD"),
+          .subtract(7, 'days')
+          .format('YYYY-MM-DD'),
         selectedDate,
       });
       updated = true;
@@ -111,25 +111,25 @@ export class WeekSwiper extends Component<WeekSwiperProps, WeekSwiperState> {
     const { dates, swiperIdx, selectedDate } = this.state;
     const format = (val) => {
       if (val === selectedDate) {
-        const diff = moment().startOf("day").diff(selectedDate, "days");
-        let ret = "";
+        const diff = moment().startOf('day').diff(selectedDate, 'days');
+        let ret = '';
         switch (diff) {
           case 0:
-            ret = "今";
+            ret = '今';
             break;
           case 1:
-            ret = "昨";
+            ret = '昨';
             break;
           case -1:
-            ret = "明";
+            ret = '明';
             break;
           default:
-            ret = moment(val).format("M/D");
+            ret = moment(val).format('M/D');
             break;
         }
         return ret;
       } else {
-        return moment(val).format("M/D");
+        return moment(val).format('M/D');
       }
     };
     return (
@@ -140,7 +140,7 @@ export class WeekSwiper extends Component<WeekSwiperProps, WeekSwiperState> {
         <View className="WeekSwiper-row">
           {Array.from(Array(7).keys()).map((i) => {
             const weekText = moment.weekdaysShort(true, i);
-            const ind = weekText.indexOf("周");
+            const ind = weekText.indexOf('周');
             return (
               <View key={i}>{ind === -1 ? weekText : weekText.substr(1)}</View>
             );
@@ -151,7 +151,7 @@ export class WeekSwiper extends Component<WeekSwiperProps, WeekSwiperState> {
           current={swiperIdx}
           circular
           style={`height: ${
-            process.env.TARO_ENV == "h5" ? "auto" : "64rpx"
+            process.env.TARO_ENV == 'h5' ? 'auto' : '64rpx'
           }!important;`}
         >
           <SwiperItem>
@@ -161,12 +161,12 @@ export class WeekSwiper extends Component<WeekSwiperProps, WeekSwiperState> {
                   key={val}
                   onClick={this.clickDay.bind(this, val)}
                   className={
-                    val === selectedDate ? "WeekSwiper-day-selected" : ""
+                    val === selectedDate ? 'WeekSwiper-day-selected' : ''
                   }
                   style={
                     val === selectedDate
                       ? `background-color:${color};color:${backgroundColor};`
-                      : ""
+                      : ''
                   }
                 >
                   {format(val)}
@@ -181,12 +181,12 @@ export class WeekSwiper extends Component<WeekSwiperProps, WeekSwiperState> {
                   key={val}
                   onClick={this.clickDay.bind(this, val)}
                   className={
-                    val === selectedDate ? "WeekSwiper-day-selected" : ""
+                    val === selectedDate ? 'WeekSwiper-day-selected' : ''
                   }
                   style={
                     val === selectedDate
                       ? `background-color:${color};color:${backgroundColor};`
-                      : ""
+                      : ''
                   }
                 >
                   {format(val)}
@@ -201,12 +201,12 @@ export class WeekSwiper extends Component<WeekSwiperProps, WeekSwiperState> {
                   key={val}
                   onClick={this.clickDay.bind(this, val)}
                   className={
-                    val === selectedDate ? "WeekSwiper-day-selected" : ""
+                    val === selectedDate ? 'WeekSwiper-day-selected' : ''
                   }
                   style={
                     val === selectedDate
                       ? `background-color:${color};color:${backgroundColor};`
-                      : ""
+                      : ''
                   }
                 >
                   {format(val)}

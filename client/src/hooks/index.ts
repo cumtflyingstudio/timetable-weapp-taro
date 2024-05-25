@@ -1,3 +1,3 @@
-import { useLifeStorage, useLifeStorageProvider } from "./useLifeStorage";
+import { useLifeStorage, useLifeStorageProvider } from './useLifeStorage';
 
 export { useLifeStorage, useLifeStorageProvider };

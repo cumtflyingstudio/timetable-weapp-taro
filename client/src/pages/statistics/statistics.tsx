@@ -14,26 +14,26 @@ export function Pie() {
         values: [
           {
             value: 335,
-            name: '直接访问'
+            name: '直接访问',
           },
           {
             value: 310,
-            name: '邮件营销'
+            name: '邮件营销',
           },
           {
             value: 274,
-            name: '联盟广告'
+            name: '联盟广告',
           },
           {
             value: 235,
-            name: '视频广告'
+            name: '视频广告',
           },
           {
             value: 400,
-            name: '搜索引擎'
-          }
-        ]
-      }
+            name: '搜索引擎',
+          },
+        ],
+      },
     ],
     type: 'pie',
     outerRadius: 0.6,
@@ -41,8 +41,8 @@ export function Pie() {
     categoryField: 'name',
     valueField: 'value',
     legends: {
-      visible: true
-    }
+      visible: true,
+    },
   });
 
   // 向Chart组件, 传递参数.
@@ -50,7 +50,7 @@ export function Pie() {
     <View
       style={{
         border: '1px solid #eeeeee',
-        width: '90vw'
+        width: '90vw',
       }}
     >
       {/* <VChart

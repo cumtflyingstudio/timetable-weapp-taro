@@ -1,7 +1,7 @@
-import defaultTheme from "../../theme/defaultTheme";
+import defaultTheme from '../../theme/defaultTheme';
 
 export default {
   // navigationBarTitleText: "主页",
-  navigationStyle: "custom",
+  navigationStyle: 'custom',
   navigationBarBackgroundColor: defaultTheme.backgroundColor,
 };

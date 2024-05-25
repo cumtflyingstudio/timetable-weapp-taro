@@ -4,7 +4,7 @@ import { useMemo } from 'react';
 import { getKind, getStatus, IForm } from '../../../service/user/getMyForm';
 import momentFormat from '../../../utils/momentFormat';
 
-const ShowCard: FC<{ item: IForm }> = (props) => {
+const ReservationCard: FC<{ item: IForm }> = (props) => {
   const {
     item: {
       status = 0,
@@ -23,7 +23,7 @@ const ShowCard: FC<{ item: IForm }> = (props) => {
         <div>结束时间:{momentFormat(endTime, 'yyyy-MM-DD HH:mm')}</div>
       </>
     );
-  }, []);
+  }, [startTime, endTime]);
   return (
     <>
       <div style={{ borderRadius: 20, padding: '20rpx', background: 'white' }}>
@@ -46,13 +46,21 @@ const ShowCard: FC<{ item: IForm }> = (props) => {
             </Tag>
           </div>
         </div>
-        <div>
-          地点:{organizationName}-{resourceName}
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '5px',
+          }}
+        >
+          <div>
+            地点:{organizationName}-{resourceName}
+          </div>
+          {Time}
         </div>
-        {Time}
       </div>
     </>
   );
 };
 
-export default ShowCard;
+export default ReservationCard;
