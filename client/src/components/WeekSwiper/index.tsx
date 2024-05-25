@@ -4,6 +4,8 @@ import moment from 'moment';
 import { WeekSwiperProps, WeekSwiperState } from './interface';
 import './index.less';
 
+const weekTextList = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
+
 export class WeekSwiper extends Component<WeekSwiperProps, WeekSwiperState> {
   constructor(props: WeekSwiperProps) {
     super(props);
@@ -93,7 +95,7 @@ export class WeekSwiper extends Component<WeekSwiperProps, WeekSwiperState> {
       selectedDate = dates[oIndex * 7 + weekDay];
       this.setState({ selectedDate });
     }
-    if (!!onChange) {
+    if (onChange) {
       onChange(selectedDate);
     }
   }
@@ -101,7 +103,7 @@ export class WeekSwiper extends Component<WeekSwiperProps, WeekSwiperState> {
   clickDay = (day) => {
     const { onChange } = this.props;
     this.setState({ selectedDate: day });
-    if (!!onChange) {
+    if (onChange) {
       onChange(day);
     }
   };
@@ -133,17 +135,10 @@ export class WeekSwiper extends Component<WeekSwiperProps, WeekSwiperState> {
       }
     };
     return (
-      <View
-        className="WeekSwiper-wrap"
-        // style={{ backgroundColor: backgroundColor, color: color }}
-      >
+      <View className="WeekSwiper-wrap">
         <View className="WeekSwiper-row">
-          {Array.from(Array(7).keys()).map((i) => {
-            const weekText = moment.weekdaysShort(true, i);
-            const ind = weekText.indexOf('周');
-            return (
-              <View key={i}>{ind === -1 ? weekText : weekText.substr(1)}</View>
-            );
+          {weekTextList.map((i) => {
+            return <View key={i}>{i}</View>;
           })}
         </View>
         <Swiper

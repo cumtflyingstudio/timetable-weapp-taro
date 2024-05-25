@@ -26,10 +26,10 @@ const TimePaintTable: FC<{ list: ITimeStage[] }> = (props) => {
   return (
     <div
       style={{
-        width: '100vw',
-        height: '100vh',
+        width: '100%',
         position: 'relative',
         display: 'flex',
+        marginLeft: '5rpx'
       }}
     >
       <div
@@ -56,7 +56,18 @@ const TimePaintTable: FC<{ list: ITimeStage[] }> = (props) => {
               }}
               key={item}
             >
-              <div style={{ minHeight: 0, minWidth: 0 }}>{time}</div>
+              {/* 最左侧的时间刻度 e.g 18:00 */}
+              <div
+                style={{
+                  width: '80rpx',
+                  color: 'gray',
+                  fontFamily: 'Helvetica, sans-serif',
+                }}
+              >
+                {time}
+              </div>
+
+              {/* 辅助线横线 */}
               <div
                 style={{
                   height: '1px',
@@ -70,16 +81,19 @@ const TimePaintTable: FC<{ list: ITimeStage[] }> = (props) => {
           );
         })}
       </div>
-      <div style={{ width: '75rpx' }}></div>
+      <div style={{ width: '80rpx' }}></div>
       <div style={{ flex: 1, position: 'relative' }}>
+        {/* 每个时间区间 */}
         {list.map(({ startTime, endTime }) => {
           const start = getTimeOneDay(startTime);
           const end = getTimeOneDay(endTime);
+          const top = ((start / total) * 100) % 100;
+          const height = (((end - start) / total) * 100) % 100;
           return (
             <div
               style={{
-                top: (((start / total) * 100) % 100) + 'vh',
-                height: ((((end - start) / total) * 100) % 100) + 'vh',
+                top: top + 'vh',
+                height: height + 'vh',
                 background: 'skyblue',
                 opacity: 0.2,
                 position: 'absolute',
@@ -92,7 +106,7 @@ const TimePaintTable: FC<{ list: ITimeStage[] }> = (props) => {
               <div
                 style={{
                   position: 'absolute',
-                  top: '-12px',
+                  top: '-17px',
                   left: '0px',
                   color: 'blue',
                   fontSize: '12px',
@@ -107,7 +121,8 @@ const TimePaintTable: FC<{ list: ITimeStage[] }> = (props) => {
                 style={{
                   position: 'absolute',
                   bottom: '0px',
-                  left: '0px',
+                  // 当高度太小的时候，字会叠在一起
+                  left: height < 0.2 ? '60px' : '0px',
                   color: 'blue',
                   fontSize: '12px',
                   minHeight: 0,

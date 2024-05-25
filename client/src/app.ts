@@ -3,12 +3,16 @@ import Taro from '@tarojs/taro';
 import { UserInfoContainer } from './hooks/useGlobalUserInfo';
 import './app.less';
 import { CurrRoomContainer } from './hooks/useGlobalCurrRoom';
+import moment from 'moment';
+import 'moment/locale/zh-cn';
+
+moment.locale('zh-cn');
 
 class App extends Component {
   componentDidMount() {
-    if (process.env.TARO_ENV === 'weapp') {
-      Taro.cloud.init({ env: 'timetable-cloud-5gsmmicb8ab86239' });
-    }
+    // if (process.env.TARO_ENV === 'weapp') {
+    //   Taro.cloud.init({ env: 'timetable-cloud-5gsmmicb8ab86239' });
+    // }
   }
 
   componentDidShow() {}

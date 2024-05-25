@@ -26,6 +26,7 @@ const Timetable: FC<{ area: Room }> = (props) => {
     },
     {
       ready: Boolean(area?.roomId),
+      refreshDeps: [area?.roomId],
     },
   );
 
