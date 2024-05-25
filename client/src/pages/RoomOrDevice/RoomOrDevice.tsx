@@ -58,12 +58,12 @@ const RoomOrDevice = () => {
     >
       <NavigatorCard
         title="租借场地"
-        url={`/pages/roomDetail/roomDetail?name=${name}-场地&id=${id}`}
+        url={`/pages/roomDetail/roomDetail?name=${name}-租借场地&id=${id}`}
         imageUrl={roomImg}
       />
       {/* <NavigatorCard
         title="物品设备"
-        url={`/pages/deviceDetail/deviceDetail?name=${name}-设备&id=${id}`}
+        url={`/pages/deviceDetail/deviceDetail?name=${name}-物品设备&id=${id}`}
         imageUrl={deviceImg}
       /> */}
     </div>

@@ -2,7 +2,7 @@ import React from 'react';
 import { OpenData } from '@tarojs/components';
 import { FC } from '@tarojs/taro';
 import { Image } from '@antmjs/vantui';
-import { useAvatar } from './useAvatar';
+import { useAvatar } from '../../hooks/useGlobalUserInfo';
 
 interface IAvatarProps {
   /**
@@ -12,7 +12,7 @@ interface IAvatarProps {
 }
 const Avatar: FC<IAvatarProps> = (props) => {
   const { size = 200 } = props;
-  const { store } = useAvatar();
+  const avatarUrl = useAvatar();
   return (
     <div
       style={{
@@ -22,11 +22,8 @@ const Avatar: FC<IAvatarProps> = (props) => {
         overflow: 'hidden',
       }}
     >
-      {store.avatarUrl ? (
-        <Image
-          src={store.avatarUrl}
-          style={{ width: '100%', height: '100%' }}
-        />
+      {avatarUrl ? (
+        <Image src={avatarUrl} style={{ width: '100%', height: '100%' }} />
       ) : (
         <OpenData type="userAvatarUrl" />
       )}

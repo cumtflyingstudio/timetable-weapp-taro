@@ -1,32 +1,14 @@
 import Taro, { showToast } from '@tarojs/taro';
 import { useState, useCallback } from 'react';
 import { Button, CellGroup, Field, Image } from '@antmjs/vantui';
-import {
-  fetchLogin,
-  addTokenInterceptor,
-  fetchWxLogin,
-} from '../../service/user/login';
+import { fetchLogin, fetchWxLogin } from '../../service/user/login';
 import { showToast as showErrToast } from '../../utils/index';
-import { useAvatar } from '../../components/Avatar/useAvatar';
 import loginImg from '../../assets/img/login/login.png';
 import { Icon } from '@antmjs/vantui';
 import './login.less';
 import { Router } from './AutomaticallyLogin';
 
 const useLogin = () => {
-  const { store } = useAvatar();
-
-  const getUserAvatar = useCallback(() => {
-    return Taro.getUserProfile({
-      desc: '获取用户头像',
-      success(e) {
-        const avatarUrl = e.userInfo.avatarUrl;
-        store.avatarUrl = avatarUrl;
-        Taro.setStorageSync('avatarUrl', avatarUrl);
-      },
-    });
-  }, []);
-
   const redirectToIndex = useCallback(() => {
     setTimeout(async () => {
       await Taro.switchTab({
@@ -43,7 +25,6 @@ const useLogin = () => {
 
   const login = useCallback(async (username, password) => {
     await fetchLogin(username, password);
-    getUserAvatar();
     redirectToIndex();
   }, []);
 
@@ -53,7 +34,6 @@ const useLogin = () => {
       showErrToast(errMsg);
     }
     await fetchWxLogin(code);
-    getUserAvatar();
     redirectToIndex();
   }, []);
 
@@ -147,7 +127,6 @@ function Login() {
           微信一键登录
         </Button>
       </div>
-      {/* <Image src={loginPng} style={{ height: '250px', width: '100vw' }} /> */}
     </>
   );
 }

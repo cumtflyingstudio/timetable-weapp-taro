@@ -1,44 +1,44 @@
 import { Button, Empty, Icon, Skeleton } from '@antmjs/vantui';
 import { navigateTo } from '@tarojs/taro';
-import { useEffect } from 'react';
 import { useNavigationBar, useRequest, useRouter } from 'taro-hooks';
-import './roomDetail.less';
+import { useGlobalCurrRoom } from '../../hooks/useGlobalCurrRoom';
 import queryOrganRoomById from '../../service/organ/queryOrganRoomById';
-import { useCurrRoomStore } from './useCurrRoomStore';
-import AreaCard from './AreaCard';
-import Timetable from './Timetable';
 import showToast from '../../utils/showToast';
+import AreaCard from './AreaCard';
+import './roomDetail.less';
+import Timetable from './Timetable';
 
 export default () => {
-  const { store } = useCurrRoomStore();
-  //页面导航栏标题为 易班——场地
+  const { currRoom, setCurrRoom, setCurrOrgan, setRooms, reset } =
+    useGlobalCurrRoom();
   const [routerInfo] = useRouter();
   const { name, id } = routerInfo.params;
+
   useNavigationBar({ title: name });
-  // request:请求area列表
-  const { loading } = useRequest(async () => {
-    return queryOrganRoomById(id as string)
-      .then((res) => {
-        store.rooms = Object.fromEntries(
-          res.map((item) => [item.roomId, item]),
-        );
-        store.currentId = res?.[0]?.roomId ?? '';
-      })
-      .catch((e) => {
-        console.log(e.message);
-        store.rooms = {};
-        store.currentId = '';
-      });
-  });
+  const { loading } = useRequest(
+    async () => {
+      return queryOrganRoomById(id as string)
+        .then((res) => {
+          setRooms(res);
+          setCurrOrgan(id as string);
+          setCurrRoom(res?.[0]?.roomId ?? '');
+        })
+        .catch((e) => {
+          reset();
+        });
+    },
+    {
+      ready: id !== undefined,
+    },
+  );
 
   //易班-实验室1
-  const currArea = store.rooms[store.currentId];
   const hasNoRoom =
     id === '' ||
-    currArea?.roomId === undefined ||
-    currArea?.roomName === undefined ||
-    currArea?.roomName === '' ||
-    currArea?.roomId === '';
+    currRoom?.roomId === undefined ||
+    currRoom?.roomName === undefined ||
+    currRoom?.roomName === '' ||
+    currRoom?.roomId === '';
 
   if (loading) {
     return <Skeleton title={true} row={3} />;
@@ -58,9 +58,9 @@ export default () => {
   }
   return (
     <>
-      <AreaCard area={currArea} />
+      <AreaCard area={currRoom} />
 
-      <Timetable area={currArea} />
+      <Timetable area={currRoom} />
 
       <Button
         color="#4cc8b9"
@@ -73,7 +73,7 @@ export default () => {
               return;
             }
             navigateTo({
-              url: `/pages/timeForm/timeForm?organizationId=${id}&title=${currArea.roomName}&roomId=${currArea.roomId}`,
+              url: `/pages/timeForm/timeForm?organizationId=${id}&title=${currRoom.roomName}&roomId=${currRoom.roomId}`,
             });
           } catch (e) {
             console.log(e);

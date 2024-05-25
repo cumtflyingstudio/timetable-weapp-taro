@@ -16,7 +16,7 @@ const ApplicationItem: FC<{ applicationItem: Application }> = (props) => {
     navigateTo(
       `/pages/RoomOrDevice/RoomOrDevice?name=${item.name}&id=${item._id}`,
     );
-  }, []);
+  }, [navigateTo]);
   const { dispatch } = useListContext();
   const handleDelete = useCallback(() => {
     dispatch({

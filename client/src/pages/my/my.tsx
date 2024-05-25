@@ -9,19 +9,23 @@ import AdminCellGroup from './comps/AdminCellGroup';
 import testAdmin from '../../service/admin/testAdmin';
 import { showToast } from '../../utils';
 import { useEffect } from 'react';
-import { usePiniaduxUserInfo } from '../../hooks/usePiniaduxUserInfo';
+import { useGlobalUserInfo } from '../../hooks/useGlobalUserInfo';
 
 export default function My() {
   const { data, loading, error } = useRequest(getUserInfo);
   const { data: adminList } = useRequest(testAdmin);
   const isAdmin = Array.isArray(adminList) && adminList.length > 0;
-  const { store } = usePiniaduxUserInfo();
+  const { userInfo, setUserInfo } = useGlobalUserInfo();
+
+  const { nickname, phone, username } = userInfo;
 
   useEffect(() => {
     if (!(loading || error) && data) {
-      store.username = data?.username ?? '';
-      store.nickname = data?.nickname ?? '';
-      store.phone = data?.phone ?? '';
+      setUserInfo((draft) => {
+        draft.username = data?.username ?? '';
+        draft.nickname = data?.nickname ?? '';
+        draft.phone = data?.phone ?? '';
+      });
     }
   }, [data]);
 
@@ -46,7 +50,7 @@ export default function My() {
             }}
           >
             <div style={{ fontSize: 20, fontWeight: 500 }}>
-              <div>您好，{store?.nickname ?? '用户'}</div>
+              <div>您好，{nickname ?? '用户'}</div>
             </div>
             <div style={{ width: '50vw' }}>
               {adminList?.map((i) => {
@@ -65,7 +69,7 @@ export default function My() {
           title="昵称"
           clickable
           size="large"
-          value={store?.nickname ?? ''}
+          value={nickname ?? ''}
           onClick={() => {
             Taro.navigateTo({
               url: `/pages/editInput/editInput?fieldName=nickname`,
@@ -76,7 +80,7 @@ export default function My() {
           title="联系方式"
           clickable
           size="large"
-          value={store?.phone ?? ''}
+          value={phone ?? ''}
           onClick={() => {
             Taro.navigateTo({
               url: `/pages/editInput/editInput?fieldName=phone`,

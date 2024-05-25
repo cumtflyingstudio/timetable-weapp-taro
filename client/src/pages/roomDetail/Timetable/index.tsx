@@ -1,6 +1,6 @@
 import { Empty } from '@antmjs/vantui';
-import moment from 'moment';
-import { FC, useEffect, useRef, useState } from 'react';
+import { FC, useState } from 'react';
+import { useRequest } from 'taro-hooks';
 import { WeekSwiper } from '../../../components/WeekSwiper';
 import queryRoomUsing from '../../../service/room/queryRoomUsing';
 import momentFormat from '../../../utils/momentFormat';
@@ -10,20 +10,25 @@ const dateFormat = (time: Date = new Date()) => {
   return momentFormat(time, 'YYYY-MM-DD');
 };
 
-type InferPromise<T> = T extends Promise<infer F> ? F : never;
-
 const Timetable: FC<{ area: Room }> = (props) => {
   const { area = {} as Room } = props;
-  const [timeStage, setTimeStage] = useState(
-    [] as InferPromise<ReturnType<typeof queryRoomUsing>>,
-  );
   const [currDate, setCurrDate] = useState(dateFormat());
-  useEffect(() => {
-    area.roomId &&
-      queryRoomUsing(area?.roomId).then((res) => {
-        setTimeStage(res);
+
+  const {
+    data: timeStage = [],
+    loading,
+    error,
+  } = useRequest(
+    () => {
+      return queryRoomUsing(area?.roomId).then((res) => {
+        return res;
       });
-  }, [area?.roomId]);
+    },
+    {
+      ready: Boolean(area?.roomId),
+    },
+  );
+
   const filteredList = timeStage.filter((item) => {
     return (
       currDate >= dateFormat(item.startTime) &&

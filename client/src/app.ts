@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Taro from '@tarojs/taro';
+import { UserInfoContainer } from './hooks/useGlobalUserInfo';
 import './app.less';
+import { CurrRoomContainer } from './hooks/useGlobalCurrRoom';
 
 class App extends Component {
   componentDidMount() {
@@ -16,7 +18,11 @@ class App extends Component {
   componentDidCatchError() {}
 
   render() {
-    return this.props.children;
+    return React.createElement(
+      UserInfoContainer.Provider,
+      null,
+      React.createElement(CurrRoomContainer.Provider, this.props as any),
+    );
   }
 }
 

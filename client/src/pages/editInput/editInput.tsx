@@ -5,7 +5,7 @@ import { useNavigationBar, useRouter } from 'taro-hooks';
 import { Field, Button, CellGroup } from '@antmjs/vantui';
 import { usePersistCallback } from '../../hooks/usePersistCallback';
 import { showToast } from '../../utils';
-import { usePiniaduxUserInfo } from '../../hooks/usePiniaduxUserInfo';
+import { useGlobalUserInfo } from '../../hooks/useGlobalUserInfo';
 import { fetchUpdateUserInfo } from '../../service/user/updateUserInfo';
 
 const TYPES = {
@@ -35,9 +35,9 @@ export default function EditInput() {
   useNavigationBar({
     title,
   });
-  const { store } = usePiniaduxUserInfo();
+  const { userInfo, setUserInfo } = useGlobalUserInfo();
 
-  const [value, setValue] = useState(store?.[fieldName] ?? '');
+  const [value, setValue] = useState(userInfo?.[fieldName] ?? '');
 
   const handleChange = usePersistCallback((event) => {
     setValue(event.detail);
@@ -52,7 +52,10 @@ export default function EditInput() {
     await fetchUpdateUserInfo({
       [fieldName]: value,
     });
-    store[fieldName] = value;
+
+    setUserInfo((draft) => {
+      draft[fieldName] = value;
+    });
 
     setTimeout(() => {
       Taro.navigateBack();

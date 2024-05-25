@@ -2,8 +2,8 @@ import { FC, useCallback, useState } from 'react';
 import { Button, Icon, Popup, Search } from '@antmjs/vantui';
 import TouchableOpacity from '../../../components/TouchableOpacity';
 import defaultTheme from '../../../theme/defaultTheme';
-import { useCurrRoomStore } from '../useCurrRoomStore';
 import SliderItem from './SliderItem';
+import { useGlobalCurrRoom } from '../../../hooks/useGlobalCurrRoom';
 
 const Slider: FC = (props) => {
   const [show, setShow] = useState(false);
@@ -11,10 +11,8 @@ const Slider: FC = (props) => {
     setShow(false);
   }, [setShow]);
 
-  //搜索关键词
   const [keyword, setKeyword] = useState('');
-  //标题
-  const { store } = useCurrRoomStore();
+  const { currRoom, roomList, setCurrRoom } = useGlobalCurrRoom();
   const onChangeKeyword = useCallback((text) => {
     setKeyword(text.detail);
   }, []);
@@ -46,9 +44,9 @@ const Slider: FC = (props) => {
           >
             <Search
               style={{ height: '50px', flex: 8 }}
-              value=""
+              value={keyword}
               shape="round"
-              placeholder="搜索area"
+              placeholder="搜索该组织名下的场地"
               clearable
               onChange={onChangeKeyword}
               background={defaultTheme.deepGreen}
@@ -74,22 +72,25 @@ const Slider: FC = (props) => {
               transform: `translateX(${show ? 0 : -200}px)`,
             }}
           >
-            {Object.values(store.rooms)
+            {Object.values(roomList)
               .filter((item) => item.roomName.includes(keyword))
-              .map((item, index) => (
-                <TouchableOpacity
-                  key={item.roomId}
-                  onClick={() => {
-                    store.currentId = item.roomId;
-                    hide();
-                  }}
-                >
-                  <SliderItem
-                    room={item}
-                    selected={store.currentId === item.roomId}
-                  />
-                </TouchableOpacity>
-              ))}
+              .map((item) => {
+                const { roomId } = item;
+                return (
+                  <TouchableOpacity
+                    key={item.roomId}
+                    onClick={() => {
+                      setCurrRoom(roomId);
+                      hide();
+                    }}
+                  >
+                    <SliderItem
+                      room={item}
+                      selected={currRoom.roomId === roomId}
+                    />
+                  </TouchableOpacity>
+                );
+              })}
           </div>
         </div>
       </Popup>
