@@ -3,7 +3,7 @@ import Taro from '@tarojs/taro';
 import usePiniadux from '../../piniadux/src/hooks/usePiniadux';
 import dealForm from '../../service/admin/dealForm';
 import getRoomForm from '../../service/admin/getRoomForm';
-import { IForm } from '../../service/user/getMyForm';
+import { IForm } from '../../service/user/getRoomUsing';
 import showToast from '../../utils/showToast';
 import { TimetableListPage } from '../timetable/TimetableListPage';
 import './adminGetRequest.less';
@@ -37,9 +37,9 @@ const useStore = () =>
       return {
         show: false,
         item: {
-          applyInfo: '',
+          note: '',
           dealInfo: '',
-        } as IForm,
+        } as any as IForm,
         inputValue: '',
       };
     },
@@ -66,7 +66,7 @@ export default () => {
         closeable
         showCancelButton
         closeIconPosition="top-right"
-        title={store.item?.applyInfo ?? '申请信息'}
+        title={store.item?.note ?? '申请信息'}
         onClose={() => {
           store.show = false;
         }}

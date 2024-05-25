@@ -1,7 +1,7 @@
 import { Tag } from '@antmjs/vantui';
 import { FC } from '@tarojs/taro';
 import { useMemo } from 'react';
-import { getKind, getStatus, IForm } from '../../../service/user/getMyForm';
+import { getKind, getStatus, IForm } from '../../../service/user/getRoomUsing';
 import momentFormat from '../../../utils/momentFormat';
 
 const ReservationCard: FC<{ item: IForm }> = (props) => {
@@ -12,7 +12,7 @@ const ReservationCard: FC<{ item: IForm }> = (props) => {
       endTime,
       startTime,
       resourceName,
-      applyInfo,
+      note,
       kind,
     },
   } = props;
@@ -28,7 +28,7 @@ const ReservationCard: FC<{ item: IForm }> = (props) => {
     <>
       <div style={{ borderRadius: 20, padding: '20rpx', background: 'white' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <div style={{ fontWeight: 'bold', flex: 1 }}>{applyInfo}</div>
+          <div style={{ fontWeight: 'bold', flex: 1 }}>{note}</div>
           <div
             style={{
               display: 'flex',

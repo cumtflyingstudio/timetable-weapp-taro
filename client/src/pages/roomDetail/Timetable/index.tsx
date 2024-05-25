@@ -1,10 +1,13 @@
-import { Empty } from '@antmjs/vantui';
-import { FC, useState } from 'react';
+import { Dialog, Empty } from '@antmjs/vantui';
+import { FC, useCallback, useState } from 'react';
 import { useRequest } from 'taro-hooks';
 import { WeekSwiper } from '../../../components/WeekSwiper';
-import queryRoomUsing from '../../../service/room/queryRoomUsing';
+import queryRoomUsing, {
+  type TimeStage,
+} from '../../../service/room/queryRoomUsing';
 import momentFormat from '../../../utils/momentFormat';
 import TimePaintTable from './TimePaintTable';
+import { getReservationDetail } from '../../../service/reservation/getReservationDetail';
 
 const dateFormat = (time: Date = new Date()) => {
   return momentFormat(time, 'YYYY-MM-DD');
@@ -31,11 +34,28 @@ const Timetable: FC<{ area: Room }> = (props) => {
   );
 
   const filteredList = timeStage.filter((item) => {
+    // 筛选当日的预约
     return (
       currDate >= dateFormat(item.startTime) &&
       currDate <= dateFormat(item.endTime)
     );
   });
+
+  const handleTimeStageClick = useCallback((item: TimeStage) => {
+    getReservationDetail(item.reservationId).then(({ phone, nickname }) => {
+      Dialog.alert({
+        id: 'reservationDetail',
+        title: item.note,
+        message: `预约人昵称: ${nickname}\n预约人联系方式:${phone ?? '无'}\n开始时间:${momentFormat(
+          item.startTime,
+          'HH:mm',
+        )}\n结束时间:${momentFormat(item.endTime, 'HH:mm')}`,
+      });
+    });
+  }, []);
+
+  // useRequest()
+
   return (
     <div>
       <WeekSwiper
@@ -44,13 +64,13 @@ const Timetable: FC<{ area: Room }> = (props) => {
         }}
       />
       <div>
-        {filteredList.length !== 0 ? (
-          <TimePaintTable list={filteredList}></TimePaintTable>
-        ) : null}
+        {filteredList.length === 0 ? (
+          <Empty description="本日无人预约" />
+        ) : (
+          <TimePaintTable list={filteredList} onClick={handleTimeStageClick} />
+        )}
       </div>
-      <div>
-        {filteredList.length === 0 && <Empty description="本日无人预约" />}
-      </div>
+      <Dialog overlay closeOnClickOverlay id="reservationDetail"></Dialog>
     </div>
   );
 };

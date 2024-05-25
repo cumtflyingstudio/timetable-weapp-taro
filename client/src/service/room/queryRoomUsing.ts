@@ -1,11 +1,10 @@
 import sFetch from '../sFetch';
-import baseUrl from '../baseUrl';
 
-interface TimeStage {
-  roomuseId: number;
-  username: null;
-  roomId: null;
-  info: null;
+export interface TimeStage {
+  reservationId: number;
+  username: string;
+  roomId: string;
+  note: string;
   startTime: Date;
   endTime: Date;
   deleted: null;

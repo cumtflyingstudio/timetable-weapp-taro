@@ -26,7 +26,7 @@ async function askRoom(form: FormAskRoom) {
     logTitle: '预约一个场地/设备',
     method: 'POST',
     data: form,
-    url: 'api/room/use/apply',
+    url: 'api/reservation/create',
   });
 
   return innerData; //成功的提示语

@@ -1,5 +1,5 @@
 import { usePiniadux } from '../../piniadux/src/hooks/usePiniadux';
-import type { IForm } from '../../service/user/getMyForm';
+import type { IForm } from '../../service/user/getRoomUsing';
 
 export const useTimetableList = () => {
   return usePiniadux('timetableList', {

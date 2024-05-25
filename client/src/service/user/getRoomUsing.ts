@@ -7,12 +7,12 @@ export interface IForm {
   kind: '场地' | '设备';
   resourceName: string;
   num: number;
-  applyInfo: string;
+  note: string;
   status: 0 | 1 | 2 | 3;
   applyTime: Date;
   startTime: Date;
   endTime: Date;
-  dealInfo: string | null;
+  dealInfo: null;
   applyId: string;
 }
 
@@ -41,12 +41,12 @@ export function getKind(kind: string) {
   }
 }
 
-async function getMyForm(currPage: number) {
+async function getRoomUsing(currPage: number) {
   const name = Taro.getStorageSync('username');
   const list = await sFetch<IForm[]>({
-    logTitle: `查看用户当前预约过的表单 页数:${currPage}`,
+    logTitle: `查看用户提交过的预约 页数:${currPage}`,
     method: 'GET',
-    url: `api/auth/find/applyinfo?username=${name ?? ''}&current=${
+    url: `api/reservation/find?username=${name ?? ''}&current=${
       currPage ?? 1
     }&size=15`,
   });
@@ -58,4 +58,4 @@ async function getMyForm(currPage: number) {
   return list;
 }
 
-export default getMyForm;
+export default getRoomUsing;

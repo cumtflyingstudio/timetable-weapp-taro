@@ -1,6 +1,6 @@
 import Taro from '@tarojs/taro';
 import sFetch from '../sFetch';
-import type { IForm } from '../user/getMyForm';
+import type { IForm } from '../user/getRoomUsing';
 
 interface IDealFormParams {
   applyId: string;

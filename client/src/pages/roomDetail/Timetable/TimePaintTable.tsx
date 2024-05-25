@@ -1,11 +1,9 @@
 import { FC } from '@tarojs/taro';
 import moment from 'moment';
 import momentFormat from '../../../utils/momentFormat';
+import { useCallback } from 'react';
+import type { TimeStage } from '../../../service/room/queryRoomUsing';
 
-interface ITimeStage {
-  startTime: Date;
-  endTime: Date;
-}
 const timeAxleList = (function () {
   const res: number[] = [];
   for (let i = 0; i <= 24; i++) {
@@ -13,15 +11,24 @@ const timeAxleList = (function () {
   }
   return res;
 })();
-const ONEDAY = 1000 * 60 * 60 * 24;
+const ONE_DAY = 1000 * 60 * 60 * 24;
 const getTimeOneDay = (time: Date) => {
   if (!(time instanceof Date)) {
     time = new Date(time);
   }
-  return time.getTime() % ONEDAY;
+  return time.getTime() % ONE_DAY;
 };
-const TimePaintTable: FC<{ list: ITimeStage[] }> = (props) => {
-  const { list } = props;
+
+const TimePaintTable: FC<{
+  list: TimeStage[];
+  onClick: (item: TimeStage) => void;
+}> = (props) => {
+  const { list, onClick } = props;
+
+  const handleClick = useCallback((item: TimeStage) => {
+    onClick(item);
+  }, []);
+
   return (
     <div
       style={{
@@ -46,7 +53,7 @@ const TimePaintTable: FC<{ list: ITimeStage[] }> = (props) => {
           return (
             <div
               style={{
-                top: `calc( ${((item / ONEDAY) * 100) % 101}vh - 10px )`,
+                top: `calc( ${((item / ONE_DAY) * 100) % 101}vh - 10px )`,
                 display: 'flex',
                 alignItems: 'center',
                 flexDirection: 'row',
@@ -84,11 +91,12 @@ const TimePaintTable: FC<{ list: ITimeStage[] }> = (props) => {
       <div style={{ width: '80rpx' }}></div>
       <div style={{ flex: 1, position: 'relative' }}>
         {/* 每个时间区间 */}
-        {list.map(({ startTime, endTime }) => {
+        {list.map((item) => {
+          const { startTime, endTime } = item;
           const start = getTimeOneDay(startTime) + 8 * 60 * 60 * 1000;
           const end = getTimeOneDay(endTime) + 8 * 60 * 60 * 1000;
-          const top = ((start / ONEDAY) * 100) % 100;
-          const height = (((end - start) / ONEDAY) * 100) % 100;
+          const top = ((start / ONE_DAY) * 100) % 100;
+          const height = (((end - start) / ONE_DAY) * 100) % 100;
           return (
             <div
               style={{
@@ -101,6 +109,7 @@ const TimePaintTable: FC<{ list: ITimeStage[] }> = (props) => {
                 borderTop: '1px solid blue',
                 borderBottom: '1px solid blue',
               }}
+              onClick={() => handleClick(item)}
               key={start}
             >
               <div

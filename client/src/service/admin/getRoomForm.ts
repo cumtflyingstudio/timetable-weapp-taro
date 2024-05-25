@@ -2,7 +2,7 @@ import Taro from '@tarojs/taro';
 import moment from 'moment';
 import sFetch from '../sFetch';
 
-import type { IForm } from '../user/getMyForm';
+import type { IForm } from '../user/getRoomUsing';
 
 async function getRoomForm(currPage: number) {
   const list = await sFetch<IForm[]>({
