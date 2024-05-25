@@ -13,14 +13,14 @@ const TYPES = {
     title: '修改昵称',
     placeholder: '请输入昵称',
     label: '昵称',
-    description: '其他用户可以看到你预约时所用的昵称',
+    description: '其他用户可以看到你预约时所用的昵称，可填写具有辨识性的昵称',
   },
   phone: {
     title: '修改联系方式',
     placeholder: '请输入联系方式',
     label: '联系方式',
     description:
-      '其他用户可以看到你预约时所用的联系方式，可填写 wx、qq、手机号',
+      '其他用户可以看到你预约时所用的联系方式，可自由填写',
   },
 } as const;
 
