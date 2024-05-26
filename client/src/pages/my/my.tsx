@@ -17,7 +17,7 @@ export default function My() {
   const isAdmin = Array.isArray(adminList) && adminList.length > 0;
   const { userInfo, setUserInfo } = useGlobalUserInfo();
 
-  const { nickname, phone, username } = userInfo;
+  const { nickname, phone, username,  } = userInfo;
 
   useEffect(() => {
     if (!(loading || error) && data) {
@@ -76,7 +76,7 @@ export default function My() {
             });
           }}
         />
-        <Cell
+        {/* <Cell
           title="联系方式"
           clickable
           size="large"
@@ -84,6 +84,17 @@ export default function My() {
           onClick={() => {
             Taro.navigateTo({
               url: `/pages/editInput/editInput?fieldName=phone`,
+            });
+          }}
+        /> */}
+        <Cell
+          title="个人简介"
+          clickable
+          size="large"
+          value={}
+          onClick={() => {
+            Taro.navigateTo({
+              url: `/pages/editInput/editInput?fieldName=introduction`,
             });
           }}
         />

@@ -8,6 +8,7 @@ function useUserInfo() {
     username: '',
     phone: '',
     nickname: '',
+    introduction: '',
     avatar: '',
   });
 
