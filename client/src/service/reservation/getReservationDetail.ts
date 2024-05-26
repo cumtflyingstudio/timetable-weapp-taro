@@ -5,6 +5,7 @@ interface Detail {
   username: string;
   nickname: string;
   phone: string;
+  introduction: string;
   status: number;
   startTime: Date;
   endTime: Date;

@@ -42,18 +42,20 @@ const Timetable: FC<{ area: Room }> = (props) => {
   });
 
   const handleTimeStageClick = useCallback((item: TimeStage) => {
-    getReservationDetail(item.reservationId).then(({ phone, nickname }) => {
-      Dialog.alert({
-        title: item.note,
-        message: `预约人昵称: ${nickname}\n预约人联系方式:${
-          phone ?? '无'
-        }\n开始时间:${momentFormat(
-          item.startTime,
-          'HH:mm',
-        )}\n结束时间:${momentFormat(item.endTime, 'HH:mm')}`,
-        selector: '#reservationDetail',
-      });
-    });
+    getReservationDetail(item.reservationId).then(
+      ({ phone, nickname, introduction }) => {
+        Dialog.alert({
+          title: item.note,
+          message: `预约人昵称: ${nickname}\n预约人联系方式:${
+            phone ?? '无'
+          }\n预约人个人介绍:${introduction}\n开始时间:${momentFormat(
+            item.startTime,
+            'HH:mm',
+          )}\n结束时间:${momentFormat(item.endTime, 'HH:mm')}`,
+          selector: '#reservationDetail',
+        });
+      },
+    );
   }, []);
 
   // useRequest()
