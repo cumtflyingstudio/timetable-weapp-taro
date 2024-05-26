@@ -131,7 +131,7 @@ const TimePaintTable: FC<{
                   position: 'absolute',
                   bottom: '0px',
                   // 当高度太小的时候，字会叠在一起
-                  left: height < 0.2 ? '60px' : '0px',
+                  left: height < 5 ? '60px' : '0px',
                   color: 'blue',
                   fontSize: '12px',
                   minHeight: 0,
