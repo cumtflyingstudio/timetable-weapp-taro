@@ -18,9 +18,9 @@ const formatDate = (d: number) => {
 /**
  * @param timeString e.g: 15:30
  */
-function toTimeStamp(timeString: string): number {
+function toTimeStamp(date: number, timeString: string): number {
   const [hours, minutes] = timeString.split(':');
-  const timestamp = moment().set({
+  const timestamp = moment(date).set({
     hour: parseInt(hours, 10),
     minute: parseInt(minutes, 10),
     second: 0, // 可以设置秒为0，如果需要的话
@@ -116,8 +116,8 @@ function Demo() {
           (isDevice ? askDevice : askRoom)({
             organizationId: Number(organizationId),
             resourceId: Number(isDevice ? deviceId : roomId),
-            startTime: toTimeStamp(store.startTime),
-            endTime: toTimeStamp(store.endTime),
+            startTime: toTimeStamp(date, store.startTime),
+            endTime: toTimeStamp(date, store.endTime),
             num: store.num,
             applyInfo: store.applyInfo,
           })
