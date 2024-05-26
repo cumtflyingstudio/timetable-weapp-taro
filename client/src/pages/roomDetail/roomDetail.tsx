@@ -1,5 +1,5 @@
 import { Button, Empty, Icon, Skeleton } from '@antmjs/vantui';
-import { navigateTo } from '@tarojs/taro';
+import { navigateTo, usePullDownRefresh } from '@tarojs/taro';
 import { useNavigationBar, useRequest, useRouter } from 'taro-hooks';
 import { useGlobalCurrRoom } from '../../hooks/useGlobalCurrRoom';
 import queryOrganRoomById from '../../service/organ/queryOrganRoomById';
@@ -7,6 +7,7 @@ import showToast from '../../utils/showToast';
 import AreaCard from './AreaCard';
 import './roomDetail.less';
 import Timetable from './Timetable';
+import Taro from '@tarojs/taro';
 
 export default () => {
   const { currRoom, setCurrRoom, setCurrOrgan, setRooms, reset } =
@@ -15,7 +16,7 @@ export default () => {
   const { name, id } = routerInfo.params;
 
   useNavigationBar({ title: name });
-  const { loading } = useRequest(
+  const { loading, refresh } = useRequest(
     async () => {
       return queryOrganRoomById(id as string)
         .then((res) => {
@@ -32,7 +33,13 @@ export default () => {
     },
   );
 
-  //易班-实验室1
+  usePullDownRefresh(() => {
+    refresh();
+    setTimeout(() => {
+      Taro.stopPullDownRefresh();
+    }, 1000);
+  });
+
   const hasNoRoom =
     id === '' ||
     currRoom?.roomId === undefined ||

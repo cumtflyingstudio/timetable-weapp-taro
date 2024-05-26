@@ -54,6 +54,7 @@ function Demo() {
       <CellGroup>
         <Cell
           title="选择预约日期"
+          required
           value={formatDate(date)}
           onClick={() => setShow(true)}
         />
@@ -76,7 +77,7 @@ function Demo() {
             store.startTime = e.detail.value;
           }}
         >
-          <Cell title="开始时间" value={store.startTime} />
+          <Cell required title="开始时间" value={store.startTime} />
         </Picker>
         <Picker
           value={store.endTime}
@@ -85,11 +86,12 @@ function Demo() {
             store.endTime = e.detail.value;
           }}
         >
-          <Cell title="结束时间" value={store.endTime} />
+          <Cell required title="结束时间" value={store.endTime} />
         </Picker>
         {isDevice ? (
           <Field
             label="数量"
+            required
             type="number"
             inputAlign="right"
             placeholder="请输入所需要的设备数量"
@@ -101,6 +103,7 @@ function Demo() {
           />
         ) : null}
         <Field
+          required
           label="留言"
           type="textarea"
           placeholder="请输入留言"
