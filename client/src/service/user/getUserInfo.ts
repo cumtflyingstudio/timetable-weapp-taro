@@ -6,9 +6,10 @@ export interface IUserInfo {
   username: string;
   // password: string;
   nickname: string;
-  // college: string;
   // deleted: number;
   phone: string;
+  introduction: string,
+
   createTime: Date;
 }
 

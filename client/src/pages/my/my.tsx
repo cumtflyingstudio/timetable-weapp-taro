@@ -17,7 +17,7 @@ export default function My() {
   const isAdmin = Array.isArray(adminList) && adminList.length > 0;
   const { userInfo, setUserInfo } = useGlobalUserInfo();
 
-  const { nickname, phone, username,  } = userInfo;
+  const { nickname, phone, username, introduction } = userInfo;
 
   useEffect(() => {
     if (!(loading || error) && data) {
@@ -25,6 +25,7 @@ export default function My() {
         draft.username = data?.username ?? '';
         draft.nickname = data?.nickname ?? '';
         draft.phone = data?.phone ?? '';
+        draft.introduction = data?.introduction ?? '';
       });
     }
   }, [data]);
@@ -91,7 +92,7 @@ export default function My() {
           title="个人简介"
           clickable
           size="large"
-          value={}
+          value={introduction}
           onClick={() => {
             Taro.navigateTo({
               url: `/pages/editInput/editInput?fieldName=introduction`,
@@ -102,7 +103,7 @@ export default function My() {
           title="用户名"
           clickable
           size="large"
-          value={data?.username}
+          value={username}
           onClick={() => {
             showToast('用户名不可修改');
           }}
