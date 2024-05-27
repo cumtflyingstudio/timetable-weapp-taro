@@ -1,5 +1,5 @@
 import { Dialog, Empty } from '@antmjs/vantui';
-import { FC, useCallback, useState } from 'react';
+import { FC, memo, useCallback, useState } from 'react';
 import { useRequest } from 'taro-hooks';
 import { WeekSwiper } from '../../../components/WeekSwiper';
 import queryRoomUsing, {
@@ -8,18 +8,21 @@ import queryRoomUsing, {
 import momentFormat from '../../../utils/momentFormat';
 import TimePaintTable from './TimePaintTable';
 import { getReservationDetail } from '../../../service/reservation/getReservationDetail';
+import type { IForm } from '../../../service/user/getRoomUsing';
+import Taro from '@tarojs/taro';
 
 const dateFormat = (time: Date = new Date()) => {
   return momentFormat(time, 'YYYY-MM-DD');
 };
 
-const Timetable: FC<{ area: Room }> = (props) => {
+const Timetable: FC<{ area: Room }> = memo((props) => {
   const { area = {} as Room } = props;
   const [currDate, setCurrDate] = useState(dateFormat());
 
   const {
     data: timeStage = [],
     loading,
+    refresh,
     error,
   } = useRequest(
     () => {
@@ -42,23 +45,10 @@ const Timetable: FC<{ area: Room }> = (props) => {
   });
 
   const handleTimeStageClick = useCallback((item: TimeStage) => {
-    getReservationDetail(item.reservationId).then(
-      ({ phone, nickname, introduction }) => {
-        Dialog.alert({
-          title: item.note,
-          message: `预约人昵称: ${nickname}\n预约人联系方式:${
-            phone ?? '无'
-          }\n预约人个人介绍:${introduction}\n开始时间:${momentFormat(
-            item.startTime,
-            'HH:mm',
-          )}\n结束时间:${momentFormat(item.endTime, 'HH:mm')}`,
-          selector: '#reservationDetail',
-        });
-      },
-    );
+    Taro.navigateTo({
+      url: `/pages/timetableDetail/timetableDetail?reservationId=${item.reservationId}`,
+    });
   }, []);
-
-  // useRequest()
 
   return (
     <div>
@@ -77,5 +67,5 @@ const Timetable: FC<{ area: Room }> = (props) => {
       <Dialog overlay closeOnClickOverlay id="reservationDetail"></Dialog>
     </div>
   );
-};
+});
 export default Timetable;

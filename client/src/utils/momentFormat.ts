@@ -29,13 +29,13 @@ import moment from 'moment';
 
   return fmt;
 };
-function momentFormat(date: Date, fmt?: string) {
-  if (!(date instanceof Date) && !(date instanceof Proxy)) {
-    if (typeof date === 'string') {
-      (date as string).replace(/\-/g, '/');
-      date = new Date(date);
-    }
-  }
-  return moment(date as any).format(fmt ?? 'YYYY-MM-DD');
+function momentFormat(date: Date, fmt: string) {
+  // if (!(date instanceof Date) && !(date instanceof Proxy)) {
+  //   if (typeof date === 'string') {
+  //     (date as string).replace(/\-/g, '/');
+  //     date = new Date(date);
+  //   }
+  // }
+  return moment(date as any).format(fmt);
 }
 export default momentFormat;

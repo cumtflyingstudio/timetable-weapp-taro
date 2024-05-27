@@ -19,8 +19,18 @@ const ReservationCard: FC<{ item: IForm }> = (props) => {
   const Time = useMemo(() => {
     return (
       <>
-        <div>开始时间:{momentFormat(startTime, 'yyyy-MM-DD HH:mm')}</div>
-        <div>结束时间:{momentFormat(endTime, 'yyyy-MM-DD HH:mm')}</div>
+        <div>
+          <span className="display-inline">开始时间:</span>
+          <span className="display-inline color-gray">
+            {momentFormat(startTime, 'yyyy-MM-DD HH:mm')}
+          </span>
+        </div>
+        <div>
+          <span className="display-inline">结束时间:</span>
+          <span className="display-inline color-gray">
+            {momentFormat(endTime, 'yyyy-MM-DD HH:mm')}
+          </span>
+        </div>
       </>
     );
   }, [startTime, endTime]);
@@ -54,7 +64,10 @@ const ReservationCard: FC<{ item: IForm }> = (props) => {
           }}
         >
           <div>
-            地点:{organizationName}-{resourceName}
+            <span className="display-inline">地点:</span>
+            <span className="color-gray display-inline">
+              {organizationName}-{resourceName}
+            </span>
           </div>
           {Time}
         </div>

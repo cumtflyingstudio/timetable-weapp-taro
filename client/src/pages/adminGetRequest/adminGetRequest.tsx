@@ -72,9 +72,10 @@ export default () => {
         }}
         onConfirm={() => {
           if (store.item.status === 2) {
+            // TODO: 删除这个
             dealForm({
               status: 1,
-              applyId: store.item.applyId,
+              applyId: String(store.item.reservationId),
               dealInfo: store.inputValue,
               kind: store.item.kind,
             })

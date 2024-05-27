@@ -77,17 +77,6 @@ export default function My() {
             });
           }}
         />
-        {/* <Cell
-          title="联系方式"
-          clickable
-          size="large"
-          value={phone ?? ''}
-          onClick={() => {
-            Taro.navigateTo({
-              url: `/pages/editInput/editInput?fieldName=phone`,
-            });
-          }}
-        /> */}
         <Cell
           title="个人简介"
           clickable
@@ -96,6 +85,17 @@ export default function My() {
           onClick={() => {
             Taro.navigateTo({
               url: `/pages/editInput/editInput?fieldName=introduction`,
+            });
+          }}
+        />
+        <Cell
+          title="联系方式"
+          clickable
+          size="large"
+          value={phone ?? ''}
+          onClick={() => {
+            Taro.navigateTo({
+              url: `/pages/editInput/editInput?fieldName=phone`,
             });
           }}
         />

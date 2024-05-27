@@ -10,9 +10,10 @@ import showToast from '../../utils/showToast';
 import './timeForm.less';
 import askDevice from '../../service/device/askDevice';
 import moment from 'moment';
+import { forceRefresh } from '../../hooks/useSubscribeForceRefresh';
 
 const formatDate = (d: number) => {
-  return momentFormat(new Date(d));
+  return momentFormat(new Date(d), 'YYYY-MM-DD');
 };
 
 /**
@@ -127,6 +128,7 @@ function Demo() {
             .then((successMsg) => {
               reset();
               showToast(successMsg);
+              forceRefresh();
               setTimeout(() => {
                 Taro.navigateBack();
               }, 1000);

@@ -15,19 +15,18 @@ const TYPES = {
     label: '昵称',
     description: '其他用户可以看到你预约时所用的昵称，可填写具有辨识性的昵称',
   },
-  // phone: {
-  //   title: '修改联系方式',
-  //   placeholder: '请输入联系方式',
-  //   label: '联系方式',
-  //   description:
-  //     '其他用户可以看到你预约时所用的联系方式，可自由填写',
-  // },
   introduction: {
     title: '修改个人简介',
     placeholder: '请输入个人简介',
     label: '个人简介',
     description:
       '其他用户可以看到你预约时所用的个人简介，建议填写有具有辨识性的内容供其他用户查看',
+  },
+  phone: {
+    title: '修改联系方式',
+    placeholder: '请输入联系方式',
+    label: '联系方式',
+    description: '其他用户可以看到你预约时所用的联系方式，可自由填写',
   },
 } as const;
 

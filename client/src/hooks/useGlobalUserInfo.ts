@@ -2,6 +2,7 @@ import Taro from '@tarojs/taro';
 import { useEffect } from 'react';
 import { createContainer } from 'unstated-next';
 import { useImmer } from 'use-immer';
+import addTokenInterceptor from '../service/interceptors/addTokenInterceptor';
 
 function useUserInfo() {
   const [userInfo, setUserInfo] = useImmer({
@@ -11,6 +12,13 @@ function useUserInfo() {
     introduction: '',
     avatar: '',
   });
+
+  useEffect(() => {
+    let token = Taro.getStorageSync('token');
+    if (token) {
+      addTokenInterceptor(token);
+    }
+  }, []);
 
   return { userInfo, setUserInfo };
 }

@@ -2,6 +2,7 @@ import moment from 'moment';
 import sFetch from '../sFetch';
 
 interface Detail {
+  reservationId: number;
   username: string;
   nickname: string;
   phone: string;
@@ -16,7 +17,7 @@ interface Detail {
 
 async function getReservationDetail(id: number): Promise<Detail> {
   const item = (await sFetch({
-    logTitle: `查看预约的详情 id:${id}`,
+    logTitle: `查看某个预约详情 id:${id}`,
     method: 'GET',
     url: `api/reservation/detail?reservationId=${id}`,
   })) as any;

@@ -17,9 +17,9 @@ const FormList: FC<{ list: IForm[]; onClick?: (item: IForm) => void }> = (
               onClick && onClick(item);
             }}
             style={{ margin: 10 }}
-            key={item.applyId}
+            key={item.reservationId}
           >
-            <ReservationCard item={item as IForm} />
+            <ReservationCard item={item} />
           </div>
         );
       })}

@@ -8,6 +8,7 @@ import AreaCard from './AreaCard';
 import './roomDetail.less';
 import Timetable from './Timetable';
 import Taro from '@tarojs/taro';
+import { useSubscribeForceRefresh } from '../../hooks/useSubscribeForceRefresh';
 
 export default () => {
   const { currRoom, setCurrRoom, setCurrOrgan, setRooms, reset } =
@@ -38,6 +39,10 @@ export default () => {
     setTimeout(() => {
       Taro.stopPullDownRefresh();
     }, 1000);
+  });
+
+  useSubscribeForceRefresh(() => {
+    refresh();
   });
 
   const hasNoRoom =

@@ -3,17 +3,19 @@ import moment from 'moment';
 import sFetch from '../sFetch';
 
 export interface IForm {
-  organizationName: string;
   kind: '场地' | '设备';
+
+  organizationName: string;
   resourceName: string;
+
   num: number;
   note: string;
   status: 0 | 1 | 2 | 3;
   applyTime: Date;
   startTime: Date;
   endTime: Date;
-  dealInfo: null;
-  applyId: string;
+
+  reservationId: number;
 }
 
 export function getStatus(status: number) {
