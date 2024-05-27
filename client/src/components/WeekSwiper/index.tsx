@@ -4,7 +4,7 @@ import moment from 'moment';
 import { WeekSwiperProps, WeekSwiperState } from './interface';
 import './index.less';
 
-const weekTextList = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
+const weekTextList = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
 
 export class WeekSwiper extends Component<WeekSwiperProps, WeekSwiperState> {
   constructor(props: WeekSwiperProps) {
