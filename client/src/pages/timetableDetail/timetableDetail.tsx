@@ -7,6 +7,8 @@ import momentFormat from '../../utils/momentFormat';
 import { getKind, getStatus } from '../../service/user/getRoomUsing';
 import { forceRefresh } from '../../hooks/useSubscribeForceRefresh';
 import { useGlobalUserInfo } from '../../hooks/useGlobalUserInfo';
+import { deleteReservation } from '../../service/reservation/deleteReservation';
+import { showToast } from '../../utils';
 
 export default () => {
   const [routerInfo] = useRouter();
@@ -90,8 +92,15 @@ export default () => {
             marginTop: '50px',
           }}
           onClick={() => {
-            Taro.navigateBack();
-            forceRefresh();
+            if (!reservationId) {
+              showToast('发生错误');
+            }
+            deleteReservation(Number(reservationId)).then(() => {
+              setTimeout(() => {
+                Taro.navigateBack();
+              }, 500);
+              forceRefresh();
+            });
           }}
         >
           删除

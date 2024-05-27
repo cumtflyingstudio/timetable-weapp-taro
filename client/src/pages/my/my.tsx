@@ -12,23 +12,10 @@ import { useEffect } from 'react';
 import { useGlobalUserInfo } from '../../hooks/useGlobalUserInfo';
 
 export default function My() {
-  const { data, loading, error } = useRequest(getUserInfo);
   const { data: adminList } = useRequest(testAdmin);
   const isAdmin = Array.isArray(adminList) && adminList.length > 0;
-  const { userInfo, setUserInfo } = useGlobalUserInfo();
-
+  const { userInfo } = useGlobalUserInfo();
   const { nickname, phone, username, introduction } = userInfo;
-
-  useEffect(() => {
-    if (!(loading || error) && data) {
-      setUserInfo((draft) => {
-        draft.username = data?.username ?? '';
-        draft.nickname = data?.nickname ?? '';
-        draft.phone = data?.phone ?? '';
-        draft.introduction = data?.introduction ?? '';
-      });
-    }
-  }, [data]);
 
   return (
     <>
