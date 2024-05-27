@@ -2,7 +2,15 @@ import { useRequest, useRouter } from 'taro-hooks';
 import Taro from '@tarojs/taro';
 import './timetableDetail.less';
 import { getReservationDetail } from '../../service/reservation/getReservationDetail';
-import { Button, Cell, Divider, Icon, Skeleton, Tag } from '@antmjs/vantui';
+import {
+  Button,
+  Cell,
+  Dialog,
+  Divider,
+  Icon,
+  Skeleton,
+  Tag,
+} from '@antmjs/vantui';
 import momentFormat from '../../utils/momentFormat';
 import { getKind, getStatus } from '../../service/user/getRoomUsing';
 import { forceRefresh } from '../../hooks/useSubscribeForceRefresh';
@@ -94,12 +102,24 @@ export default () => {
           onClick={() => {
             if (!reservationId) {
               showToast('发生错误');
+              return;
             }
-            deleteReservation(Number(reservationId)).then(() => {
-              setTimeout(() => {
-                Taro.navigateBack();
-              }, 500);
-              forceRefresh();
+
+            Dialog.confirm({
+              selector: 'whetherDelete',
+              message: '是否要删除预约？',
+              onConfirm: () => {
+                deleteReservation(Number(reservationId)).then(() => {
+                  setTimeout(() => {
+                    Taro.navigateBack();
+                  }, 500);
+                  forceRefresh();
+                  showToast("删除成功")
+                });
+              },
+              onCancel: () => {
+                console.log('用户点击了取消');
+              },
             });
           }}
         >
@@ -108,6 +128,13 @@ export default () => {
       ) : (
         <></>
       )}
+      <Dialog
+        overlay
+        closeOnClickOverlay
+        id="whetherDelete"
+        confirmButtonText="确定"
+        cancelButtonText="取消"
+      />
     </Skeleton>
   );
 };

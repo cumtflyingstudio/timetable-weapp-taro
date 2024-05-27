@@ -64,7 +64,6 @@ const Timetable: FC<{ area: Room }> = memo((props) => {
           <TimePaintTable list={filteredList} onClick={handleTimeStageClick} />
         )}
       </div>
-      <Dialog overlay closeOnClickOverlay id="reservationDetail"></Dialog>
     </div>
   );
 });

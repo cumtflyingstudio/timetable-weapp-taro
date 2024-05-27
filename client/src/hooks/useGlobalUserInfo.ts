@@ -15,14 +15,16 @@ function useUserInfo() {
     avatar: '',
   });
 
+  let token = Taro.getStorageSync('token');
   useEffect(() => {
-    let token = Taro.getStorageSync('token');
     if (token) {
       addTokenInterceptor(token);
     }
-  }, []);
+  }, [token]);
 
-  const { data, loading, error } = useRequest(getUserInfo);
+  const { data, loading, error } = useRequest(getUserInfo, {
+    ready: token,
+  });
   useEffect(() => {
     if (!(loading || error) && data) {
       setUserInfo((draft) => {

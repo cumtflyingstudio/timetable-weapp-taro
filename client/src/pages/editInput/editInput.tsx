@@ -64,6 +64,8 @@ export default function EditInput() {
       [fieldName]: value,
     });
 
+    showToast("修改成功")
+
     setUserInfo((draft) => {
       draft[fieldName] = value;
     });
