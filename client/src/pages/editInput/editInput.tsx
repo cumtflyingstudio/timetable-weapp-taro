@@ -20,13 +20,14 @@ const TYPES = {
     placeholder: '请输入个人简介',
     label: '个人简介',
     description:
-      '其他用户可以看到你预约时所用的个人简介，建议填写有具有辨识性的内容供其他用户查看',
+      '其他用户会在预约中看到你的个人简介，需要填写有具有辨识性的内容，如所在的部门、职务等，以供其他用户查看',
   },
   phone: {
-    title: '修改联系方式',
-    placeholder: '请输入联系方式',
-    label: '联系方式',
-    description: '其他用户可以看到你预约时所用的联系方式，可自由填写',
+    title: '修改通信方式',
+    placeholder: '请输入通信方式',
+    label: '通信方式',
+    description:
+      '其他用户可以看到你预约时所用的通信方式，可自由填写，其他用户可以通过该方式通知到预约者',
   },
 } as const;
 
@@ -64,7 +65,7 @@ export default function EditInput() {
       [fieldName]: value,
     });
 
-    showToast("修改成功")
+    showToast('修改成功');
 
     setUserInfo((draft) => {
       draft[fieldName] = value;

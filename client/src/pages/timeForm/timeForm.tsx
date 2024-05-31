@@ -11,6 +11,7 @@ import './timeForm.less';
 import askDevice from '../../service/device/askDevice';
 import moment from 'moment';
 import { forceRefresh } from '../../hooks/useSubscribeForceRefresh';
+import { useGlobalUserInfo } from '../../hooks/useGlobalUserInfo';
 
 const formatDate = (d: number) => {
   return momentFormat(new Date(d), 'YYYY-MM-DD');
@@ -50,6 +51,7 @@ function Demo() {
   const [show, setShow] = useState(false);
   const [date, setDate] = useState(Date.now());
   const { store, reset } = useForm();
+  const { userInfo } = useGlobalUserInfo();
   return (
     <>
       <CellGroup>
@@ -103,11 +105,22 @@ function Demo() {
             }}
           />
         ) : null}
+        <Cell
+          title="联络方式"
+          required
+          clickable
+          value={userInfo.phone ?? ''}
+          onClick={() => {
+            Taro.navigateTo({
+              url: `/pages/editInput/editInput?fieldName=phone`,
+            });
+          }}
+        />
         <Field
           required
           label="留言"
           type="textarea"
-          placeholder="请输入留言"
+          placeholder="可输入预约用途、陪同人员"
           autosize={{ minHeight: '100px' }}
           border={false}
           onChange={(e) => {

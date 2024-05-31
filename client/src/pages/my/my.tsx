@@ -75,8 +75,8 @@ export default function My() {
             });
           }}
         />
-        <Cell
-          title="联系方式"
+        {/* <Cell
+          title="通信方式"
           clickable
           size="large"
           value={phone ?? ''}
@@ -85,7 +85,7 @@ export default function My() {
               url: `/pages/editInput/editInput?fieldName=phone`,
             });
           }}
-        />
+        /> */}
         <Cell
           title="用户名"
           clickable
